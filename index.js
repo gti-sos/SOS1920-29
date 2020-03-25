@@ -556,7 +556,8 @@ app.get(BASE_API_URL+"/edq-stats/loadInitialData", (request, response) =>{
 			edq_ptr: 12.9
 		},
 	];
-	response.send(JSON.stringify(edq_stats,null,2));
+	//response.send(JSON.stringify(edq_stats,null,2));
+	response.sendStatus(200, "CREATED DATA");
 });
 
 //DELETE TODOS LOS DATOS

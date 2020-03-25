@@ -9,6 +9,6 @@
 - **URL**: [https://sos1920-29.herokuapp.com](http://sos1920-29.herokuapp.com)
 -  **APIs**:
     - [https://sos1920-29.herokuapp.com/api/v1/emp-stats/docs](https://documenter.getpostman.com/view/10639688/SzYUXfZT?version=latest) (developed by [Enrique Ramos Miró](https://github.com/enramir))
-    - [https://sos1920-29.herokuapp.com/api/v1/my-awesome-resource-2/docs](https://sos1920-29.herokuapp.com/api/v1/my-awesome-resource-2/docs) (developed by [Jairo Fernández Carmona](https://github.com/jairo25fdez))
+    - [https://sos1920-29.herokuapp.com/api/v1/edq-stats/docs](https://documenter.getpostman.com/view/10827559/SzYUXzpB) (developed by [Jairo Fernández Carmona](https://github.com/jairo25fdez))
     - [https://sos1920-29.herokuapp.com/api/v1/my-awesome-resource-3/docs](https://sos1920-29.herokuapp.com/api/v1/my-awesome-resource-3/docs) (developed by [Lizeth Maribel Gutiérrez Mamani](https://github.com/lizethgutierrez))
 
