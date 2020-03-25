@@ -886,20 +886,20 @@ var womanresearchers_stats = [
 //const BASE_API_URL = "/api/v1";
 
 //load initial data
-app.get(BASE_API_URL+"/womanresearchers_stats/loadInitialData", (req, res) =>{
+app.get(BASE_API_URL+"/womanresearchers-stats/loadInitialData", (req, res) =>{
 	res.send(JSON.stringify(womanresearchers_stats,null,2));
 	res.sendStatus(200,"OK");
 });
 
 
 // GET womanresearchers
-app.get(BASE_API_URL+"/womanresearchers_stats", (req,res) =>{
+app.get(BASE_API_URL+"/womanresearchers-stats", (req,res) =>{
 	res.send(JSON.stringify(womanresearchers_stats,null,2));
 	console.log("Data sent:"+JSON.stringify(womanresearchers_stats,null,2));
 });
 
 // POST womanresearchers
-app.post(BASE_API_URL+"/womanresearchers_stats", (req,res) =>{
+app.post(BASE_API_URL+"/womanresearchers-stats", (req,res) =>{
 	var newWoman = req.body;
 	
 	var filteredwomanresearchers = womanresearchers_stats.filter((c) => {
@@ -921,7 +921,7 @@ app.post(BASE_API_URL+"/womanresearchers_stats", (req,res) =>{
 
 
 // DELETE womanresearchers
-app.delete(BASE_API_URL+"/womanresearchers_stats",(req,res)=>{
+app.delete(BASE_API_URL+"/womanresearchers-stats",(req,res)=>{
 	var filteredwomanresearchers = womanresearchers_stats.filter((c) => {
 		return (0);
 	});
@@ -931,13 +931,13 @@ app.delete(BASE_API_URL+"/womanresearchers_stats",(req,res)=>{
 });
 
 // PUT womanresearchers NO SE PERMITE
-app.put(BASE_API_URL+"/womanresearchers_stats",(req,res) =>{
+app.put(BASE_API_URL+"/womanresearchers-stats",(req,res) =>{
 	res.sendStatus(405, "METHOD NOT ALLOWED")
 });
 
 
 // GET womanresearchers/XXX
-app.get(BASE_API_URL+"/womanresearchers_stats/:country/:year", (req,res)=>{
+app.get(BASE_API_URL+"/womanresearchers-stats/:country/:year", (req,res)=>{
 	var country = req.params.country;
 	var year = req.params.year;
 	
@@ -954,13 +954,13 @@ app.get(BASE_API_URL+"/womanresearchers_stats/:country/:year", (req,res)=>{
 
 //POST womanresearchers/XXX NO SE PERMITE
 
-app.post(BASE_API_URL+"/womanresearchers_stats/:country/:year",(req,res) =>{
+app.post(BASE_API_URL+"/womanresearchers-stats/:country/:year",(req,res) =>{
 	res.sendStatus(405, "METHOD NOT ALLOWED")
 });
 
 
 // PUT womanresearchers/XXX
-app.put(BASE_API_URL+"/womanresearchers_stats/:country/:year", (req,res)=>{
+app.put(BASE_API_URL+"/womanresearchers-stats/:country/:year", (req,res)=>{
 	var country = req.params.country;
 	var year = req.params.year;
 	
@@ -986,7 +986,7 @@ app.put(BASE_API_URL+"/womanresearchers_stats/:country/:year", (req,res)=>{
 });
 
 // DELETE womanresearchers/XXX
-app.delete(BASE_API_URL+"/womanresearchers_stats/:country/:year", (req,res)=>{
+app.delete(BASE_API_URL+"/womanresearchers-stats/:country/:year", (req,res)=>{
 	var country = req.params.country;
 	var year = req.params.year;
 
