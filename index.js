@@ -15,7 +15,7 @@ const BASE_API_URL = "/api/v1";
 
 var emp_stats = [];
 
-app.get(BASE_API_URL+"/emp_stats/loadInitialData", (req,res) =>{
+app.get(BASE_API_URL+"/emp-stats/loadInitialData", (req,res) =>{
 	
 	var stat1 = new Object({ country: "Spain", 
 	                         year: 2013, 
@@ -219,7 +219,7 @@ app.get(BASE_API_URL+"/emp_stats/loadInitialData", (req,res) =>{
 
 //GET EMP_STATS (OBTENGO TODOS LOS RECURSOS)
 
-app.get(BASE_API_URL+"/emp_stats", (req,res) =>{
+app.get(BASE_API_URL+"/emp-stats", (req,res) =>{
 	
 	res.send(JSON.stringify(emp_stats,null,2));
 });
@@ -227,7 +227,7 @@ app.get(BASE_API_URL+"/emp_stats", (req,res) =>{
 
 //GET EMP_STATS/COUNTRY/YEAR (OBTENGO UN RECURSO ESPECÍFICO)
 
-app.get(BASE_API_URL+"/emp_stats/:country/:year", (req,res) =>{
+app.get(BASE_API_URL+"/emp-stats/:country/:year", (req,res) =>{
 	
 	var country = req.params.country;
 	var year = req.params.year;
@@ -247,7 +247,7 @@ app.get(BASE_API_URL+"/emp_stats/:country/:year", (req,res) =>{
 
 //GET EMP_STATS/XXX (OBTENGO UN RECURSO ESPECÍFICO (PAÍSES O AÑOS) SEGÚN EL PARÁMETRO DE LA RUTA)
 
-app.get(BASE_API_URL+"/emp_stats/:resource", (req,res) =>{
+app.get(BASE_API_URL+"/emp-stats/:resource", (req,res) =>{
 	
 	var resource = req.params.resource; 
 	
@@ -273,7 +273,7 @@ app.get(BASE_API_URL+"/emp_stats/:resource", (req,res) =>{
 	
 //POST EMP_STATS (CREO UN NUEVO RECURSO)
 
-app.post(BASE_API_URL+"/emp_stats", (req,res) => {
+app.post(BASE_API_URL+"/emp-stats", (req,res) => {
 	
 	var newEmp = req.body;
 	var cont_repeated = false;
@@ -302,7 +302,7 @@ app.post(BASE_API_URL+"/emp_stats", (req,res) => {
 
 //PUT EMP_STATS/XXX (ACTUALIZA UN RECURSO CONCRETO)
 
-app.put(BASE_API_URL+"/emp_stats/:country/:year", (req,res) =>{
+app.put(BASE_API_URL+"/emp-stats/:country/:year", (req,res) =>{
 	
 	var country = req.params.country;
 	var year = req.params.year;
@@ -328,7 +328,7 @@ app.put(BASE_API_URL+"/emp_stats/:country/:year", (req,res) =>{
 
 //DELETE EMP_STATS (BORRAR TODOS LOS RECURSOS)
 
-app.delete(BASE_API_URL+"/emp_stats", (req,res) =>{
+app.delete(BASE_API_URL+"/emp-stats", (req,res) =>{
 	
 	emp_stats = [];
 	res.sendStatus(200);
@@ -336,7 +336,7 @@ app.delete(BASE_API_URL+"/emp_stats", (req,res) =>{
 
 //DELETE EMP_STATS/XXX (BORRA UN RECURSO CONCRETO)
 
-app.delete(BASE_API_URL+"/emp_stats/:country/:year", (req,res) =>{
+app.delete(BASE_API_URL+"/emp-stats/:country/:year", (req,res) =>{
 	
 	var country = req.params.country;
 	var year = req.params.year;
@@ -366,14 +366,14 @@ app.delete(BASE_API_URL+"/emp_stats/:country/:year", (req,res) =>{
 
 //PUT A TODOS LOS RECURSOS (¡¡¡INCORRECTO!!!)
 
-app.put(BASE_API_URL+"/emp_stats", (req,res) =>{
+app.put(BASE_API_URL+"/emp-stats", (req,res) =>{
 	
 	res.sendStatus(405,"METHOD NOT ALLOWED");
 });
 
 //POST A UN RECURSO CONCRETO (¡¡¡INCORRECTO!!!)
 
-app.post(BASE_API_URL+"/emp_stats/:resource", (req,res) =>{
+app.post(BASE_API_URL+"/emp-stats/:resource", (req,res) =>{
 	
 	res.sendStatus(405,"METHOD NOT ALLOWED");
 });
