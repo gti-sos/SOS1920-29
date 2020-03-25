@@ -1,0 +1,25 @@
+{
+  "name": "f02",
+  "version": "1.0.0",
+  "description": "Repository Feedback02.  Code of a web server made in NodeJS and using the Express module that returns the files inside the “/ public” folder",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gti-sos/SOS1920-29.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gti-sos/SOS1920-29/issues"
+  },
+  "homepage": "https://github.com/gti-sos/SOS1920-29#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cool-ascii-faces": "^1.3.4",
+    "express": "^4.17.1"
+  }
+}
