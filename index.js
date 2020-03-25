@@ -7,6 +7,8 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 80;
 
+app.use("/", express.static("./public"));
+
 const BASE_API_URL = "/api/v1";
 
 // *****************API ENRIQUE***************************************************
