@@ -327,15 +327,15 @@ app.put(BASE_API_URL+"/emp-stats/:country/:year", (req,res) =>{
 		}
 	});
 	
-	if(validator_bool == false){
+	if(found == false){
+		res.sendStatus(404,"Resource does not exist");
+	
+	}else if(validator_bool == false){
 		res.sendStatus(409, "Country or year cannot be modified!!");
 	
 	}else if(validator_bool == true){
 		emp_stats = updateEmployments;
 		res.sendStatus(200,"Updated resource");	 
-	
-	}else if(found == false){
-		res.sendStatus(404,"Resource does not exist");
 	}
 	
 });
