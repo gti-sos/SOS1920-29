@@ -221,12 +221,9 @@ app.get(BASE_API_URL+"/emp-stats/loadInitialData", (req,res) =>{
 //GET EMP_STATS (OBTENGO TODOS LOS RECURSOS)
 
 app.get(BASE_API_URL+"/emp-stats", (req,res) =>{
+	
+	res.send(JSON.stringify(emp_stats,null,2));
 
-	if(emp_stats.length == 0){
-		res.send("<h2>¡ Load the resources before with the address /api/v1/emp-stats/loadInitialData !</h2>");
-	}else{
-		res.send(JSON.stringify(emp_stats,null,2));
-	}
 	
 });
 
