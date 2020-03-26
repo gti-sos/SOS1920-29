@@ -712,7 +712,14 @@ app.put(BASE_API_URL+"/edq-stats/:param1/:param2", (request,response) =>{
 
 
 /**************************** Inicio Parte Lizeth **********************************/
-var womanresearchers_stats = [
+var womanresearchers_stats;
+
+
+//const BASE_API_URL = "/api/v1";
+
+//load initial data
+app.get(BASE_API_URL+"/womanresearchers-stats/loadInitialData", (req, res) =>{
+	womanresearchers_stats = [
 	{ 
 		country: "Croatia",
 		year: 2013,
@@ -882,12 +889,7 @@ var womanresearchers_stats = [
 		womanresearchers_bent:18469
 	}
 ];
-
-//const BASE_API_URL = "/api/v1";
-
-//load initial data
-app.get(BASE_API_URL+"/womanresearchers-stats/loadInitialData", (req, res) =>{
-	res.send(JSON.stringify(womanresearchers_stats,null,2));
+	//res.send(JSON.stringify(womanresearchers_stats,null,2));
 	res.sendStatus(200,"OK");
 });
 
