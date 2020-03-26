@@ -213,6 +213,7 @@ app.get(BASE_API_URL+"/emp-stats/loadInitialData", (req,res) =>{
 	               stat11, stat12, stat13, stat14, stat15, stat16, stat17, stat18, stat19, 
 	               stat20, stat21, stat22, stat23, stat24);
 	
+	
 	res.sendStatus(201,"LOADED RESOURCES!");
 	
 });
@@ -220,8 +221,13 @@ app.get(BASE_API_URL+"/emp-stats/loadInitialData", (req,res) =>{
 //GET EMP_STATS (OBTENGO TODOS LOS RECURSOS)
 
 app.get(BASE_API_URL+"/emp-stats", (req,res) =>{
+
+	if(emp_stats.length == 0){
+		res.send("<h2>¡ Load the resources before with the address /api/v1/emp-stats/loadInitialData !</h2>");
+	}else{
+		res.send(JSON.stringify(emp_stats,null,2));
+	}
 	
-	res.send(JSON.stringify(emp_stats,null,2));
 });
 
 
