@@ -2,15 +2,18 @@ module.exports = function(app){
 	
 	console.log("Entrando en API edq_stats...");
 	
+	const dataStore = require("nedb");
+	const path = require("path");
+	const dbFileName = path.join(__dirname,"edq_stats.db");
+	
+	const db = new dataStore({
+		filename: dbFileName,
+		autoload: true}
+	);
+	
 	const BASE_API_URL = "/api/v1";
 
-	/* Feedback 3 Jairo*/
-
-	var edq_stats;
-
-	//LoadInitialData
-	app.get(BASE_API_URL+"/edq-stats/loadInitialData", (request, response) =>{
-		edq_stats = [
+	var edq_stats = [
 			{
 				country: "Spain",
 				year: 2013,
@@ -179,25 +182,41 @@ module.exports = function(app){
 				edq_gee: 0.5,
 				edq_ptr: 12.9
 			},
-		];
-		response.send(JSON.stringify(edq_stats,null,2));
+	];
+
+	//LoadInitialData
+	app.get(BASE_API_URL+"/edq-stats/loadInitialData", (request, response) =>{
+		//response.send(JSON.stringify(edq_stats,null,2));
+		db.insert(edq_stats);
+		response.sendStatus(200, "CREATED DATA");
 	});
 
 	//DELETE TODOS LOS DATOS
 	app.delete(BASE_API_URL+"/edq-stats",(request,response) =>{
-
-		var filtered_data = edq_stats.filter((data) => {
-			return (0);
+		
+		console.log("New DELETE .../edq-stats");
+		db.remove({}, {multi:true}, function (err, numRemoved) {
+			console.log("Removed "+numRemoved+" elements.")
 		});
-
-		edq_stats = filtered_data;
-
-		response.sendStatus(200, "DONE");
+		response.sendStatus(200, "DELETED DATA");
+		
 	});
 
 	//GET DATOS
 	app.get(BASE_API_URL+"/edq-stats",(request,response) =>{
-		response.send(JSON.stringify(edq_stats,null,2));
+
+		console.log("New GET .../edq-stats");
+
+		db.find({}, (err, data) =>{
+
+			data.forEach( (d) => {
+				delete d._id;
+			});
+
+			response.send(JSON.stringify(data,null,2));
+			//console.log("Data sent: "+JSON.stringify(data,null,2));
+		});
+
 	});
 
 	//POST DATO
@@ -329,6 +348,5 @@ module.exports = function(app){
 		}
 
 	});
-
-
+	
 };
