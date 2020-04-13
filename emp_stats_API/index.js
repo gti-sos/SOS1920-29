@@ -281,6 +281,10 @@ module.exports = function (app){
                         delete e._id;
                                             
                     });
+                    
+                    if(emp_stats.length == 0){
+                        res.sendStatus(404, "RESOURCE NOT FOUND");
+                    }
 
                     if(emp_stats.length == 1){
                         var only_one_country = emp_stats[0];
@@ -304,6 +308,10 @@ module.exports = function (app){
                         delete e._id;
             
                     });
+                    
+                    if(emp_stats.length == 0){
+                        res.sendStatus(404, "RESOURCE NOT FOUND");
+                    }
 
                     if(emp_stats.length == 1){
                         var only_one_country = emp_stats[0];
@@ -327,6 +335,10 @@ module.exports = function (app){
                         delete e._id;
             
                     });
+
+                    if(emp_stats.length == 0){
+                        res.sendStatus(404, "RESOURCE NOT FOUND");
+                    }
 
                     if(emp_stats.length == 1){
                         var only_one_country = emp_stats[0];
