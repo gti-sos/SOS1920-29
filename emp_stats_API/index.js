@@ -459,7 +459,7 @@ module.exports = function (app){
                     console.log("database error: " + err);  
                 
                 }else if(!emp_stats.length == 0){//Existe ya un recurso con el mismo país y año
-                    res.sendStatus(409, "Resource already exists");
+                    res.sendStatus(409, "Resource already exists"); 
                     
                 }else if(emp_stats.length == 0){ //No existe ningún recurso con ese país y año
                     

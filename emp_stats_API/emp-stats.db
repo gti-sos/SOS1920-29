@@ -22,3 +22,5 @@
 {"country":"Portugal","year":2014,"emp_female_age15_24":21.682,"emp_male_age15_24":22.873,"emp_vuln_female":11.754,"emp_vuln_male":17.166,"_id":"sFROYFkCthj5BVHS"}
 {"country":"Italy","year":2014,"emp_female_age15_24":12.547,"emp_male_age15_24":18.196,"emp_vuln_female":14.691,"emp_vuln_male":20.492,"_id":"t56U5KVPbqh0O8pF"}
 {"country":"Finland","year":2013,"emp_female_age15_24":44.203,"emp_male_age15_24":39.12,"emp_vuln_female":6.966,"emp_vuln_male":11.736,"_id":"w91pokG0VPOCpRSV"}
+{"country":"Greece","year":2015,"emp_female_age15_24":10,"emp_male_age15_24":20,"emp_vuln_female":30,"emp_vuln_male":40,"_id":"rGufXBq7QRQ3gXDd"}
+{"country":"Marocco","year":2015,"emp_female_age15_24":10,"emp_male_age15_24":20,"emp_vuln_female":30,"emp_vuln_male":40,"_id":"ZCCZBBhLpY3eiupk"}
