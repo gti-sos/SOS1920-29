@@ -213,17 +213,7 @@ module.exports = function(app){
 		//console.log(Object.keys(request.query).length);
 		
 		if(Object.keys(request.query).length > 0){
-			/*
-			var limit = 999;
-			var offset = 0;
 			
-			if(request.query.limit){
-				limit = parseInt(request.query.limit);
-			}
-			if(request.query.offset){
-				offset = parseInt(request.query.offset);
-			}
-			*/
 			var limit = parseInt(request.query.limit);
 			var offset = parseInt(request.query.offset);
 			
@@ -299,28 +289,42 @@ module.exports = function(app){
 	app.post(BASE_API_URL+"/edq-stats",(request,response) =>{
 
 		var newData = request.body;
+		var error_400 = false;
 
 		if(newData.country == null || newData.year == null || newData.edq_sg == null || newData.edq_gee == null || newData.edq_ptr == null){
+			
 			response.sendStatus(400,"BAD REQUEST, EMPTY FIELDS.");
 		}
 		else{
-			//Compruebo si el dato recibido ya existe
-			/*
-			var filtered_data = edq_stats.filter((data) => {
-				return ( (data.country == newData.country && data.year == newData.year));
-			});
-			*/
-		
-			db.find({country: newData.country, year: newData.year},(err, data) =>{
-				if(data.length > 0){
-					response.sendStatus(409, "GIVEN DATA ALREADY EXISTS");
+			
+			//Compruebo que estoy recibiendo un objeto con 5 campos y que concuerdan con mi DB.
+			if(Object.keys(newData).length == 5){
+				for(key in newData){
+					if( (key != "country") && (key != "year") && (key != "edq_sg") && (key != "edq_gee") && (key != "edq_ptr")){
+						error_400 = true;
+					}
 				}
-				else{
-					db.insert(newData);
-					response.sendStatus(201,"CREATED");
-				}
-			});
-
+			}
+			else{
+				error_400 = true;
+			}
+			
+			
+			
+			if(error_400){
+				response.sendStatus(400, "ERROR IN DATA FIELDS.");
+			}
+			else{
+				db.find({country: newData.country, year: newData.year},(err, data) =>{
+					if(data.length > 0){
+						response.sendStatus(409, "GIVEN DATA ALREADY EXISTS");
+					}
+					else{
+						db.insert(newData);
+						response.sendStatus(201,"CREATED");
+					}
+				});
+			}
 			
 		}
 
@@ -332,20 +336,6 @@ module.exports = function(app){
 
 		var param_country = request.params.param;
 
-		/*
-		//Devuelvo los datos que no coincidan con el valor recibido ni en "country" ni en "year".
-		var filtered_data = edq_stats.filter((data) => {
-			return ( (data.country != param) && (data.year != param));
-		});
-
-		if(filtered_data.length < edq_stats.length){
-			edq_stats = filtered_data;
-			response.sendStatus(200, "DONE");
-		}
-		else{
-			response.sendStatus(404, "DATA NOT FOUND");
-		}
-		*/
 		db.remove({country: param_country}, { multi: true }, function (err, numRemoved) {
 		});
 		
@@ -396,21 +386,6 @@ module.exports = function(app){
 
 		var param_country = request.params.param1;
 		var param_year = request.params.param2;
-
-		/*
-		var filtered_data = edq_stats.filter((data) => {
-			return ( (data.country != param1 || data.year != param2) && (data.country != param2 || data.year != param1) );
-		});
-
-
-		if(filtered_data.length < edq_stats.length){
-			edq_stats = filtered_data;
-			response.sendStatus(200, "DONE");
-		}
-		else{
-			response.sendStatus(404, "DATA NOT FOUND");
-		}
-		*/
 		
 		db.remove({country: param_country, year: parseInt(param_year)}, {}, function (err, numRemoved) {
 		});
@@ -424,61 +399,37 @@ module.exports = function(app){
 		var param_country = request.params.param1;
 		var param_year = request.params.param2;
 
-		/*
-		var filtered_data = edq_stats.filter((data) => {
-			return ( (data.country == param1 && data.year == param2) || (data.country == param2 && data.year == param1));
-		});
 
-		if(filtered_data.length >= 1){
-			var newData = request.body;
-
-			//Comprobamos si los datos de referencia en el body coinciden con los del servidor.
-			if( (newData.country == param1 && newData.year == param2) || (newData.country == param2 && newData.year == param1) ){
-				filtered_data[0].country = newData.country;
-				filtered_data[0].year = newData.year;
-				filtered_data[0].edq_sg = newData.edq_sg;
-				filtered_data[0].edq_gee = newData.edq_gee;
-				filtered_data[0].edq_ptr = newData.edq_ptr;
-
-				response.sendStatus(200, "DONE");
-			}
-			else{
-				response.sendStatus(409, "ERROR IN BODY DATA");
-			}
-
-		}
-		else{
-			response.sendStatus(404, "DATA NOT FOUND");
-		}
-		*/
-		/*
-		db.find({country: param_country, year: parseInt(param_year)}, (data, error) =>{
-			if(data.length > 0){
-				var newData = request.body;
-				
-				data.edq_sg = newData.edq_sg;
-				data.edq_gee = newData.edq_gee;
-				data.edq_ptr = newData.edq_ptr;
-				
-				response.sendStatus(200, "DONE");
-			}
-			else{
-				response.sendStatus(404, "DATA NOT FOUND");
-			}
-		});
-		*/
 		var newData = request.body;
 		
-		db.update({country: param_country, year: parseInt(param_year)}, {$set: {edq_sg: newData.edq_sg, edq_gee: newData.edq_gee, edq_ptr: newData.edq_ptr}}, function (err, numReplaced) {
-			
-			if(numReplaced > 0){
-			  response.sendStatus(200, numReplaced+" FIELDS UPDATED.");
+		var error_400 = false;
+		//Compruebo que estoy recibiendo un objeto con 5 campos y que concuerdan con mi DB.
+		if(Object.keys(newData).length == 5){
+			for(key in newData){
+				if( (key != "country") && (key != "year") && (key != "edq_sg") && (key != "edq_gee") && (key != "edq_ptr")){
+					error_400 = true;
+				}
 			}
-			else{
-				response.sendStatus(404, "DATA NOT FOUND");
-			}
-		});
+		}
+		else{
+			error_400 = true;
+		}
 		
+		if(!error_400){
+			
+			db.update({country: param_country, year: parseInt(param_year)}, {$set: {edq_sg: newData.edq_sg, edq_gee: newData.edq_gee, edq_ptr: newData.edq_ptr}}, function (err, numReplaced) {
+				if(numReplaced > 0){
+				  response.sendStatus(200, numReplaced+" FIELDS UPDATED.");
+				}
+				else{
+					response.sendStatus(404, "DATA NOT FOUND");
+				}
+			});
+			
+		}
+		else{
+			response.sendStatus(400, "ERROR IN DATA FIELDS.");
+		}
 
 	});
 	
