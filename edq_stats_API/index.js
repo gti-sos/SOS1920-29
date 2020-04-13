@@ -13,6 +13,7 @@ module.exports = function(app){
 	
 	const BASE_API_URL = "/api/v1";
 
+	
 	var edq_stats = [
 			{
 				country: "Spain",
@@ -183,18 +184,20 @@ module.exports = function(app){
 				edq_ptr: 12.9
 			},
 	];
-
-	//LoadInitialData
+	
+	
+	//LoadInitialData ACTUALIZADO
 	app.get(BASE_API_URL+"/edq-stats/loadInitialData", (request, response) =>{
 		//response.send(JSON.stringify(edq_stats,null,2));
 		db.insert(edq_stats);
 		response.sendStatus(200, "CREATED DATA");
 	});
 
-	//DELETE TODOS LOS DATOS
+	//DELETE TODOS LOS DATOS ACTUALIZADO
 	app.delete(BASE_API_URL+"/edq-stats",(request,response) =>{
 		
 		console.log("New DELETE .../edq-stats");
+		
 		db.remove({}, {multi:true}, function (err, numRemoved) {
 			console.log("Removed "+numRemoved+" elements.")
 		});
@@ -202,24 +205,97 @@ module.exports = function(app){
 		
 	});
 
-	//GET DATOS
+	//GET DATOS ACTUALIZADO
 	app.get(BASE_API_URL+"/edq-stats",(request,response) =>{
 
-		console.log("New GET .../edq-stats");
+		//console.log("New GET .../edq-stats");
+		//console.log(Object.keys(request.query));
+		//console.log(Object.keys(request.query).length);
+		
+		if(Object.keys(request.query).length > 0){
+			/*
+			var limit = 999;
+			var offset = 0;
+			
+			if(request.query.limit){
+				limit = parseInt(request.query.limit);
+			}
+			if(request.query.offset){
+				offset = parseInt(request.query.offset);
+			}
+			*/
+			var limit = parseInt(request.query.limit);
+			var offset = parseInt(request.query.offset);
+			
+			//Voy a comprobar que las querys que llegan son campos válidos, en caso de que alguno no lo sea devuelvo error 400.
+			
+			let error_400 = false;
+			
+			for(query in request.query){
+				
+				if( (query != "country") && (query != "year") && (query != "edq_sg") && (query != "edq_gee") && (query != "edq_ptr") && (query != "limit") && (query != "offset") ){
+					error_400 = true;
+				}
+			}
+			if(error_400){
+				response.sendStatus(400, "ERROR IN DATA FIELDS.");
+			}
+			else{
+				
+				var search = {};
+				
+				if(request.query.country){
+					search["country"] = request.query.country;
+				} 
+				if(request.query.year){
+					search["year"] = parseInt(request.query.year);
+				}
+				if(request.query.edq_sg){
+					search["edq_sg"] = parseFloat(request.query.edq_sg);
+				}
+				if(request.query.edq_gee){
+					search["edq_gee"] = parseFloat(request.query.edq_gee);
+				}
+				if(request.query.edq_ptr){
+					search["edq_ptr"] = parseFloat(request.query.edq_ptr);
+				}
+				
+				db.find(search).sort({ country: 1, year: -1 }).skip(offset).limit(limit).exec(function (err, data) {
+			
+					data.forEach( (d) => {
+						delete d._id;
+					});
 
-		db.find({}, (err, data) =>{
+					//console.log(data.length)
+					
+					if(data.length > 0){
+						response.send(JSON.stringify(data,null,2));
+					}
+					else{
+						response.sendStatus(404, "DATA NOT FOUND.");
+					}
+					
+				});
+				
+			}
 
-			data.forEach( (d) => {
-				delete d._id;
+		}
+		else{
+			
+			db.find({}, (err, data) =>{
+
+				data.forEach( (d) => {
+					delete d._id;
+				});
+
+				response.send(JSON.stringify(data,null,2));
 			});
-
-			response.send(JSON.stringify(data,null,2));
-			//console.log("Data sent: "+JSON.stringify(data,null,2));
-		});
+		}
+			
 
 	});
 
-	//POST DATO
+	//POST DATO ACTUALIZADO
 	app.post(BASE_API_URL+"/edq-stats",(request,response) =>{
 
 		var newData = request.body;
@@ -229,27 +305,34 @@ module.exports = function(app){
 		}
 		else{
 			//Compruebo si el dato recibido ya existe
+			/*
 			var filtered_data = edq_stats.filter((data) => {
 				return ( (data.country == newData.country && data.year == newData.year));
 			});
+			*/
+		
+			db.find({country: newData.country, year: newData.year},(err, data) =>{
+				if(data.length > 0){
+					response.sendStatus(409, "GIVEN DATA ALREADY EXISTS");
+				}
+				else{
+					db.insert(newData);
+					response.sendStatus(201,"CREATED");
+				}
+			});
 
-			if(filtered_data.length > 0){
-			   response.sendStatus(409, "GIVEN DATA ALREADY EXISTS");
-			}
-			else{
-				edq_stats.push(newData);
-				response.sendStatus(201,"CREATED");
-			}
+			
 		}
 
 
 	});
 
-	//DELETE DATOS
+	//DELETE COLECCIÓN DATOS ACTUALIZADO
 	app.delete(BASE_API_URL+"/edq-stats/:param", (request,response) =>{
 
-		var param = request.params.param;
+		var param_country = request.params.param;
 
+		/*
 		//Devuelvo los datos que no coincidan con el valor recibido ni en "country" ni en "year".
 		var filtered_data = edq_stats.filter((data) => {
 			return ( (data.country != param) && (data.year != param));
@@ -262,45 +345,59 @@ module.exports = function(app){
 		else{
 			response.sendStatus(404, "DATA NOT FOUND");
 		}
+		*/
+		db.remove({country: param_country}, { multi: true }, function (err, numRemoved) {
+		});
+		
+		response.sendStatus(200, "DELETED DATA");
 
 	});
 
-	//PUT DATOS ยกNO PERMITIDO!
+	//PUT DATOS ¡NO PERMITIDO!
 	app.put(BASE_API_URL+"/edq-stats",(request,response) =>{
 		response.sendStatus(405, "METHOD NOT ALLOWED ON A COLLECTION.")
 	});
 
-	//GET DATO ESPECIFICO
+	//GET DATO ESPECIFICO ACTUALIZADO
 	app.get(BASE_API_URL+"/edq-stats/:param1/:param2",(request,response) =>{
 
-		var param1 = request.params.param1;
-		var param2 = request.params.param2;
-
-		var filtered_data = edq_stats.filter((data) => {
-			return ( (data.country == param1 && data.year == param2) || (data.country == param2 && data.year == param1));
+		var param_country = request.params.param1;
+		var param_year = request.params.param2;
+		
+		
+		db.find({country: param_country, year: parseInt(param_year)}, (err, data) =>{
+			
+			if(data.length > 0){
+				
+				var newData = {
+					country: param_country,
+					year: param_year,
+					edq_sg: data[0].edq_sg,
+					edq_gee: data[0].edq_gee,
+					edq_ptr: data[0].edq_ptr
+				};
+				
+				response.send(JSON.stringify(newData,null,2));
+			}
+			else{
+				response.sendStatus(404, "DATA NOT FOUND.");
+			}
 		});
-
-		if(filtered_data.length >= 1){
-			response.send(filtered_data[0]);
-		}
-		else{
-			response.sendStatus(404, "DATA NOT FOUND");
-		}
 
 	});
 
-	//POST DATO ESPECIFICO ยกNO PERMITIDO!
+	//POST DATO ESPECIFICO ¡NO PERMITIDO!
 	app.post(BASE_API_URL+"/edq-stats/:param1/:param2",(request,response) =>{
 		response.sendStatus(405, "METHOD NOT ALLOWED ON A SINGLE DATA.");
 	});
 
-	//DELETE DATO ESPECIFICO
+	//DELETE DATO ESPECIFICO ACTUALIZADO
 	app.delete(BASE_API_URL+"/edq-stats/:param1/:param2", (request,response) =>{
 
-		var param1 = request.params.param1;
-		var param2 = request.params.param2;
+		var param_country = request.params.param1;
+		var param_year = request.params.param2;
 
-
+		/*
 		var filtered_data = edq_stats.filter((data) => {
 			return ( (data.country != param1 || data.year != param2) && (data.country != param2 || data.year != param1) );
 		});
@@ -313,14 +410,21 @@ module.exports = function(app){
 		else{
 			response.sendStatus(404, "DATA NOT FOUND");
 		}
+		*/
+		
+		db.remove({country: param_country, year: parseInt(param_year)}, {}, function (err, numRemoved) {
+		});
+		
+		response.sendStatus(200, "DELETED DATA");
 
 	});
 
-	//PUT DATO ESPECIFICO
+	//PUT DATO ESPECIFICO ACTUALIZADO
 	app.put(BASE_API_URL+"/edq-stats/:param1/:param2", (request,response) =>{
-		var param1 = request.params.param1;
-		var param2 = request.params.param2;
+		var param_country = request.params.param1;
+		var param_year = request.params.param2;
 
+		/*
 		var filtered_data = edq_stats.filter((data) => {
 			return ( (data.country == param1 && data.year == param2) || (data.country == param2 && data.year == param1));
 		});
@@ -346,6 +450,35 @@ module.exports = function(app){
 		else{
 			response.sendStatus(404, "DATA NOT FOUND");
 		}
+		*/
+		/*
+		db.find({country: param_country, year: parseInt(param_year)}, (data, error) =>{
+			if(data.length > 0){
+				var newData = request.body;
+				
+				data.edq_sg = newData.edq_sg;
+				data.edq_gee = newData.edq_gee;
+				data.edq_ptr = newData.edq_ptr;
+				
+				response.sendStatus(200, "DONE");
+			}
+			else{
+				response.sendStatus(404, "DATA NOT FOUND");
+			}
+		});
+		*/
+		var newData = request.body;
+		
+		db.update({country: param_country, year: parseInt(param_year)}, {$set: {edq_sg: newData.edq_sg, edq_gee: newData.edq_gee, edq_ptr: newData.edq_ptr}}, function (err, numReplaced) {
+			
+			if(numReplaced > 0){
+			  response.sendStatus(200, numReplaced+" FIELDS UPDATED.");
+			}
+			else{
+				response.sendStatus(404, "DATA NOT FOUND");
+			}
+		});
+		
 
 	});
 	
