@@ -289,22 +289,42 @@ module.exports = function(app){
 	app.post(BASE_API_URL+"/edq-stats",(request,response) =>{
 
 		var newData = request.body;
+		var error_400 = false;
 
 		if(newData.country == null || newData.year == null || newData.edq_sg == null || newData.edq_gee == null || newData.edq_ptr == null){
+			
 			response.sendStatus(400,"BAD REQUEST, EMPTY FIELDS.");
 		}
 		else{
-		
-			db.find({country: newData.country, year: newData.year},(err, data) =>{
-				if(data.length > 0){
-					response.sendStatus(409, "GIVEN DATA ALREADY EXISTS");
+			
+			//Compruebo que estoy recibiendo un objeto con 5 campos y que concuerdan con mi DB.
+			if(Object.keys(newData).length == 5){
+				for(key in newData){
+					if( (key != "country") && (key != "year") && (key != "edq_sg") && (key != "edq_gee") && (key != "edq_ptr")){
+						error_400 = true;
+					}
 				}
-				else{
-					db.insert(newData);
-					response.sendStatus(201,"CREATED");
-				}
-			});
-
+			}
+			else{
+				error_400 = true;
+			}
+			
+			
+			
+			if(error_400){
+				response.sendStatus(400, "ERROR IN DATA FIELDS.");
+			}
+			else{
+				db.find({country: newData.country, year: newData.year},(err, data) =>{
+					if(data.length > 0){
+						response.sendStatus(409, "GIVEN DATA ALREADY EXISTS");
+					}
+					else{
+						db.insert(newData);
+						response.sendStatus(201,"CREATED");
+					}
+				});
+			}
 			
 		}
 
@@ -385,8 +405,8 @@ module.exports = function(app){
 		var error_400 = false;
 		//Compruebo que estoy recibiendo un objeto con 5 campos y que concuerdan con mi DB.
 		if(Object.keys(newData).length == 5){
-			for(key in Object.keys(newData).length){
-				if( (key != "country") && (key != "year") && (key != "edq_sg") && (edq_gee != "edq_gee") && (key != "eddq_ptr")){
+			for(key in newData){
+				if( (key != "country") && (key != "year") && (key != "edq_sg") && (key != "edq_gee") && (key != "edq_ptr")){
 					error_400 = true;
 				}
 			}
@@ -408,7 +428,7 @@ module.exports = function(app){
 			
 		}
 		else{
-			response.sendStatus(400, "ERROR IN DATA FIELDS.")
+			response.sendStatus(400, "ERROR IN DATA FIELDS.");
 		}
 
 	});
