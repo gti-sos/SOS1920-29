@@ -4,7 +4,7 @@ const path = require("path");
 
 const app = express();
 app.use(bodyParser.json());
-var port = process.env.PORT || 80;
+const port = process.env.PORT || 80;
 app.use("/", express.static("./public"));
 
 
@@ -12,12 +12,11 @@ app.use("/", express.static("./public"));
 const edq_stats_API = require(path.join(__dirname,"edq_stats_API"));
 edq_stats_API(app);
 
-//API Kike
+//API Enrique
 const emp_stats_API = require(path.join(__dirname,"emp_stats_API"));
 emp_stats_API(app);
 
 //API Liz
-
 
 const BASE_API_URL = "/api/v1";
 
