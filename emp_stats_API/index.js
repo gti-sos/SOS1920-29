@@ -220,7 +220,7 @@ module.exports = function (app){
         console.log("New GET .../loadInitialData");
         
         db.insert(emp_stats);
-		res.sendStatus(200);
+		res.sendStatus(201);
 		
 		console.log("Initial resources loaded: " + JSON.stringify(emp_stats,null,2));
         
@@ -281,10 +281,6 @@ module.exports = function (app){
                         delete e._id;
                                             
                     });
-                    
-                    if(emp_stats.length == 0){
-                        res.sendStatus(404, "RESOURCE NOT FOUND");
-                    }
 
                     if(emp_stats.length == 1){
                         var only_one_country = emp_stats[0];
@@ -308,7 +304,7 @@ module.exports = function (app){
                         delete e._id;
             
                     });
-                    
+
                     if(emp_stats.length == 1){
                         var only_one_country = emp_stats[0];
                         res.send(JSON.stringify(only_one_country,null,2));
@@ -331,10 +327,6 @@ module.exports = function (app){
                         delete e._id;
             
                     });
-
-                    if(emp_stats.length == 0){
-                        res.sendStatus(404, "RESOURCE NOT FOUND");
-                    }
 
                     if(emp_stats.length == 1){
                         var only_one_country = emp_stats[0];
