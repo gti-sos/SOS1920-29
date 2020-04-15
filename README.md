@@ -10,5 +10,5 @@
 -  **APIs**:
     - [https://sos1920-29.herokuapp.com/api/v1/emp-stats/docs](https://documenter.getpostman.com/view/10639688/SzYUXfZT?version=latest) (developed by [Enrique Ramos Miró](https://github.com/enramir))
     - [https://sos1920-29.herokuapp.com/api/v1/edq-stats/docs](https://documenter.getpostman.com/view/10827559/SzYUXzpB) (developed by [Jairo Fernández Carmona](https://github.com/jairo25fdez))
-    - [https://sos1920-29.herokuapp.com/api/v1/womanresearchers-stats/docs](https://documenter.getpostman.com/view/10847990/SzYUYL9H) (developed by [Lizeth Maribel Gutiérrez Mamani](https://github.com/lizethgutierrez))
+    - [https://sos1920-29.herokuapp.com/api/v1/womanresearchers-stats/docs](https://documenter.getpostman.com/view/10847990/Szf3YVDN) (developed by [Lizeth Maribel Gutiérrez Mamani](https://github.com/lizethgutierrez))
 
