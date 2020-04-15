@@ -199,7 +199,7 @@ app.get(BASE_API_URL+"/womanresearchers-stats/loadInitialData", (req, res) =>{
 app.get(BASE_API_URL+"/womanresearchers-stats", (req,res) =>{
 	var query = {};
 	
-	let error400 = false;
+	//let error400 = false;
 		
     let offset = 0;
     let limit = Number.MAX_SAFE_INTEGER;
@@ -213,32 +213,30 @@ app.get(BASE_API_URL+"/womanresearchers-stats", (req,res) =>{
         delete req.query.limit;
     }
 	console.log("New GET .../womanresearchers-stats");
-	
-	for( i in req.query){
-		if( (i != "country") && (i!= "year") && (i != "womanresearchers_he") && (i != "womanresearchers_gov") 
-		   && (i != "womanresearchers_bent")){
-					error400 = true;
-		}
-	}
-	if(error400){
-		res.sendStatus(400, "BAD REQUEST");
-	}
-	else{
-		if(req.query.country){query["country"] = req.query.country;} 
-		if(req.query.year){query["year"] = parseInt(req.query.year);}
-		if(req.query.womanresearchers_he){query["womanresearchers_he"] = parseInt(req.query.womanresearchers_he);}
-		if(req.query.womanresearchers_gov){query["womanresearchers_gov"] = parseInt(req.query.womanresearchers_gov);}
-		if(req.query.womanresearchers_bent){query["womanresearchers_bent"] = parseInt(req.query.womanresearchers_bent);}
+	if(req.query.country){query["country"] = req.query.country;} 
+	if(req.query.year){query["year"] = parseInt(req.query.year);}
+	if(req.query.womanresearchers_he){query["womanresearchers_he"] = parseInt(req.query.womanresearchers_he);}
+	if(req.query.womanresearchers_gov){query["womanresearchers_gov"] = parseInt(req.query.womanresearchers_gov);}
+	if(req.query.womanresearchers_bent){query["womanresearchers_bent"] = parseInt(req.query.womanresearchers_bent);}
 		
 		db.find(query).sort({country:1, year:-1}).skip(offset).limit(limit).exec((err, womanresearchers) => {
 			womanresearchers.forEach( (woman) => {
 				delete woman._id;
-		});
+			});
+		
+			if(womanresearchers.length!=1) {
+				res.send(JSON.stringify(womanresearchers,null,2));
+				console.log("Data sent:"+JSON.stringify(womanresearchers,null,2));
+			} else if(womanresearchers.length==0){
+				res.sendStatus(409, "GIVEN DATA ALREADY EXISTS");
+			}else {
+				res.send(JSON.stringify(womanresearchers[0],null,2));
+				console.log("Data sent:"+JSON.stringify(womanresearchers[0],null,2));
+			}
 
-		res.send(JSON.stringify(womanresearchers,null,2));
-		console.log("Data sent:"+JSON.stringify(womanresearchers,null,2));
+
 		})
-	}
+	
 	
 });
 
@@ -247,12 +245,13 @@ app.post(BASE_API_URL+"/womanresearchers-stats", (req,res) =>{
 	var newWoman = req.body;
 	
 	
-	if(newWoman == "" || newWoman.country == null || newWoman.year == null || Object.keys(newWoman).length!=5){
-		res.sendStatus(400,"BAD REQUEST");
+	if(newWoman == "" || newWoman.country == null || newWoman.year == null || newWoman.womanresearchers_he == null|| newWoman.womanresearchers_gov==null || newWoman.womanresearchers_bent==null || Object.keys(newWoman).length!=5 ){
+		res.sendStatus(400,"BAD REQUEST,ERROR IN DATA");
 	} 
 	else{
-		db.find({country: newWoman.country, year: newWoman.year},(err, data) =>{
-			if(data.length > 0){
+		db.find({country: newWoman.country, year: newWoman.year},(err, womanresearchers) =>{
+			
+			 if(womanresearchers.length > 0){
 				res.sendStatus(409, "GIVEN DATA ALREADY EXISTS");
 			}
 			else{
@@ -321,34 +320,25 @@ app.put(BASE_API_URL+"/womanresearchers-stats/:country/:year", (req,res)=>{
 	
 	var newWomanResearchers= req.body;
 	
-	var error400;
 	
-	if(Object.keys(newWomanResearchers).length != 5){
-		error400=true;
-	}
-	else{
-		for (i in newWomanResearchers){
-			if((i != "country") && (i!= "year") && (i!= "womanresearchers_he") && (i!= "womanresearchers_gov") && (i!= "womanresearchers_bent")){
-					error400 = true;
-				}
-		}
-	}
-	
-	if(error400){
-		res.sendStatus(400, "ERROR IN DATA");
-	}
-	else{
-		db.find({country:country, year:parseInt(year)}, (err, womanresearchers) => {
-			if(womanresearchers.length >= 1) {
-				db.update({country:country,year:parseInt(year)}, {$set:newWomanResearchers});
+	 if(!newWomanResearchers.country || !newWomanResearchers.year || !newWomanResearchers.womanresearchers_he || !newWomanResearchers.womanresearchers_gov || !newWomanResearchers.womanresearchers_bent|| Object.keys(newWomanResearchers).length!=5) {
+				res.sendStatus(400,"BAD REQUEST");
+				console.log("The format is incorrect");
+	}else{
+	db.find({country:country, year:parseInt(year)}, (err, womanresearchers) => {
+		
+		if(womanresearchers.length >= 1) {
+			db.update({country:country,year:parseInt(year)}, {$set:newWomanResearchers});
 				res.sendStatus(200,"OK");
 				console.log("DATA UPLOADED");
-			}else {
-				res.sendStatus(404, "NOT FOUND");
+		}
+		else{
+			res.sendStatus(404, "NOT FOUND");
 				console.log("DATA NOT FOUND");
-			}
-		});
+		}
+	});
 	}
+	
 });
 
 // DELETE womanresearchers/XXX
