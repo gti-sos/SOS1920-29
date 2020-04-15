@@ -21,11 +21,6 @@ const womanAPI = require(path.join(__dirname,"womanresearchers_stats_API"));
 womanAPI(app);
 
 
-const BASE_API_URL = "/api/v1";
-
-
-
-
 app.listen(port, () => {
 	console.log("Server ready!");
 });
