@@ -189,7 +189,7 @@ var initialwomanresearchers_stats = [
 app.get(BASE_API_URL+"/womanresearchers-stats/loadInitialData", (req, res) =>{
 	db.insert(initialwomanresearchers_stats);
 	res.sendStatus(200,"OK");
-	console.log("Initial Woman Researchers loaded; "+JSON.stringify(initialwomanresearchers_stats,null,2));
+	console.log("Initial Woman Researchers  loaded; "+JSON.stringify(initialwomanresearchers_stats,null,2));
 
 
 });
@@ -247,6 +247,7 @@ app.post(BASE_API_URL+"/womanresearchers-stats", (req,res) =>{
 	
 	if(newWoman == "" || newWoman.country == null || newWoman.year == null || newWoman.womanresearchers_he == null|| newWoman.womanresearchers_gov==null || newWoman.womanresearchers_bent==null || Object.keys(newWoman).length!=5 ){
 		res.sendStatus(400,"BAD REQUEST,ERROR IN DATA");
+		console.log("INCORRECT FORMAT");
 	} 
 	else{
 		db.find({country: newWoman.country, year: newWoman.year},(err, womanresearchers) =>{
@@ -321,9 +322,9 @@ app.put(BASE_API_URL+"/womanresearchers-stats/:country/:year", (req,res)=>{
 	var newWomanResearchers= req.body;
 	
 	
-	 if(!newWomanResearchers.country || !newWomanResearchers.year || !newWomanResearchers.womanresearchers_he || !newWomanResearchers.womanresearchers_gov || !newWomanResearchers.womanresearchers_bent|| Object.keys(newWomanResearchers).length!=5) {
-				res.sendStatus(400,"BAD REQUEST");
-				console.log("The format is incorrect");
+	 if(newWomanResearchers.country==null || newWomanResearchers.year==null || newWomanResearchers.womanresearchers_he==null || newWomanResearchers.womanresearchers_gov==null || newWomanResearchers.womanresearchers_bent==null|| Object.keys(newWomanResearchers).length!=5 || newWomanResearchers.country!=country || newWomanResearchers.year!=year) {
+				res.sendStatus(400,"BAD REQUEST,ERROR IN DATA");
+				console.log("INCORRECT FORMAT");
 	}else{
 	db.find({country:country, year:parseInt(year)}, (err, womanresearchers) => {
 		
@@ -350,7 +351,7 @@ app.delete(BASE_API_URL+"/womanresearchers-stats/:country/:year", (req,res)=>{
 	db.find({country:country, year:parseInt(year)}, (err, womanresearchers) => {
 		if(womanresearchers.length >= 1) {
 			db.remove({country:country,year:parseInt(year)}, {}, (err, womanresearchers) => {
-				console.log("Data " + country + ", " + parseInt(year) + " removed");
+				console.log("DATA:  " + country + ", " + parseInt(year) + " DELETED");
 			});
 			res.sendStatus(200,"OK");	
 		}else {
