@@ -524,7 +524,7 @@ module.exports = function (app){
 
     //POST A UN RECURSO CONCRETO (¡¡¡INCORRECTO!!!)
 
-    app.post(BASE_API_URL+"/emp-stats/:resource", (req,res) =>{
+    app.post(BASE_API_URL+"/emp-stats/:country/:year", (req,res) =>{
         
         res.sendStatus(405,"METHOD NOT ALLOWED");
     });
