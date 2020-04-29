@@ -9,15 +9,15 @@ app.use("/", express.static("./public"));
 
 
 //API Jairo
-const edq_stats_API = require(path.join(__dirname,"edq_stats_API"));
+const edq_stats_API = require(path.join(__dirname,"/src/back/edq_stats_API"));
 edq_stats_API(app);
 
 //API Enrique
-const emp_stats_API = require(path.join(__dirname,"emp_stats_API"));
+const emp_stats_API = require(path.join(__dirname,"/src/back/emp_stats_API"));
 emp_stats_API(app);
 
 //API Liz
-const womanAPI = require(path.join(__dirname,"womanresearchers_stats_API"));
+const womanAPI = require(path.join(__dirname,"/src/back/womanresearchers_stats_API"));
 womanAPI(app);
 
 

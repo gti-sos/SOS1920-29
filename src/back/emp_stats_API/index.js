@@ -25,7 +25,7 @@ module.exports = function (app){
                                 emp_vuln_male: 15.328
                             });
         
-        var stat2 = new Object({ country: "Spain", 
+    var stat2 = new Object({ country: "Spain", 
                                 year: 2014, 
                                 emp_female_age15_24: 15.92, 
                                 emp_male_age15_24: 17.397, 	
@@ -33,7 +33,7 @@ module.exports = function (app){
                                 emp_vuln_male: 15.062
                             });
         
-        var stat3 = new Object({ country: "Spain", 
+    var stat3 = new Object({ country: "Spain", 
                                 year: 2015, 
                                 emp_female_age15_24: 17.289, 
                                 emp_male_age15_24: 18.577, 	
@@ -41,7 +41,7 @@ module.exports = function (app){
                                 emp_vuln_male: 14.616
                             });
         
-        var stat4 = new Object({ country: "Italy", 
+    var stat4 = new Object({ country: "Italy", 
                                 year: 2013, 
                                 emp_female_age15_24: 13.441, 
                                 emp_male_age15_24: 18.714, 
@@ -49,7 +49,7 @@ module.exports = function (app){
                                 emp_vuln_male: 20.573
                             });
         
-        var stat5 = new Object({ country: "Italy", 
+    var stat5 = new Object({ country: "Italy", 
                                 year: 2014, 
                                 emp_female_age15_24: 12.547, 
                                 emp_male_age15_24: 18.196, 
@@ -57,7 +57,7 @@ module.exports = function (app){
                                 emp_vuln_male: 20.492
                             });
         
-        var stat6 = new Object({ country: "Italy", 
+    var stat6 = new Object({ country: "Italy", 
                                 year: 2015, 
                                 emp_female_age15_24: 12.276, 
                                 emp_male_age15_24: 18.638, 
@@ -65,7 +65,7 @@ module.exports = function (app){
                                 emp_vuln_male: 20.267
                             });
         
-        var stat7 = new Object({ country: "Czechia", 
+    var stat7 = new Object({ country: "Czechia", 
                                 year: 2013, 
                                 emp_female_age15_24: 20.835, 
                                 emp_male_age15_24: 29.927, 
@@ -73,7 +73,7 @@ module.exports = function (app){
                                 emp_vuln_male: 16.705
                             });
         
-        var stat8 = new Object({ country: "Czechia", 
+    var stat8 = new Object({ country: "Czechia", 
                                 year: 2014, 
                                 emp_female_age15_24: 21.561, 
                                 emp_male_age15_24: 32.336, 
@@ -81,7 +81,7 @@ module.exports = function (app){
                                 emp_vuln_male: 17.095
                             });
         
-        var stat9 = new Object({ country: "Czechia", 
+    var stat9 = new Object({ country: "Czechia", 
                                 year: 2015, 
                                 emp_female_age15_24: 23.59, 
                                 emp_male_age15_24: 33.133, 
@@ -89,7 +89,7 @@ module.exports = function (app){
                                 emp_vuln_male: 16.066
                             });
         
-        var stat10 = new Object({ country: "Finland", 
+    var stat10 = new Object({ country: "Finland", 
                                 year: 2013, 
                                 emp_female_age15_24: 44.203, 
                                 emp_male_age15_24: 39.12, 	
@@ -97,7 +97,7 @@ module.exports = function (app){
                                 emp_vuln_male: 11.736
                             });
         
-        var stat11 = new Object({ country: "Finland", 
+    var stat11 = new Object({ country: "Finland", 
                                 year: 2014, 
                                 emp_female_age15_24: 23.438, 
                                 emp_male_age15_24: 39.773, 	
@@ -105,7 +105,7 @@ module.exports = function (app){
                                 emp_vuln_male: 12.043
                             });
         
-        var stat12 = new Object({ country: "Finland", 
+    var stat12 = new Object({ country: "Finland", 
                                 year: 2015, 
                                 emp_female_age15_24: 43.136, 
                                 emp_male_age15_24: 38.142, 	
@@ -113,7 +113,7 @@ module.exports = function (app){
                                 emp_vuln_male: 12.512
                             });
         
-        var stat13 = new Object({ country: "Portugal", 
+    var stat13 = new Object({ country: "Portugal", 
                                 year: 2013, 
                                 emp_female_age15_24: 20.172, 
                                 emp_male_age15_24: 22.909, 	
@@ -121,7 +121,7 @@ module.exports = function (app){
                                 emp_vuln_male: 19.106
                             });
         
-        var stat14 = new Object({ country: "Portugal", 
+    var stat14 = new Object({ country: "Portugal", 
                                 year: 2014, 
                                 emp_female_age15_24: 21.682, 
                                 emp_male_age15_24: 22.873, 	
@@ -129,7 +129,7 @@ module.exports = function (app){
                                 emp_vuln_male: 17.166
                             });
         
-        var stat15 = new Object({ country: "Portugal", 
+    var stat15 = new Object({ country: "Portugal", 
                                 year: 2015, 
                                 emp_female_age15_24: 21.592, 
                                 emp_male_age15_24: 24.092, 	
@@ -137,7 +137,7 @@ module.exports = function (app){
                                 emp_vuln_male: 16.037
                             });
         
-        var stat16 = new Object({ country: "Lithuania", 
+    var stat16 = new Object({ country: "Lithuania", 
                                 year: 2013, 
                                 emp_female_age15_24: 21.347, 
                                 emp_male_age15_24: 27.553, 	
@@ -145,7 +145,7 @@ module.exports = function (app){
                                 emp_vuln_male: 10.741
                             });
         
-        var stat17 = new Object({ country: "Lithuania", 
+    var stat17 = new Object({ country: "Lithuania", 
                                 year: 2014, 
                                 emp_female_age15_24: 23.863, 
                                 emp_male_age15_24: 31.013, 	
@@ -153,7 +153,7 @@ module.exports = function (app){
                                 emp_vuln_male: 10.733
                             });
         
-        var stat18 = new Object({ country: "Lithuania", 
+    var stat18 = new Object({ country: "Lithuania", 
                                 year: 2015, 
                                 emp_female_age15_24: 25.676, 
                                 emp_male_age15_24: 30.841, 	
@@ -161,7 +161,7 @@ module.exports = function (app){
                                 emp_vuln_male: 11.325
                             });
         
-        var stat19 = new Object({ country: "Croatia", 
+    var stat19 = new Object({ country: "Croatia", 
                                 year: 2013, 
                                 emp_female_age15_24: 12.438, 
                                 emp_male_age15_24: 17.375, 	
@@ -169,7 +169,7 @@ module.exports = function (app){
                                 emp_vuln_male: 14.273
                             });
         
-        var stat20 = new Object({ country: "Croatia", 
+    var stat20 = new Object({ country: "Croatia", 
                                 year: 2014, 
                                 emp_female_age15_24: 13.305, 
                                 emp_male_age15_24: 21.213, 	
@@ -177,7 +177,7 @@ module.exports = function (app){
                                 emp_vuln_male: 11.36
                             });
         
-        var stat21 = new Object({ country: "Croatia", 
+    var stat21 = new Object({ country: "Croatia", 
                                 year: 2015, 
                                 emp_female_age15_24: 15.64, 
                                 emp_male_age15_24: 22.376, 	
@@ -185,7 +185,7 @@ module.exports = function (app){
                                 emp_vuln_male: 11.65
                             });
         
-        var stat22 = new Object({ country: "Malta", 
+    var stat22 = new Object({ country: "Malta", 
                                 year: 2013, 
                                 emp_female_age15_24: 43.986, 
                                 emp_male_age15_24: 48.23, 	
@@ -193,7 +193,7 @@ module.exports = function (app){
                                 emp_vuln_male: 12.186
                             });
         
-        var stat23 = new Object({ country: "Malta", 
+    var stat23 = new Object({ country: "Malta", 
                                 year: 2014, 
                                 emp_female_age15_24: 46.572, 
                                 emp_male_age15_24: 46.136, 	
@@ -201,7 +201,7 @@ module.exports = function (app){
                                 emp_vuln_male: 11.995
                             });
         
-        var stat24 = new Object({ country: "Malta", 
+    var stat24 = new Object({ country: "Malta", 
                                 year: 2015, 
                                 emp_female_age15_24: 45.336, 
                                 emp_male_age15_24: 46.61, 	
@@ -209,9 +209,22 @@ module.exports = function (app){
                                 emp_vuln_male: 12.199
                             });
         
-        emp_stats.push(stat1, stat2, stat3, stat4, stat5, stat6, stat7, stat8, stat9, stat10, 
-                    stat11, stat12, stat13, stat14, stat15, stat16, stat17, stat18, stat19, 
-                    stat20, stat21, stat22, stat23, stat24);
+    emp_stats.push(stat1, stat2, stat3, stat4, stat5, stat6, stat7, stat8, stat9, stat10, 
+                stat11, stat12, stat13, stat14, stat15, stat16, stat17, stat18, stat19, 
+                stat20, stat21, stat22, stat23, stat24);
+
+    db.find({}, (err,emp_stats)=>{
+        if(emp_stats.length == 0){
+            db.insert([{ country: "Malta", year: 2017, emp_female_age15_24: 10, emp_male_age15_24: 20, 
+                        emp_vuln_female: 30, emp_vuln_male: 40},
+                        { country: "Spain", year: 2012, emp_female_age15_24: 90, emp_male_age15_24: 80, 
+                        emp_vuln_female: 70, emp_vuln_male: 60},
+                        ]);
+            console.log("EMPTY DB! Inserted 2 default resources");
+        }else{
+            console.log("Loaded DB with "+emp_stats.length+" contacts");
+        }
+        });
 
     //GET EMP_STATS/LOADINITIALDATA (CARGO TODOS LOS RECURSOS)
 
