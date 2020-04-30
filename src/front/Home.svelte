@@ -1,3 +1,3 @@
-<a href="#/emp-stats">Frontend Enrique</a>
-<a href="#/">Frontend Jairo</a>
-<a href="#/">Frontend Lizeth</a>
+<p><a href="#/emp-stats">Frontend Enrique</a></p>
+<p><a href="#/edq-stats">Frontend Jairo</a></p>
+<p><a href="#/">Frontend Lizeth</a></p>

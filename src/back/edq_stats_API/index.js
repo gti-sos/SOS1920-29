@@ -208,7 +208,7 @@ module.exports = function(app){
 	//GET DATOS ACTUALIZADO
 	app.get(BASE_API_URL+"/edq-stats",(request,response) =>{
 
-		//console.log("New GET .../edq-stats");
+		console.log("New GET .../edq-stats");
 		//console.log(Object.keys(request.query));
 		//console.log(Object.keys(request.query).length);
 		
@@ -432,5 +432,6 @@ module.exports = function(app){
 		}
 
 	});
+
 	
 };
