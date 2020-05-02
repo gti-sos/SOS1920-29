@@ -18,6 +18,7 @@
 	}
 </script>
 
+
 <main>
 	<h1>Applications</h1>
 	<Router {routes}></Router>

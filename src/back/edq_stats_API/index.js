@@ -209,9 +209,8 @@ module.exports = function(app){
 	app.get(BASE_API_URL+"/edq-stats",(request,response) =>{
 
 		console.log("New GET .../edq-stats");
-		//console.log(Object.keys(request.query));
-		//console.log(Object.keys(request.query).length);
-		
+		console.log("");
+
 		if(Object.keys(request.query).length > 0){
 			
 			var limit = parseInt(request.query.limit);
@@ -290,6 +289,7 @@ module.exports = function(app){
 
 		var newData = request.body;
 		var error_400 = false;
+
 
 		if(newData.country == null || newData.year == null || newData.edq_sg == null || newData.edq_gee == null || newData.edq_ptr == null){
 			

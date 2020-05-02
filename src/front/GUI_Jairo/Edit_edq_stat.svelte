@@ -2,6 +2,7 @@
 
     import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
+    import Alert from "sveltestrap/src/Alert.svelte";
     import {onMount} from "svelte";
     import {pop} from "svelte-spa-router";
 
@@ -12,7 +13,10 @@
     let updated_edq_sg = 0.0;
     let updated_edq_gee = 0.0;
     let updated_edq_ptr = 0.0;
-    let errorMsg = "";
+    let alerta_visible = false; //Utilizo la variable para esconder o mostrar la alerta.
+	let titulo_alerta = ""; //Escribo el mensaje que quiero enseñar en la alerta.
+	let descr_alerta = ""; //Mensaje descriptivo en la alerta
+	let alert_color = "";
 
     onMount(getStat);
 
@@ -56,6 +60,20 @@
             getStat();
         });
 
+        if(res.ok){
+            titulo_alerta = "Hecho.";
+            descr_alerta = "Se ha actualizado el dato.";
+            alert_color = "success";
+            alerta_visible = true;
+        }
+        else{
+            
+            titulo_alerta = "Error.";
+            descr_alerta = "No se ha podido actualizar el dato.";
+            alert_color = "danger";
+            alerta_visible = true;
+        }
+
     }
 
 </script>
@@ -66,7 +84,12 @@
 
 	{#await data}
 		Loading data...
-	{:then data}
+    {:then data}
+    
+    <Alert id="alerta" color={alert_color} isOpen={alerta_visible} toggle={() => (alerta_visible = false)}>
+		<h4>{titulo_alerta}</h4>
+		<p>{descr_alerta}</p>
+	</Alert>
 
 	<Table bordered>
 		<thead>
@@ -85,7 +108,7 @@
                 <td><input bind:value="{updated_edq_sg}"></td>
                 <td><input bind:value="{updated_edq_gee}"></td>
                 <td><input bind:value="{updated_edq_ptr}"></td>
-				<td><Button color="success"  on:click="{updateStat}">Update</Button></td>
+				<td><Button color="success"  on:click="{updateStat}">Actualizar</Button></td>
 			</tr>
 		</tbody>
 	</Table>
