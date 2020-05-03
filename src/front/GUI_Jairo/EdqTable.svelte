@@ -25,6 +25,7 @@
 	let alert_color = ""; //Variable para cambiar el color de la alerta.
 	let offset = 0; //Utilizo la variable para cambiar el offset en las peticiones.
 
+
     onMount(getData);
 
     async function getData(){
@@ -176,7 +177,23 @@
 		}
 		else{
 			titulo_alerta = "Error.";
-			descr_alerta = "No se ha podido encontrar el dato especificado.";
+			descr_alerta = "No se ha podido encontrar el dato con los parámetros: ";
+			if(search_data.country.localeCompare("") != 0){
+				descr_alerta += " País: "+search_data.country;
+			}
+			if(!isNaN(search_data.year)){
+				descr_alerta +=  " Año: "+search_data.year;
+			}
+			if(!isNaN(search_data.edq_sg)){
+				descr_alerta += " edq_sg: "+search_data.edq_sg;
+			}
+			if(!isNaN(search_data.edq_gee)){
+				descr_alerta += " edq_gee: "+search_data.edq_gee;
+			}
+			if(!isNaN(search_data.edq_ptr)){
+				descr_alerta += " edq_ptr: "+search_data.edq_ptr;
+			}
+
 			alert_color = "danger";
 			alerta_visible = true;
 		}
@@ -307,6 +324,11 @@
 
 	}
 
+
+	async function imprimeDato(text){
+		console.log(text);
+	}
+
 </script>
 
 <main>
@@ -363,11 +385,11 @@
 			{/each}
 		</tbody>
 	</Table>
+	
 	{/await}
 
 	<Button outline color = "primary" on:click="{disminuyeOffset}">Página Anterior</Button>
 	<Button outline color = "primary" on:click="{aumentaOffset}">Página Siguiente</Button>
-	
 
 	<Button outline color = "secondary" on:click="{pop}">Volver</Button>
 </main>
