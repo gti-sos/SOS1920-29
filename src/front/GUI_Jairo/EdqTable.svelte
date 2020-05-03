@@ -7,7 +7,6 @@
 	import Button from "sveltestrap/src/Button.svelte";
 	import Alert from "sveltestrap/src/Alert.svelte";
 	import { Pagination, PaginationItem, PaginationLink } from 'sveltestrap/src';
-	//import UncontrolledAlert from "sveltestrap/src/UncontrolledAlert.svelte";
 
 	import {pop} from "svelte-spa-router";
     
@@ -22,9 +21,9 @@
     };
 	let alerta_visible = false; //Utilizo la variable para esconder o mostrar la alerta.
 	let titulo_alerta = ""; //Escribo el mensaje que quiero enseñar en la alerta.
-	let descr_alerta = ""; //Mensaje descriptivo en la alerta
-	let alert_color = "";
-	let offset = 1;
+	let descr_alerta = ""; //Mensaje descriptivo en la alerta.
+	let alert_color = ""; //Variable para cambiar el color de la alerta.
+	let offset = 0; //Utilizo la variable para cambiar el offset en las peticiones.
 
     onMount(getData);
 
@@ -73,7 +72,10 @@
             edq_sg: parseFloat(new_data.edq_sg),
             edq_gee: parseFloat(new_data.edq_gee),
             edq_ptr: parseFloat(new_data.edq_ptr)
-        }
+		}
+		
+
+		console.log(new_edq_data);
 
         const res = await fetch("/api/v1/edq-stats", {
 			method: "POST",
@@ -82,11 +84,6 @@
 				"Content-Type": "application/json"
 			}
 		}).then(function (res) {
-			new_data.country = "";
-			new_data.year = "";
-			new_data.edq_sg = "";
-			new_data.edq_gee = "";
-			new_data.edq_ptr = "";
 
 			if(res.status == 201){
 				titulo_alerta = "Hecho.";
@@ -97,10 +94,24 @@
 			}
 			else{
 				titulo_alerta = "Error.";
-				descr_alerta = "No se ha podido introducir el dato.";
 				alert_color = "danger";
+				descr_alerta = "";
+				if(new_edq_data.country.localeCompare("") == 0 || isNaN(new_edq_data.year)){
+					if(new_edq_data.country.localeCompare("") == 0){
+						descr_alerta += " No ha introducido el país.";
+					}
+					if(isNaN(new_edq_data.year)){
+						descr_alerta += " No ha introducido el año.";
+					}
+				}
 				alerta_visible = true;
 			}
+
+			new_data.country = "";
+			new_data.year = "";
+			new_data.edq_sg = "";
+			new_data.edq_gee = "";
+			new_data.edq_ptr = "";
 
 			getData();
 
@@ -266,10 +277,34 @@
 
 	}
 
-	async function cambiaOffset(numero){
-		
-		
-		
+	async function aumentaOffset(){
+
+		if((offset+10) <= 23){
+			offset += 10;
+			const res = await fetch(BASE_API_URL+"/edq-stats?offset="+(offset)+"&limit=10");
+
+			const json = await res.json();
+			data = json;
+		}
+		else{
+			console.log("Estamos en la última página.")
+		}
+	
+	}
+
+	async function disminuyeOffset(){
+
+		if((offset-10) >= 0){
+			offset -= 10;
+			const res = await fetch(BASE_API_URL+"/edq-stats?offset="+(offset)+"&limit=10");
+
+			const json = await res.json();
+			data = json;
+		}
+		else{
+			console.log("Estamos en la primera página.");
+		}
+
 	}
 
 </script>
@@ -291,14 +326,14 @@
 
 	<Button color="primary" on:click="{loadInitialData}">Cargar recursos iniciales</Button>
 	<Button color="primary" on:click="{getData}">Ver recursos actuales</Button>
-	<Button color = "danger" on:click="{deleteAllData}">Borrar recursos</Button>
+	<Button color = "danger" on:click="{deleteAllData}">Borrar todos los recursos</Button>
 
 
 	<Table bordered>
 		<thead>
 			<tr>
-				<th>Country</th>
-				<th>Year</th>
+				<th>País</th>
+				<th>Año</th>
 				<th>edq_sg</th>
                 <th>edq_gee</th>
                 <th>edq_ptr</th>
@@ -329,6 +364,9 @@
 		</tbody>
 	</Table>
 	{/await}
+
+	<Button outline color = "primary" on:click="{disminuyeOffset}">Página Anterior</Button>
+	<Button outline color = "primary" on:click="{aumentaOffset}">Página Siguiente</Button>
 	
 
 	<Button outline color = "secondary" on:click="{pop}">Volver</Button>
