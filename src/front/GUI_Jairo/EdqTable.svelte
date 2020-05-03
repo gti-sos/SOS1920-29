@@ -6,6 +6,7 @@
 	import Table from "sveltestrap/src/Table.svelte";
 	import Button from "sveltestrap/src/Button.svelte";
 	import Alert from "sveltestrap/src/Alert.svelte";
+	import { Pagination, PaginationItem, PaginationLink } from 'sveltestrap/src';
 	//import UncontrolledAlert from "sveltestrap/src/UncontrolledAlert.svelte";
 
 	import {pop} from "svelte-spa-router";
@@ -23,17 +24,35 @@
 	let titulo_alerta = ""; //Escribo el mensaje que quiero enseñar en la alerta.
 	let descr_alerta = ""; //Mensaje descriptivo en la alerta
 	let alert_color = "";
+	let offset = 1;
 
     onMount(getData);
 
     async function getData(){
-        console.log("Fetching data...");
-        const res = await fetch(BASE_API_URL+"/edq-stats");
+		console.log("Fetching data...");
+		const res = await fetch(BASE_API_URL+"/edq-stats");
 
         if(res.ok){
+
 			const json = await res.json();
 			data = json;
-			console.log("Received "+data.length+" data.");
+
+			if(data.length > 0){
+				const res = await fetch(BASE_API_URL+"/edq-stats?offset="+offset+"&limit=10");
+
+				const json = await res.json();
+				data = json;
+				console.log("Received "+data.length+" data.");
+			}
+			else{
+				const res = await fetch(BASE_API_URL+"/edq-stats");
+
+				const json = await res.json();
+				data = json;
+				console.log("Received "+data.length+" data.");
+			}
+
+			
 		}
 		else{
 			console.log("ERROR!");
@@ -126,8 +145,6 @@
 
 		//Ahora debemos crear el string con el filtro para la llamada a la API
 		let url_filtro = "";
-		
-		url_filtro = "?";
 
 		
 		for(var clave in search){
@@ -224,15 +241,17 @@
         if(res.status == 200){
 			console.log("Fetching initial data...");
 
-			const stats = await fetch(BASE_API_URL+"/edq-stats/");
+			const res = await fetch(BASE_API_URL+"/edq-stats?limit=10&offset=1");
 
-			const json = await stats.json();
+			const json = await res.json();
 			data = json;
 
 			titulo_alerta = "Hecho.";
 			descr_alerta = "Se han cargado los datos iniciales.";
 			alert_color = "success";
 			alerta_visible = true;
+
+			getData();
 
 		}
 		else{
@@ -247,6 +266,11 @@
 
 	}
 
+	async function cambiaOffset(numero){
+		
+		
+		
+	}
 
 </script>
 
@@ -305,6 +329,7 @@
 		</tbody>
 	</Table>
 	{/await}
+	
 
 	<Button outline color = "secondary" on:click="{pop}">Volver</Button>
 </main>
