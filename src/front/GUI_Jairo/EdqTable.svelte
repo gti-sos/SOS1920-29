@@ -31,7 +31,6 @@
         const res = await fetch(BASE_API_URL+"/edq-stats");
 
         if(res.ok){
-			console.log("OK");
 			const json = await res.json();
 			data = json;
 			console.log("Received "+data.length+" data.");
@@ -64,29 +63,29 @@
 				"Content-Type": "application/json"
 			}
 		}).then(function (res) {
-
 			new_data.country = "";
 			new_data.year = "";
 			new_data.edq_sg = "";
 			new_data.edq_gee = "";
 			new_data.edq_ptr = "";
 
+			if(res.status == 201){
+				titulo_alerta = "Hecho.";
+				descr_alerta = "Se ha introducido el dato: "+JSON.stringify(new_edq_data);
+				alert_color = "success";
+				alerta_visible = true;
+				
+			}
+			else{
+				titulo_alerta = "Error.";
+				descr_alerta = "No se ha podido introducir el dato.";
+				alert_color = "danger";
+				alerta_visible = true;
+			}
+
 			getData();
 
 		});
-
-		if(res.ok){
-			titulo_alerta = "Hecho.";
-			descr_alerta = "Se ha introducido el dato.";
-			alert_color = "success";
-			alerta_visible = true;
-		}
-		else{
-			titulo_alerta = "Error.";
-			descr_alerta = "No se ha podido introducir el dato.";
-			alert_color = "danger";
-			alerta_visible = true;
-		}
 
 
 	}
@@ -133,30 +132,27 @@
 		
 		for(var clave in search){
 			url_filtro += (clave+"="+search[clave]+"&");
-			//console.log("KEY:"+clave);
 		}
 
-		await fetch(BASE_API_URL+"/edq-stats"+url_filtro).then(res => {
-			debugger
-			if(res.ok){
-				const json = res.json();
-				data = json;
-
-				titulo_alerta = "Hecho.";
-				descr_alerta = "Se ha encontrado el dato.";
-				alert_color = "success";
-				alerta_visible = true;
-			}
-			else{
-				titulo_alerta = "Error.";
-				descr_alerta = "No se ha podido encontrar el dato especificado.";
-				alert_color = "danger";
-				alerta_visible = true;
-			}
-		}),error(err => console.log(err));
-
+		const res = await fetch(BASE_API_URL+"/edq-stats"+url_filtro);
 
 		
+		if(res.status == 200){
+			const json = res.json();
+			data = json;
+
+			titulo_alerta = "Hecho.";
+			descr_alerta = "Se ha encontrado el dato con los parámetros: "+JSON.stringify(search_data);
+			alert_color = "success";
+			alerta_visible = true;
+		}
+		else{
+			titulo_alerta = "Error.";
+			descr_alerta = "No se ha podido encontrar el dato especificado.";
+			alert_color = "danger";
+			alerta_visible = true;
+		}
+	
 
 	}
 
@@ -166,28 +162,28 @@
 
 		const res = await fetch("/api/v1/edq-stats/" + country + "/" + year, {
 			method: "DELETE",
-		}).then(function (res) {
+		}).then(function (res){
+
+			if(res.status == 200){
+
+				titulo_alerta = "Hecho.";
+				descr_alerta = "Se ha borrado el dato: "+country+"/"+year;
+				alert_color = "success";
+				alerta_visible = true;
+
+				
+			}
+			else{
+				titulo_alerta = "Error.";
+				descr_alerta = "No se ha podido borrar el dato especificado.";
+				alert_color = "danger";
+				alerta_visible = true;
+			}
+
 			getData();
-		});
-
-		if(res.ok){
-			const json = await res.json();
-			data = json;
-
-			titulo_alerta = "Hecho.";
-			descr_alerta = "Se ha borrado el dato especificado.";
-			alert_color = "success";
-			alerta_visible = true;
 			
-
-			getData();
-		}
-		else{
-			titulo_alerta = "Error.";
-			descr_alerta = "No se ha podido borrar el dato especificado.";
-			alert_color = "danger";
-			alerta_visible = true;
-		}
+		});
+		
 
 	}
 
@@ -197,26 +193,25 @@
 
 		const res = await fetch("/api/v1/edq-stats", {
 			method: "DELETE",
+		}).then(function (res){
+
+			if(res.status == 200){
+				titulo_alerta = "Hecho.";
+				descr_alerta = "Se han borrado todos los datos.";
+				alert_color = "success";
+				alerta_visible = true;
+
+				getData();
+			}
+			else{
+				titulo_alerta = "Error.";
+				descr_alerta = "No se han podido borrar los datos.";
+				alert_color = "danger";
+				alerta_visible = true;
+			}
+
+			
 		});
-
-		console.log(JSON.stringify(res));
-		console.log(JSON.stringify(res.ok));
-		console.log(JSON.stringify(res.status));
-
-		getData();
-
-		if(res.ok){
-			titulo_alerta = "Hecho.";
-			descr_alerta = "Se han borrado todos los datos.";
-			alert_color = "success";
-			alerta_visible = true;
-		}
-		else{
-			titulo_alerta = "Error.";
-			descr_alerta = "No se han podido borrar los datos.";
-			alert_color = "danger";
-			alerta_visible = true;
-		}
 
 	}
 
@@ -225,7 +220,8 @@
 		await deleteAllData();
 		const res = await fetch(BASE_API_URL+"/edq-stats/loadInitialData");
 
-        if(res.ok){
+
+        if(res.status == 200){
 			console.log("Fetching initial data...");
 
 			const stats = await fetch(BASE_API_URL+"/edq-stats/");
@@ -247,6 +243,7 @@
 			alert_color = "danger";
 			alerta_visible = true;
         }
+		
 
 	}
 

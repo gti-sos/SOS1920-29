@@ -57,22 +57,21 @@
                 "Content-Type": "application/json"
             }
         }).then(function (res) {
-            getStat();
+            if(res.status == 200){
+                titulo_alerta = "Hecho.";
+                descr_alerta = "Se ha actualizado el dato: "+params.country+"/"+params.year;
+                alert_color = "success";
+                alerta_visible = true;
+            }
+            else{
+                
+                titulo_alerta = "Error.";
+                descr_alerta = "No se ha podido actualizar el dato.";
+                alert_color = "danger";
+                alerta_visible = true;
+            }
         });
 
-        if(res.ok){
-            titulo_alerta = "Hecho.";
-            descr_alerta = "Se ha actualizado el dato.";
-            alert_color = "success";
-            alerta_visible = true;
-        }
-        else{
-            
-            titulo_alerta = "Error.";
-            descr_alerta = "No se ha podido actualizar el dato.";
-            alert_color = "danger";
-            alerta_visible = true;
-        }
 
     }
 
