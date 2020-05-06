@@ -1,11 +1,11 @@
 module.exports = function (app){
 	
-	console.log("Registering emp_stats_API...");
+	console.log("Registering emp_stats_API_v2...");
 	const dataStore = require("nedb");
 	const path = require("path");
 	
     const dbFileName = path.join(__dirname,"emp-stats.db");
-    const BASE_API_URL = "/api/v1";
+    const BASE_API_URL = "/api/v2";
 	
 	const db = new dataStore({
 		
@@ -213,18 +213,6 @@ module.exports = function (app){
                 stat11, stat12, stat13, stat14, stat15, stat16, stat17, stat18, stat19, 
                 stat20, stat21, stat22, stat23, stat24);
 
-    db.find({}, (err,emp_stats)=>{
-        if(emp_stats.length == 0){
-            db.insert([{ country: "Malta", year: 2017, emp_female_age15_24: 10, emp_male_age15_24: 20, 
-                        emp_vuln_female: 30, emp_vuln_male: 40},
-                        { country: "Spain", year: 2012, emp_female_age15_24: 90, emp_male_age15_24: 80, 
-                        emp_vuln_female: 70, emp_vuln_male: 60},
-                        ]);
-            console.log("EMPTY DB! Inserted 2 default resources");
-        }else{
-            console.log("Loaded DB with "+emp_stats.length+" contacts");
-        }
-        });
 
     //GET EMP_STATS/LOADINITIALDATA (CARGO TODOS LOS RECURSOS)
 
@@ -254,7 +242,7 @@ module.exports = function (app){
         var data = req.query;
         console.log("req.query: " + JSON.stringify(data,null,2));
 
-        if(!(limit && offset) && data){
+        if(data && !limit && !offset){
             
             if(data.country){
                 var country = data.country;
@@ -334,9 +322,25 @@ module.exports = function (app){
                     res.send(JSON.stringify(emp_stats,null,2));
                 }
             });
+        }else if(limit && offset.isNaN == undefined){
+    
+            db.find({}).limit(limit).exec((err, emp_stats) =>{
+                if(err) {
+                    console.log("database error: " + err);
+                
+                }else{
+                    emp_stats.forEach( (e) => {
+                        delete e._id;
+            
+                    });
+
+                    res.send(JSON.stringify(emp_stats,null,2));
+                }
+            });
         }
         
     });
+
 
     //GET EMP_STATS/COUNTRY/YEAR (OBTENGO UN RECURSO ESPECÍFICO)
 
@@ -542,7 +546,7 @@ module.exports = function (app){
         res.sendStatus(405,"METHOD NOT ALLOWED");
     });
 
-    console.log("Registered emp_stats_API.");
+    console.log("Registered emp_stats_API_v2.");
 
     //*****************************FIN API ENRIQUE*************************************************
     
