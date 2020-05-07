@@ -163,7 +163,9 @@
 			url_filtro += (clave+"="+search[clave]+"&");
 		}
 
-		const res = await fetch(BASE_API_URL+"/edq-stats"+url_filtro);
+		const res = await fetch(BASE_API_URL+"/edq-stats?"+url_filtro);
+
+		console.log("RES: "+res)
 
 		
 		if(res.status == 200){
