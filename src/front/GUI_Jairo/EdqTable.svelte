@@ -24,7 +24,7 @@
 	let descr_alerta = ""; //Mensaje descriptivo en la alerta.
 	let alert_color = ""; //Variable para cambiar el color de la alerta.
 	let offset = 0; //Utilizo la variable para cambiar el offset en las peticiones.
-
+	let offset_maximo = 0; //Lo utilizo para comprobar el length de data y no sobrepasar ese número en el offset.
 
     onMount(getData);
 
@@ -298,7 +298,11 @@
 
 	async function aumentaOffset(){
 
-		if((offset+10) <= 23){
+		const data_busqueda = await fetch(BASE_API_URL+"/edq-stats");	
+		const json = await data_busqueda.json();
+		offset_maximo = json.length-1;
+
+		if((offset+10) <= offset_maximo){
 			offset += 10;
 			const res = await fetch(BASE_API_URL+"/edq-stats?offset="+(offset)+"&limit=10");
 
@@ -327,9 +331,7 @@
 	}
 
 
-	async function imprimeDato(text){
-		console.log(text);
-	}
+
 
 </script>
 
