@@ -22,6 +22,7 @@
 {"country":"Croatia","year":2015,"edq_sg":16.8,"edq_gee":1.9,"edq_ptr":12,"_id":"taYGhHqBAWd4H05A"}
 {"country":"Malta","year":2013,"edq_sg":15.8,"edq_gee":0.4,"edq_ptr":13.4,"_id":"xHDlpLZ9huAQAsXY"}
 {"country":"Lithuania","year":2014,"edq_sg":19.3,"edq_gee":1.6,"edq_ptr":10,"_id":"xMmyJuDiHU4SBLU1"}
+<<<<<<< HEAD
 {"$$deleted":true,"_id":"2Sz48wjf9MAKKtkH"}
 {"$$deleted":true,"_id":"2ptLJ0OWGkjrPfc5"}
 {"$$deleted":true,"_id":"6BOdjo86yi7TQzEi"}
@@ -118,3 +119,4 @@
 {"country":"Malta","year":2013,"edq_sg":15.8,"edq_gee":0.4,"edq_ptr":13.4,"_id":"FhdijDNonFwgs5G7"}
 {"country":"Malta","year":2014,"edq_sg":15.7,"edq_gee":0.4,"edq_ptr":13.6,"_id":"k5WINqoPPeVI02xT"}
 {"country":"Malta","year":2015,"edq_sg":15.3,"edq_gee":0.5,"edq_ptr":12.9,"_id":"ppWWEn8lI6nHayWB"}
+
