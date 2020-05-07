@@ -71,13 +71,19 @@
 			alert_description = "error al cargar los datos"; 
 			alert_color = "danger";
         }
-    }
+	}
+	
+	function MaysPrimera(string){
+  		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+
     async function insertWomanresearchers() {
 		loadmoreData = true;
 
 		console.log("Inserting Woman researchers data...");
+
 		let new_data = {
-			country: newWomanresearchersData.country,
+			country: MaysPrimera((newWomanresearchersData.country).toLowerCase()),
 			year: parseInt(newWomanresearchersData.year),
 			womanresearchers_he: parseInt(newWomanresearchersData.womanresearchers_he),
 			womanresearchers_gov: parseInt(newWomanresearchersData.womanresearchers_gov),
@@ -128,7 +134,7 @@
         loadmoreData = false;
 
 		let search_woman_data = {
-            country: newWomanresearchersData.country,
+            country:  MaysPrimera((newWomanresearchersData.country).toLowerCase()),
 			year: parseInt(newWomanresearchersData.year),
 			womanresearchers_he: parseInt(newWomanresearchersData.womanresearchers_he),
 			womanresearchers_gov: parseInt(newWomanresearchersData.womanresearchers_gov),
@@ -200,17 +206,17 @@
 		
 		const res = await fetch(BASE_API_URL+"/womanresearchers-stats?"+url_filter);
 
-		//console.log(res.json().then((value)=>{console.log(value)}));
 
-	
+
+	//onsole.log(JSON.stringify(res.json()))
 		
 		if(res.ok && url_filter!=" " ){		
 
 			const json = res.json();
 			womanresearchersData = json;
-	
+
 			
-		
+
 			/*alert_active = true; 
 			alert_title = "Exito."; 
 			
@@ -231,6 +237,8 @@
 			if(!isNaN(search_woman_data.womanresearchers_gov)){alert_description += " Administración: "+search_woman_data.womanresearchers_gov;}
 			if(!isNaN(search_woman_data.womanresearchers_bent)){alert_description += " Negocios: "+search_woman_data.womanresearchers_bent;}
 		} 
+
+		
 		
 		else{
 			
