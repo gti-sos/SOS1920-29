@@ -24,13 +24,17 @@
 	let descr_alerta = ""; //Mensaje descriptivo en la alerta.
 	let alert_color = ""; //Variable para cambiar el color de la alerta.
 	let offset = 0; //Utilizo la variable para cambiar el offset en las peticiones.
+	let offset_busqueda = 0; //Utilizo la variable para cambiar el offset en las peticiones al realizar una búsqueda.
 	let offset_maximo = 0; //Lo utilizo para comprobar el length de data y no sobrepasar ese número en el offset.
+	let busqueda = 0; //Compruebo si estoy en una búsqueda para tener en cuenta el offset correspondiente.
+	let url_filtro = "";
 
     onMount(getData);
 
     async function getData(){
 		console.log("Fetching data...");
 		const res = await fetch(BASE_API_URL+"/edq-stats");
+		busqueda = 0;
 
         if(res.ok){
 
@@ -130,6 +134,8 @@
             edq_gee: parseFloat(new_data.edq_gee),
             edq_ptr: parseFloat(new_data.edq_ptr)
 		}
+
+		busqueda = 1;
 		
 		let search = {};
 
@@ -155,17 +161,14 @@
 		}
 
 
-		//Ahora debemos crear el string con el filtro para la llamada a la API
-		let url_filtro = "";
-
-		
+		//Concateno el string de filtro.	
+		url_filtro = "";	
+		offset_busqueda = 0;
 		for(var clave in search){
 			url_filtro += (clave+"="+search[clave]+"&");
 		}
 
-		const res = await fetch(BASE_API_URL+"/edq-stats?"+url_filtro);
-
-		console.log("RES: "+res)
+		const res = await fetch(BASE_API_URL+"/edq-stats?limit=10&offset=0&"+url_filtro);
 
 		
 		if(res.status == 200){
@@ -297,36 +300,83 @@
 	}
 
 	async function aumentaOffset(){
+		let data_busqueda = "";
+		let json = "";
+		let res = "";
 
-		const data_busqueda = await fetch(BASE_API_URL+"/edq-stats");	
-		const json = await data_busqueda.json();
-		offset_maximo = json.length-1;
+		console.log("BUSQUEDA: "+busqueda);
 
-		if((offset+10) <= offset_maximo){
-			offset += 10;
-			const res = await fetch(BASE_API_URL+"/edq-stats?offset="+(offset)+"&limit=10");
+		if(busqueda == 1){
 
-			const json = await res.json();
-			data = json;
+			data_busqueda = await fetch(BASE_API_URL+"/edq-stats?"+url_filtro);
+
+			json = await data_busqueda.json();
+			offset_maximo = json.length-1;
+
+			if((offset_busqueda+10) <= offset_maximo){
+				offset_busqueda += 10;
+				res = await fetch(BASE_API_URL+"/edq-stats?offset="+offset_busqueda+"&limit=10&"+url_filtro);
+
+				json = await res.json();
+				data = json;
+			}
+			else{
+				console.log("Estamos en la última página.")
+			}
 		}
 		else{
-			console.log("Estamos en la última página.")
+			data_busqueda = await fetch(BASE_API_URL+"/edq-stats");
+			
+			json = await data_busqueda.json();
+			offset_maximo = json.length-1;
+
+			if((offset+10) <= offset_maximo){
+				offset += 10;
+				res = await fetch(BASE_API_URL+"/edq-stats?offset="+offset+"&limit=10");
+
+				json = await res.json();
+				data = json;
+			}
+			else{
+				console.log("Estamos en la última página.")
+			}
 		}
+
+		
+		
 	
 	}
 
 	async function disminuyeOffset(){
+		let res = "";
+		let json = "";
 
-		if((offset-10) >= 0){
-			offset -= 10;
-			const res = await fetch(BASE_API_URL+"/edq-stats?offset="+(offset)+"&limit=10");
+		if(busqueda == 1){
+			if((offset_busqueda-10) >= 0){
+				offset_busqueda -= 10;
+				res = await fetch(BASE_API_URL+"/edq-stats?offset="+(offset_busqueda)+"&limit=10&"+url_filtro);
 
-			const json = await res.json();
-			data = json;
+				json = await res.json();
+				data = json;
+			}
+			else{
+				console.log("Estamos en la primera página.");
+			}
 		}
 		else{
-			console.log("Estamos en la primera página.");
+			if((offset-10) >= 0){
+				offset -= 10;
+				res = await fetch(BASE_API_URL+"/edq-stats?offset="+(offset)+"&limit=10");
+
+				json = await res.json();
+				data = json;
+			}
+			else{
+				console.log("Estamos en la primera página.");
+			}
 		}
+
+		
 
 	}
 
