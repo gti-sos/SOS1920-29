@@ -479,7 +479,7 @@ module.exports = function (app){
             
             }else if(!emp_stats.length == 0){
                      
-                if(req.body.country == country && req.body.year == year && (updateEmp_size_keys == 6 && updateEmp_size_values == 6) && (!updateEmp_size_keys == 0 && !updateEmp_size_values == 0)){
+                if(req.body.country == country && req.body.year == year && (updateEmp_size_keys == 6 && updateEmp_size_values == 6) && (!updateEmp_size_keys == 0 && !updateEmp_size_values == 0) && req.body.emp_female_age15_24 != null && req.body.emp_male_age15_24 != null && req.body.emp_vuln_female != null &&req.body.emp_vuln_male != null){
                     
                     db.update({"country": country, "year": year}, updateEmp);
                     res.sendStatus(200);

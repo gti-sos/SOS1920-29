@@ -81,7 +81,7 @@
                 if(res.status == 400){
                 
                     titulo = "¡Error!";
-                    campo = "¡Todos los campos deben de estar rellenos!";
+                    campo = "¡Todos los campos deben de estar rellenos bien, es decir, con un porcentaje!";
                     color_alert = "danger";
                     visible_alert = true;
                 }

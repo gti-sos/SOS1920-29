@@ -136,419 +136,101 @@
 
 	}
 
-	async function searchEmp(country, year, emp_female_age15_24, emp_male_age15_24, emp_vuln_female, emp_vuln_male){
+	async function searchingEmp(){
+		
+        console.log("Searching resource..." + JSON.stringify(searchingEmp));
+        let search_Emp = {
+            country: searchingEmp.country,
+            year: parseInt(searchingEmp.year),
+            emp_female_age15_24: parseFloat(searchingEmp.emp_female_age15_24),
+            emp_male_age15_24: parseFloat(searchingEmp.emp_male_age15_24),
+            emp_vuln_female: parseFloat(searchingEmp.emp_vuln_female),
+            emp_vuln_male: parseFloat(searchingEmp.emp_vuln_male),
+		}
 
-		if(country == undefined && year == undefined && emp_female_age15_24 == undefined && emp_male_age15_24 == undefined && emp_vuln_female == undefined && emp_vuln_male == undefined){
+		if((search_Emp.country == undefined || search_Emp.country == "") && isNaN(search_Emp.year) && isNaN(search_Emp.emp_female_age15_24) && isNaN(search_Emp.emp_male_age15_24) && isNaN(search_Emp.emp_vuln_female) && isNaN(search_Emp.emp_vuln_male)){
+			
 			titulo = "¡Error!";
-			campo = "Por favor escriba en algún campo para realizar la búsqueda.";
+			campo = "Por favor, escriba en algún campo para realizar la búsqueda.";
 			color_alert = "danger";
 			visible_alert = true;
+
 		}else{
+
+			var filter_search = "?";
+			var filter_array = new Object();
+
+			for (const prop in search_Emp) {
+				console.log("holaa");
+				
+				if(prop == "country"){
 			
-			if(country != undefined && year == undefined && emp_female_age15_24 == undefined && emp_male_age15_24 == undefined && emp_vuln_female == undefined && emp_vuln_male == undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?country=" + country);
-				campo="";
+					if(search_Emp[prop] != undefined){
+						filter_array.country = search_Emp[prop];
+					}
 
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						campo = "Encontrado todos los países con nombre " + country;
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe un país con nombre " + country;
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
+				}if(prop == "year"){
+					
+					if(!isNaN(search_Emp[prop])){
+						filter_array.year = search_Emp[prop]; 
+					}
+				
+				}if(prop == "emp_female_age15_24"){
+					
+					if(!isNaN(search_Emp[prop])){
+						filter_array.emp_female_age15_24 = search_Emp[prop]; 
+					}
+				
+				}if(prop == "emp_male_age15_24"){
+					
+					if(!isNaN(search_Emp[prop])){
+						filter_array.emp_male_age15_24 = search_Emp[prop]; 
+					}
+				
+				}if(prop == "emp_vuln_female"){
+					
+					if(!isNaN(search_Emp[prop])){
+						filter_array.emp_vuln_female = search_Emp[prop]; 
+					}
+				
+				}if(prop == "emp_vuln_male"){
+					
+					if(!isNaN(search_Emp[prop])){
+						filter_array.emp_vuln_male = search_Emp[prop]; 
 					}
 				}
+			}
+
+			console.log("Array Object: "+JSON.stringify(filter_array, null, 2));
 			
-			}else if(country == undefined && year != undefined && emp_female_age15_24 == undefined && emp_male_age15_24 == undefined && emp_vuln_female == undefined && emp_vuln_male == undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?year=" + year);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-					campo="";
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						campo = "Encontrado todos los países con año " + year;
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe ningún país con año " + year;
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}
+			for (const data in filter_array){
+				filter_search += (data + "=" + filter_array[data] + "&");
+			}
+
+			console.log("URL filtrada: "+filter_search);
 			
-			}else if(country != undefined && year != undefined && emp_female_age15_24 == undefined && emp_male_age15_24 == undefined && emp_vuln_female == undefined && emp_vuln_male == undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?country=" + country + "&year=" + year);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-					campo="";
+			const res = await fetch(base_API_URL+"/emp-stats"+filter_search);
+			
+			if(res.ok){
+				console.log("Ok:");
+				const json = await res.json();
+				emps = json;
+				
+				if(emps.length == 0){
 
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						campo = "Encontrado país " + country + " y año " + year;
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe un país con nombre " + country + " y año " + year ;
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}
-			}else if(country != undefined && year != undefined && emp_female_age15_24 != undefined && emp_male_age15_24 == undefined && emp_vuln_female == undefined && emp_vuln_male == undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?country=" + country + "&year=" + year + "&emp_female_age15_24=" + emp_female_age15_24);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-					campo="";
+					titulo = "¡Error!";
+					campo = "El recurso que has buscado no existe en la base de datos, prueba a buscar con otros datos";
+					color_alert = "danger";
+					visible_alert = true;
+					setTimeout(function (){
+						getEmps();
+					}, 3000);
 
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						campo = "Encontrado país " + country + " año " + year + " y un % de Empleo Fem 15 a 24 años de " + emp_female_age15_24;
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe un país con nombre " + country + " año " + year + " un % de Empleo Fem 15 a 24 años de " + emp_female_age15_24;
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}
-			}else if(country != undefined && year != undefined && emp_female_age15_24 != undefined && emp_male_age15_24 != undefined && emp_vuln_female == undefined && emp_vuln_male == undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?country=" + country + "&year=" + year + "&emp_female_age15_24=" + emp_female_age15_24 + "&emp_male_age15_24=" + emp_male_age15_24);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-					campo="";
-
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						campo = "Encontrado país " + country + " año " + year + " un % de Empleo Fem 15 a 24 años de " + emp_female_age15_24 + " y un % de Empleo Masc 15 a 24 añosde  " + emp_male_age15_24;
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe un país con nombre " + country + " año " + year + " un % de Empleo Fem 15 a 24 años de " + emp_female_age15_24 + " y un % de Empleo Masc 15 a 24 años de " + emp_male_age15_24;
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}
-
-		
-			}else if(country != undefined && year != undefined && emp_female_age15_24 != undefined && emp_male_age15_24 != undefined && emp_vuln_female != undefined && emp_vuln_male == undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?country=" + country + "&year=" + year + "&emp_female_age15_24=" + emp_female_age15_24 + "&emp_male_age15_24=" + emp_male_age15_24 + "&emp_vuln_female=" + emp_vuln_female);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-					campo="";
-
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						campo = "Encontrado país " + country + " año " + year + " % Empleo Fem 15 a 24 años de " + emp_female_age15_24 + " un % de Empleo Masc 15 a 24 años de " + emp_male_age15_24 + " y un % de Empleo Fem vulnerable de " + emp_vuln_female;
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe un país con nombre " + country + " año " + year + " un % de Empleo Fem 15 a 24 años de " + emp_female_age15_24 + " un % de Empleo Masc 15 a 24 años de " + emp_male_age15_24 + " y un % de Empleo Fem vulnerable de " + emp_vuln_female;
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}	
-			}else if(country != undefined && year != undefined && emp_female_age15_24 != undefined && emp_male_age15_24 != undefined && emp_vuln_female != undefined && emp_vuln_male != undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?country=" + country + "&year=" + year + "&emp_female_age15_24=" + emp_female_age15_24 + "&emp_male_age15_24=" + emp_male_age15_24 + "&emp_vuln_female=" + emp_vuln_female + "&emp_vuln_male=" + emp_vuln_male);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-					campo="";
-
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						campo = "Encontrado país " + country + " año " + year + " un % de Empleo Fem 15 a 24 años de " + emp_female_age15_24 + " un % de Empleo Masc 15 a 24 años de " + emp_male_age15_24 + " un % de Empleo Fem vulnerable de " + emp_vuln_female + " y un % de Empleo Masc vulnerable de " + emp_vuln_male;
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe un país con nombre " + country + " año " + year + " un % de Empleo Fem 15 a 24 años de " + emp_female_age15_24 + " un % de Empleo Masc 15 a 24 años de " + emp_male_age15_24 + " un % de Empleo Fem vulnerable de " + emp_vuln_female + " y un % de Empleo Masc vulnerable de " + emp_vuln_male;
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}	
-			}else if(country == undefined && year == undefined && emp_female_age15_24 != undefined && emp_male_age15_24 == undefined && emp_vuln_female == undefined && emp_vuln_male == undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?emp_female_age15_24=" + emp_female_age15_24);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-					campo="";
-
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						campo = "Encontrado país con un % de Empleo Fem 15 a 24 años de " + emp_female_age15_24;
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe un país con un % de Empleo Fem 15 a 24 años de " + emp_female_age15_24;
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}
-			}else if(country == undefined && year == undefined && emp_female_age15_24 == undefined && emp_male_age15_24 != undefined && emp_vuln_female == undefined && emp_vuln_male == undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?emp_male_age15_24=" + emp_male_age15_24);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-					campo = "";
-
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						campo = "Encontrado país con un % de Empleo Masc 15 a 24 años de " + emp_male_age15_24;
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe un país con un % de Empleo Fem 15 a 24 años de " + emp_female_age15_24;
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}
-			}else if(country == undefined && year == undefined && emp_female_age15_24 == undefined && emp_male_age15_24 == undefined && emp_vuln_female != undefined && emp_vuln_male == undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?emp_vuln_female=" + emp_vuln_female);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-					campo="";
-
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						campo = "Encontrado país con un % de Empleo Fem vulnerable de " + emp_vuln_female;
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe un país con un % de Empleo Fem vulnerable de " + emp_vuln_female;
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}
-			}else if(country == undefined && year == undefined && emp_female_age15_24 == undefined && emp_male_age15_24 == undefined && emp_vuln_female == undefined && emp_vuln_male != undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?emp_vuln_male=" + emp_vuln_male);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-					campo="";
-
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						campo = "Encontrado país con un % de Empleo Masc vulnerable de " + emp_vuln_male;
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe un país con un % de Empleo Masc vulnerable de " + emp_vuln_male;
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}
-			}else if(country != undefined && year == undefined && emp_female_age15_24 != undefined && emp_male_age15_24 == undefined && emp_vuln_female == undefined && emp_vuln_male == undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?country=" + country + "&emp_female_age15_24="+emp_female_age15_24);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe ese recurso ";
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}
-			}else if(country != undefined && year == undefined && emp_female_age15_24 == undefined && emp_male_age15_24 != undefined && emp_vuln_female == undefined && emp_vuln_male == undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?country=" + country + "&emp_male_age15_24="+emp_male_age15_24);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe ese recurso ";
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}
-			}else if(country != undefined && year == undefined && emp_female_age15_24 == undefined && emp_male_age15_24 == undefined && emp_vuln_female != undefined && emp_vuln_male == undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?country=" + country + "&emp_vuln_female="+emp_vuln_female);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe ese recurso ";
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}
-			}else if(country != undefined && year == undefined && emp_female_age15_24 == undefined && emp_male_age15_24 == undefined && emp_vuln_female == undefined && emp_vuln_male != undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?country=" + country + "&emp_vuln_male="+emp_vuln_male);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe ese recurso ";
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}
-			}else if(country == undefined && year != undefined && emp_female_age15_24 == undefined && emp_male_age15_24 == undefined && emp_vuln_female == undefined && emp_vuln_male != undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?year=" + year + "&emp_vuln_male="+emp_vuln_male);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe ese recurso ";
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}
-			}else if(country == undefined && year != undefined && emp_female_age15_24 != undefined && emp_male_age15_24 == undefined && emp_vuln_female == undefined && emp_vuln_male == undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?year=" + year + "&emp_female_age15_24="+emp_female_age15_24);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe ese recurso ";
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}
-			}else if(country == undefined && year == undefined && emp_female_age15_24 != undefined && emp_male_age15_24 != undefined && emp_vuln_female == undefined && emp_vuln_male == undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?emp_female_age15_24=" + emp_female_age15_24 + "&emp_male_age15_24="+emp_male_age15_24);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe ese recurso ";
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
-				}
-			}else if(country == undefined && year == undefined && emp_female_age15_24 == undefined && emp_male_age15_24 == undefined && emp_vuln_female != undefined && emp_vuln_male != undefined){
-				const res = await fetch(base_API_URL+"/emp-stats?emp_vuln_female=" + emp_vuln_female + "&emp_vuln_male="+emp_vuln_male);
-				if(res.ok){
-					const json = await res.json();
-					emps = json;
-
-					if(emps.length != 0){
-						titulo = "¡Correcto!";
-						color_alert = "success";
-						visible_alert = true;
-					}else{
-						titulo = "¡Error!";
-						campo = "No existe ese recurso ";
-						color_alert = "danger";
-						visible_alert = true;
-						setTimeout(function (){
-							getEmps();
-						}, 4000);
-					}
+				}else{
+					titulo = "¡Correcto!";
+					campo = "Encontrado el recurso con los siguientes valores " + JSON.stringify(search_Emp, null, 2);
+					color_alert = "success";
+					visible_alert = true;
 				}
 			}
 		}
@@ -573,7 +255,7 @@
 					console.log("Received "+emps.length+" resources of employments.");
 					setTimeout(function (){
 						getEmps();
-					}, 1000);
+					}, 2000);
 			
 				}else{
 					
@@ -639,7 +321,7 @@
 					
 					setTimeout(function (){
 						getEmps();
-					}, 4000);
+					}, 2000);
 				}
 				
 			}else{
@@ -655,17 +337,14 @@
 
 	}
 
-	var actual_page = 0;
 
 	async function nextPage(){
 
 		const res = await fetch(base_API_URL+"/emp-stats");
 		const json = await res.json();
-		emps = json;
 		
-		if(offset + 10 <= emps.length){
+		if(offset + 10 <= json.length){
 
-			actual_page = actual_page + 1;
 			offset = offset + 10;
 			const res = await fetch(base_API_URL+"/emp-stats?limit=10&offset="+offset);
 			const json = await res.json();
@@ -678,30 +357,12 @@
 
 		if(offset - 10 >= 0){
 			
-			actual_page = actual_page - 1;
 			offset = offset - 10;
-			const res = await fetch(base_API_URL+"/emp-stats?limit=10offset="+offset);
+			const res = await fetch(base_API_URL+"/emp-stats?limit=10&offset="+offset);
 
 			const json = await res.json();
 			emps = json;
 		}
-	}
-
-	async function first_page(){
-		const res = await fetch(base_API_URL+"/emp-stats?limit=10offset="+offset);
-
-		const json = await res.json();
-		emps = json;
-		
-	}
-
-	async function last_page(){
-
-		const res = await fetch(base_API_URL+"/emp-stats?limit=4offset="+offset);
-
-		const json = await res.json();
-		emps = json;
-		
 	}
 
 
@@ -737,13 +398,13 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td><input bind:value="{searchEmp.country}"></td>
-					<td><input bind:value="{searchEmp.year}"></td>
-					<td><input bind:value="{searchEmp.emp_female_age15_24}"></td>
-                    <td><input bind:value="{searchEmp.emp_male_age15_24}"></td>
-                    <td><input bind:value="{searchEmp.emp_vuln_female}"></td>
-                    <td><input bind:value="{searchEmp.emp_vuln_male}"></td>
-					<td><Button outline color="warning" on:click="{searchEmp(searchEmp.country, searchEmp.year, searchEmp.emp_female_age15_24, searchEmp.emp_male_age15_24, searchEmp.emp_vuln_female, searchEmp.emp_vuln_male)}">Buscar</Button></td>
+					<td><input bind:value="{searchingEmp.country}"></td>
+					<td><input bind:value="{searchingEmp.year}"></td>
+					<td><input bind:value="{searchingEmp.emp_female_age15_24}"></td>
+                    <td><input bind:value="{searchingEmp.emp_male_age15_24}"></td>
+                    <td><input bind:value="{searchingEmp.emp_vuln_female}"></td>
+                    <td><input bind:value="{searchingEmp.emp_vuln_male}"></td>
+					<td><Button outline color="warning" on:click="{searchingEmp}">Buscar</Button></td>
 					
 				</tr>			
 
@@ -775,90 +436,9 @@
 		</Table>
 	{/await}
 
-	<Pagination ariaLabel="Page navigation">
-		
-		
-		{#if actual_page == 0}
-		<PaginationItem disabled>
-		  <PaginationLink previous href="#/emp-stats"/>
-		</PaginationItem>
-		{/if}
+	<Button outline color="primary" on:click="{previousPage}">Anterior página</Button>
+	<Button outline color="primary" on:click="{nextPage}">Siguiente página</Button>
 
-		{#if actual_page != 0}
-		<PaginationItem disabled>
-		  <PaginationLink previous href="#/emp-stats" on:click="{previousPage}"/>
-		</PaginationItem>
-		{/if}
-
-		{#if actual_page == 0}
-		<PaginationItem >
-			<PaginationLink href="#/emp-stats" >1</PaginationLink>
-		</PaginationItem>
-		{/if}
-
-		{#if actual_page == 1}
-		<PaginationItem >
-			<PaginationLink href="#/emp-stats" on:click="{previousPage}">1</PaginationLink>
-		</PaginationItem>
-		{/if}
-
-		{#if actual_page == 2}
-		<PaginationItem >
-			<PaginationLink href="#/emp-stats" on:click="{first_page}">1</PaginationLink>
-		</PaginationItem>
-		{/if}
-
-		{#if actual_page == 1}
-		<PaginationItem >
-			<PaginationLink href="#/emp-stats">2</PaginationLink>
-		</PaginationItem>
-		{/if}
-		
-		{#if actual_page == 2}
-		<PaginationItem >
-			<PaginationLink href="#/emp-stats" on:click="{previousPage}">2</PaginationLink>
-		</PaginationItem>
-		{/if}
-
-		{#if actual_page == 0}
-		<PaginationItem >
-			<PaginationLink href="#/emp-stats" on:click="{nextPage}">2</PaginationLink>
-		</PaginationItem>
-		{/if}
-
-		{#if actual_page == 0}
-		<PaginationItem >
-			<PaginationLink href="#/emp-stats" on:click="{last_page}">3</PaginationLink>
-		</PaginationItem>
-		{/if}
-
-		{#if actual_page == 1}
-		<PaginationItem >
-			<PaginationLink href="#/emp-stats" on:click="{nextPage}">3</PaginationLink>
-		</PaginationItem>
-		{/if}
-
-		{#if actual_page == 2}
-		<PaginationItem >
-			<PaginationLink href="#/emp-stats">3</PaginationLink>
-		</PaginationItem>
-		{/if}
-		
-		{#if actual_page == 2}
-		<PaginationItem>
-			<PaginationLink next href="#/emp-stats"/>
-		</PaginationItem>
-		{/if}
-
-		{#if actual_page != 2}
-		<PaginationItem>
-			<PaginationLink next href="#/emp-stats" on:click="{nextPage}"/>
-		</PaginationItem>
-		{/if}
-		
-		  
-	  </Pagination>
-
-	  <Button outline color = "secondary" on:click="{pop}">Volver</Button>
+	<Button outline color = "secondary" on:click="{pop}">Volver</Button>
 
 </main>
