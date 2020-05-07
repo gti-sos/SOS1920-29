@@ -3,3 +3,5 @@
 /src/back/edq_stats_API/edq_stats.db
 /src/back/emp_stats_API/v1/emp-stats.db
 /src/back/emp_stats_API/v2/emp-stats.db
+/src/back/womanresearchers_stats_ATPI/v1/womanresearchers_stats.db
+/src/back/womanresearchers_stats_ATPI/v2/womanresearchers_stats.db
