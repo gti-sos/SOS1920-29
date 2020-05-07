@@ -410,9 +410,9 @@
 			<tr>
 				<th>País</th>
 				<th>Año</th>
-				<th>edq_sg</th>
-                <th>edq_gee</th>
-                <th>edq_ptr</th>
+				<th>Graduados en ciencia por 1000 habitantes</th>
+                <th>Gasto del gobierno en educación (billones)</th>
+                <th>Ratio de profesores/alumnos</th>
 			</tr>
 		</thead>
 		<tbody>
