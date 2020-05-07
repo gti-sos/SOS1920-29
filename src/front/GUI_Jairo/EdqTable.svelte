@@ -108,6 +108,9 @@
 					if(isNaN(new_edq_data.year)){
 						descr_alerta += " No ha introducido el año.";
 					}
+					if(!isNaN(search_data.edq_sg) || !isNaN(search_data.edq_gee) || !isNaN(search_data.edq_ptr)){
+						descr_alerta += " Rellene todos los campos para introducir un dato.";
+					}
 				}
 				alerta_visible = true;
 			}
