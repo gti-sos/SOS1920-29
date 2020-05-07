@@ -3,6 +3,7 @@
 {"country":"Spain","year":2014,"edq_sg":21.1,"edq_gee":43,"edq_ptr":15.1,"_id":"4cypskN0isuKcgDC"}
 {"country":"Italy","year":2013,"edq_sg":13.8,"edq_gee":66.8,"edq_ptr":13.5,"_id":"89amAKdUQhDSSTuL"}
 {"country":"Ejemplo4","year":2015,"edq_sg":7,"edq_gee":8,"edq_ptr":9,"_id":"B14vkE1KRriAE2po"}
+{"country":"Ejemplo2","year":2015,"edq_sg":6,"edq_gee":9,"edq_ptr":8,"_id":"CPr58Pf3HRJONTSh"}
 {"country":"Portugal","year":2013,"edq_sg":18.6,"edq_gee":8.8,"edq_ptr":16.6,"_id":"DR48WjeNP8ngyP7P"}
 {"country":"Finland","year":2015,"edq_sg":23.7,"edq_gee":14.2,"edq_ptr":10.2,"_id":"OwQZca9wiBX5AP0q"}
 {"country":"Malta","year":2013,"edq_sg":15.8,"edq_gee":0.4,"edq_ptr":13.4,"_id":"V5QdBAj0CIK28FBx"}
@@ -14,6 +15,7 @@
 {"country":"Spain","year":2015,"edq_sg":22.4,"edq_gee":44.7,"edq_ptr":14.9,"_id":"ZcOsKUFHsGEk7y7h"}
 {"country":"Croatia","year":2013,"edq_sg":15.5,"edq_gee":1.9,"edq_ptr":12.2,"_id":"cL5uMx3IJNi9vC7c"}
 {"country":"Finland","year":2014,"edq_sg":22.3,"edq_gee":14,"edq_ptr":10.2,"_id":"dKFFr8ZvAB2sppU7"}
+{"country":"Ejemplo3","year":2015,"edq_sg":9,"edq_gee":9,"edq_ptr":9,"_id":"eYVsqdSmnitmxzV4"}
 {"country":"Czechia","year":2014,"edq_sg":16.6,"edq_gee":6,"edq_ptr":13.7,"_id":"fIZRFuFwvxBY6G1O"}
 {"country":"Portugal","year":2015,"edq_sg":18.6,"edq_gee":8.6,"edq_ptr":17.4,"_id":"htsW9Z5fKbcmf2Mu"}
 {"country":"Malta","year":2014,"edq_sg":15.7,"edq_gee":0.4,"edq_ptr":13.6,"_id":"lxRBRBwWzzXkLYCa"}
@@ -24,5 +26,3 @@
 {"country":"Croatia","year":2015,"edq_sg":16.8,"edq_gee":1.9,"edq_ptr":12,"_id":"um6ksLlKNQJgl6VT"}
 {"country":"Spain","year":2013,"edq_sg":19.4,"edq_gee":42.9,"edq_ptr":14.8,"_id":"wcqn9NfuluBk54Lg"}
 {"country":"Ejemplo","year":2015,"edq_sg":2,"edq_gee":5,"edq_ptr":6,"_id":"xq7dcOHHJVRRZKfc"}
-{"country":"Ejemplo2","year":2015,"edq_sg":6,"edq_gee":9,"edq_ptr":8,"_id":"CPr58Pf3HRJONTSh"}
-{"country":"Ejemplo3","year":2015,"edq_sg":9,"edq_gee":9,"edq_ptr":9,"_id":"eYVsqdSmnitmxzV4"}
