@@ -161,7 +161,6 @@
 			var filter_array = new Object();
 
 			for (const prop in search_Emp) {
-				console.log("holaa");
 				
 				if(prop == "country"){
 			
@@ -343,7 +342,7 @@
 		const res = await fetch(base_API_URL+"/emp-stats");
 		const json = await res.json();
 		
-		if(offset + 10 <= json.length){
+		if(offset + 10 <= json.length-1){
 
 			offset = offset + 10;
 			const res = await fetch(base_API_URL+"/emp-stats?limit=10&offset="+offset);
