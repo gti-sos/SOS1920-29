@@ -212,7 +212,7 @@
 		
 		if(res.ok && url_filter!=" " ){		
 
-			const json = res.json();
+			const json = await res.json();
 			womanresearchersData = json;
 
 			
