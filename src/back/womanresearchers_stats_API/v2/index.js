@@ -1,9 +1,12 @@
 module.exports = function(app){
+
+	console.log("Entrando en API womanresearchers-stats...");
+
 	const dataStore= require("nedb");
 	const path = require("path");
 	const dbFileName= path.join(__dirname,"womanresearchers_stats.db");
 	
-	const BASE_API_URL = "/api/v1";
+	const BASE_API_URL = "/api/v2";
 	
 	const db = new dataStore({
 		filename: dbFileName,
@@ -23,7 +26,7 @@ var initialwomanresearchers_stats = [
 		country: "Croatia",
 		year: 2014,
 		womanresearchers_he: 3397,
-		womanresearchers_he: 1352,
+		womanresearchers_gov: 1352,
 		womanresearchers_bent:497
 	},
 	{ 
@@ -187,6 +190,7 @@ var initialwomanresearchers_stats = [
 
 //load initial data
 app.get(BASE_API_URL+"/womanresearchers-stats/loadInitialData", (req, res) =>{
+	db.remove({}, {multi:true});
 	db.insert(initialwomanresearchers_stats);
 	res.sendStatus(200,"OK");
 	console.log("Initial Woman Researchers  loaded; "+JSON.stringify(initialwomanresearchers_stats,null,2));
@@ -223,8 +227,10 @@ app.get(BASE_API_URL+"/womanresearchers-stats", (req,res) =>{
 			womanresearchers.forEach( (woman) => {
 				delete woman._id;
 			});
+			res.send(JSON.stringify(womanresearchers,null,2));
+			console.log("Data sent:"+JSON.stringify(womanresearchers,null,2));
 		
-			if(womanresearchers.length!=1) {
+		/*	if(womanresearchers.length!=1) {
 				res.send(JSON.stringify(womanresearchers,null,2));
 				console.log("Data sent:"+JSON.stringify(womanresearchers,null,2));
 			} else if(womanresearchers.length==0){
@@ -233,7 +239,7 @@ app.get(BASE_API_URL+"/womanresearchers-stats", (req,res) =>{
 				res.send(JSON.stringify(womanresearchers[0],null,2));
 				console.log("Data sent:"+JSON.stringify(womanresearchers[0],null,2));
 			}
-
+*/
 
 		})
 	
