@@ -212,7 +212,7 @@
 		
 		if(res.ok && url_filter!=" " ){		
 
-			const json = res.json();
+			const json = await res.json();
 			womanresearchersData = json;
 
 			
@@ -227,7 +227,7 @@
 			console.log(res.status + ": " + res.statusText);*/
 
 			alert_title = "Exito."; 
-			alert_description = "Dato encontrado, "; 
+			alert_description = womanresearchersData.length +" Datos encontrados con  "; 
 			alert_color = "success";
 			alert_active = true; 
 			console.log(res.status + ": " + res.statusText);
