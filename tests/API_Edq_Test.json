@@ -1,0 +1,653 @@
+{
+	"info": {
+		"_postman_id": "0e73e315-34b0-44f2-8e4e-21eba2ae5428",
+		"name": "SOS1920-29-edq-stats",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "delete edq-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "df811fbe-4ee1-4f15-888f-be932d50c770",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/edq-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"edq-stats"
+					]
+				},
+				"description": "Delete all the data in the server."
+			},
+			"response": []
+		},
+		{
+			"name": "get loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2615456d-958e-4611-b99b-af0644631d7e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/edq-stats/loadInitialData",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"edq-stats",
+						"loadInitialData"
+					]
+				},
+				"description": "Charge data on the server and receive it."
+			},
+			"response": []
+		},
+		{
+			"name": "get edq-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3c5b2cfe-be19-46b2-9265-6098cb34bce4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"There are 24 datas of Country/Year\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.lengthOf(24);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"country\");",
+							"    pm.expect(pm.response.text()).to.include(\"year\");",
+							"    pm.expect(pm.response.text()).to.include(\"edq_gee\");",
+							"    pm.expect(pm.response.text()).to.include(\"edq_ptr\");",
+							"    pm.expect(pm.response.text()).to.include(\"edq_sg\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/edq-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"edq-stats"
+					]
+				},
+				"description": "Receive the data saved in the server."
+			},
+			"response": []
+		},
+		{
+			"name": "post edq-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "201e6397-569f-4807-9112-a73bfb377e73",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"country\": \"TestData\",\r\n\t\"year\": 2013,\r\n\t\"edq_sg\": 19.4,\r\n\t\"edq_gee\": 42.9,\r\n\t\"edq_ptr\": 14.8\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/edq-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"edq-stats"
+					]
+				},
+				"description": "Push the given data into the server."
+			},
+			"response": []
+		},
+		{
+			"name": "post edq-stats Error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "201e6397-569f-4807-9112-a73bfb377e73",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"pais\": \"TestData2\",\r\n\t\"anho\": 2013,\r\n\t\"edq_sg\": 19.4,\r\n\t\"edq_gee\": 42.9,\r\n\t\"edq_ptr\": 14.8\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/edq-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"edq-stats"
+					]
+				},
+				"description": "Error in fields, we receive a 400 error."
+			},
+			"response": []
+		},
+		{
+			"name": "get edq_stats with filters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "220ea179-f2ca-4bd9-a234-253dd1818c06",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"country\");",
+							"    pm.expect(pm.response.text()).to.include(\"year\");",
+							"    pm.expect(pm.response.text()).to.include(\"edq_gee\");",
+							"    pm.expect(pm.response.text()).to.include(\"edq_ptr\");",
+							"    pm.expect(pm.response.text()).to.include(\"edq_sg\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/edq-stats?country=Spain&year=2013&edq_sg=19.4&edq_gee=42.9&edq_ptr=14.8",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"edq-stats"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "Spain"
+						},
+						{
+							"key": "year",
+							"value": "2013"
+						},
+						{
+							"key": "edq_sg",
+							"value": "19.4"
+						},
+						{
+							"key": "edq_gee",
+							"value": "42.9"
+						},
+						{
+							"key": "edq_ptr",
+							"value": "14.8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get edq_stats pagination",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "220ea179-f2ca-4bd9-a234-253dd1818c06",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"country\");",
+							"    pm.expect(pm.response.text()).to.include(\"year\");",
+							"    pm.expect(pm.response.text()).to.include(\"edq_gee\");",
+							"    pm.expect(pm.response.text()).to.include(\"edq_ptr\");",
+							"    pm.expect(pm.response.text()).to.include(\"edq_sg\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/edq-stats?offset=0&limit=5",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"edq-stats"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get edq-stats/CountryData/YearData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "32a4d0ba-107d-4ff3-a76e-479ddda400f2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"The data has all the fields\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"country\");",
+							"    pm.expect(jsonData).to.have.property(\"year\");",
+							"    pm.expect(jsonData).to.have.property(\"edq_sg\");",
+							"    pm.expect(jsonData).to.have.property(\"edq_gee\");",
+							"    pm.expect(jsonData).to.have.property(\"edq_ptr\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/edq-stats/TestData/2013",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"edq-stats",
+						"TestData",
+						"2013"
+					]
+				},
+				"description": "Receive the selected data from the server."
+			},
+			"response": []
+		},
+		{
+			"name": "delete edq-stats/CountryData/YearData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85996248-d416-48e8-9971-e30df56a737d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/edq-stats/TestData/2013",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"edq-stats",
+						"TestData",
+						"2013"
+					]
+				},
+				"description": "Delete the selected data from the server."
+			},
+			"response": []
+		},
+		{
+			"name": "put edq-stats/CountryData/YearData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "87929f27-6a9b-479e-880d-d35c56ba9067",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"country\": \"Spain\",\n\t\"year\": 2013,\n\t\"edq_sg\": 0.0,\n\t\"edq_gee\": 0.0,\n\t\"edq_ptr\": 0.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/edq-stats/Spain/2013",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"edq-stats",
+						"Spain",
+						"2013"
+					]
+				},
+				"description": "Update the selected data in the server."
+			},
+			"response": []
+		},
+		{
+			"name": "put edq-stats/CountryData/YearData Error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "87929f27-6a9b-479e-880d-d35c56ba9067",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"country\": \"Spain\",\n\t\"year\": 2013,\n\t\"edq_sg\": 0.0,\n\t\"dato_no_valido\": 0.0,\n\t\"edq_ptr\": 0.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/edq-stats/Spain/2013",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"edq-stats",
+						"Spain",
+						"2013"
+					]
+				},
+				"description": "The fields are not correct."
+			},
+			"response": []
+		},
+		{
+			"name": "post edq-stats/CountryData/YearData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "201e6397-569f-4807-9112-a73bfb377e73",
+						"exec": [
+							"pm.test(\"POST rechazado\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"country\": \"TestData\",\r\n\t\"year\": 2013,\r\n\t\"edq_sg\": 19.4,\r\n\t\"edq_gee\": 42.9,\r\n\t\"edq_ptr\": 14.8\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/edq-stats/Spain/2013",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"edq-stats",
+						"Spain",
+						"2013"
+					]
+				},
+				"description": "Receive an error code, we can not \"POST\" on a specific data. We have to do it in a collection of data."
+			},
+			"response": []
+		},
+		{
+			"name": "put edq-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "10363383-2451-4d73-a62b-6155e4ad5395",
+						"exec": [
+							"pm.test(\"PUT rechazado\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n\t\"country\": \"TestData1\",\r\n\t\"year\": 2013,\r\n\t\"edq_sg\": 19.4,\r\n\t\"edq_gee\": 42.9,\r\n\t\"edq_ptr\": 14.8\r\n},\r\n{\r\n\t\"country\": \"TestData2\",\r\n\t\"year\": 2014,\r\n\t\"edq_sg\": 19.4,\r\n\t\"edq_gee\": 42.9,\r\n\t\"edq_ptr\": 14.8\r\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/edq-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"edq-stats"
+					]
+				},
+				"description": "Receive an error code. We can not \"PUT\" on a data collection."
+			},
+			"response": []
+		},
+		{
+			"name": "delete edq-stats Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "df811fbe-4ee1-4f15-888f-be932d50c770",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/edq-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"edq-stats"
+					]
+				},
+				"description": "Delete all the data in the server."
+			},
+			"response": []
+		},
+		{
+			"name": "get loadInitialData Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2615456d-958e-4611-b99b-af0644631d7e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/edq-stats/loadInitialData",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"edq-stats",
+						"loadInitialData"
+					]
+				},
+				"description": "Charge data on the server and receive it."
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
