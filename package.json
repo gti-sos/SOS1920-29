@@ -1,12 +1,11 @@
 {
-  "name": "D03",
+  "name": "f02",
   "version": "1.0.0",
-  "description": "Repository D03",
+  "description": "Repository Feedback02.  Code of a web server made in NodeJS and using the Express module that returns the files inside the “/ public” folder",
   "main": "index.js",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "test": "npx newman run tests/API_Edq_Test.json",
     "start": "node index"
   },
   "devDependencies": {

@@ -383,7 +383,7 @@
 	<Button outline color="primary" on:click="{loadInitialData}">Cargar datos iniciales</Button>
 	<Button outline color="danger" on:click="{deleteAllEmp}">Borrar todos los datos</Button>
 
-		<Table bordered>
+		<Table bordered dark>
 			<thead>
 				<tr>
 					<th>País</th>

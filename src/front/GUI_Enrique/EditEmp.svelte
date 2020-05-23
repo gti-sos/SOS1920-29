@@ -103,7 +103,7 @@
 		{campo}
 	</Alert>
     
-	<Table bordered>
+	<Table bordered dark>
         <thead>
             <tr>
                 <th>País</th>
