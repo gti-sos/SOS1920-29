@@ -396,7 +396,7 @@
 		Loading data...
 	{:then data}
 
-	<h2><strong>edq_stats</strong></h2>
+	<h2><strong>Education quality stats</strong></h2>
 
 
 	<Alert id="alerta" color={alert_color} isOpen={alerta_visible} toggle={() => (alerta_visible = false)}>
@@ -404,42 +404,45 @@
 		<p>{descr_alerta}</p>
 	</Alert>
 
+	<div id="buttons"  class="text-center">
+		<Button color="primary" on:click="{loadInitialData}">Cargar recursos iniciales</Button>
+		<Button color="primary" on:click="{getData}">Ver recursos actuales</Button>
+		<Button color = "danger" on:click="{deleteAllData}">Borrar todos los recursos</Button>
+	</div>
+	
 
-	<Button color="primary" on:click="{loadInitialData}">Cargar recursos iniciales</Button>
-	<Button color="primary" on:click="{getData}">Ver recursos actuales</Button>
-	<Button color = "danger" on:click="{deleteAllData}">Borrar todos los recursos</Button>
 
-
-	<Table bordered>
-		<thead>
+	<Table style="text-align: center;" class="table table-striped" bordered>
+		<thead class="thead-dark">
 			<tr>
-				<th>País</th>
-				<th>Año</th>
-				<th>Graduados en ciencia por 1000 habitantes</th>
-                <th>Gasto del gobierno en educación (billones)</th>
-                <th>Ratio de profesores/alumnos</th>
+				<th style="vertical-align: middle;">País</th>
+				<th style="vertical-align: middle;">Año</th>
+				<th style="vertical-align: middle;">Graduados en ciencia por 1000 habitantes</th>
+                <th style="vertical-align: middle;">Gasto del gobierno en educación (billones)</th>
+				<th style="vertical-align: middle;">Ratio de alumnos por profesor</th>
+				<th style="vertical-align: middle;">Acciones</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td><input bind:value="{new_data.country}"></td>
-				<td><input bind:value="{new_data.year}"></td>
-                <td><input bind:value="{new_data.edq_sg}"></td>
-                <td><input bind:value="{new_data.edq_gee}"></td>
-                <td><input bind:value="{new_data.edq_ptr}"></td>
-				<td>
+				<td class="align-middle"><input bind:value="{new_data.country}"></td>
+				<td class="align-middle"><input bind:value="{new_data.year}"></td>
+                <td class="align-middle"><input bind:value="{new_data.edq_sg}"></td>
+                <td class="align-middle"><input bind:value="{new_data.edq_gee}"></td>
+                <td class="align-middle"><input bind:value="{new_data.edq_ptr}"></td>
+				<td class="align-middle">
 					<Button color="success"  on:click="{insertEdq}">Añadir</Button>
 					<Button color="primary"  on:click="{findEdq}">Buscar</Button>
 				</td>
 			</tr>
 			{#each data as dato}
 			<tr>
-				<td><a href="#/edq-stats/{dato.country}/{dato.year}">{dato.country}</a></td>
-				<td><a href="#/edq-stats/{dato.country}/{dato.year}">{dato.year}</a></td>
-                <td>{dato.edq_sg}</td>
-                <td>{dato.edq_gee}</td>
-                <td>{dato.edq_ptr}</td>
-				<td><Button color="danger" on:click="{deleteEdq(dato.country, dato.year)}">Borrar</Button></td>
+				<td class="align-middle"><a href="#/edq-stats/{dato.country}/{dato.year}">{dato.country}</a></td>
+				<td class="align-middle"><a href="#/edq-stats/{dato.country}/{dato.year}">{dato.year}</a></td>
+                <td class="align-middle">{dato.edq_sg}</td>
+                <td class="align-middle">{dato.edq_gee}</td>
+                <td class="align-middle">{dato.edq_ptr}</td>
+				<td class="align-middle"><Button color="danger" on:click="{deleteEdq(dato.country, dato.year)}">Borrar</Button></td>
 			</tr>
 			{/each}
 		</tbody>
@@ -452,3 +455,4 @@
 
 	<Button outline color = "secondary" on:click="{pop}">Volver</Button>
 </main>
+
