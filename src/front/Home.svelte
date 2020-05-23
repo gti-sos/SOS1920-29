@@ -30,7 +30,7 @@
         </li>
             
         <li><strong>API's GUI:</strong>
-            <p><a href="#/emp-stats">Frontend Enrique</a></p>
+            <Button color="warning" href="#/emp-stats">Employment statistics</Button>
             <Button color="success" href="#/edq-stats">Education quality stats</Button>
             <p><a href="#/womanresearchers-stats">Frontend Lizeth</a></p>
         </li>

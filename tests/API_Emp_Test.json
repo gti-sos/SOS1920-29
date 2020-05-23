@@ -1,0 +1,788 @@
+{
+	"info": {
+		"_postman_id": "20dbbd8b-caaa-4d3c-8de9-01d54f5c48d6",
+		"name": "SOS1920-29-emp-stats (Api-versión 2)",
+		"description": "API version 2, fixes bugs in the first (\"?limit=1\")",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get /api/v2/emp-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "03748f70-6ae3-4f0e-bf6b-400c028baeb2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"There must be 0 resources\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.length(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats"
+					]
+				},
+				"description": "Initially there is no resource until (loadInitialData) is loaded."
+			},
+			"response": []
+		},
+		{
+			"name": "get /api/v2/emp-stats/loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dac4816a-cc51-43fc-a06c-f54e1955a134",
+						"exec": [
+							"pm.test(\"Status code is 201, Resources loaded!\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"Created\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats/loadInitialData",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats",
+						"loadInitialData"
+					]
+				},
+				"description": "Resources are loaded!"
+			},
+			"response": []
+		},
+		{
+			"name": "get /api/v2/emp-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "60032058-8cb2-4c10-8289-48c73fd6e70c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"There must be two or more resources\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.length.above(2);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats"
+					]
+				},
+				"description": "All resources are already loaded!"
+			},
+			"response": []
+		},
+		{
+			"name": "post /api/v2/emp-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3363f787-6882-4f58-8433-7edb8a7ee650",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"Germany\",\r\n\"year\": 2014,\r\n\"emp_female_age15_24\": 12.983,\r\n\"emp_male_age15_24\": 14.987,\r\n\"emp_vuln_female\": 13.344\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats"
+					]
+				},
+				"description": "It must give error \"400, Bad Request\" due to missing data."
+			},
+			"response": []
+		},
+		{
+			"name": "post /api/v2/emp-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fbc06416-526c-4fbe-be13-81bf01323628",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"Created\");",
+							"});",
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"Germany\",\r\n\"year\": 2014,\r\n\"emp_female_age15_24\": 12.983,\r\n\"emp_male_age15_24\": 14.987,\r\n\"emp_vuln_female\": 13.344,\r\n\"emp_vuln_male\": 15.670\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats"
+					]
+				},
+				"description": "Create a new resource."
+			},
+			"response": []
+		},
+		{
+			"name": "get /api/v2/emp-stats/Germany/2014",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9703327-4812-4a07-a5e3-11e8cbfe22d2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"It has property country\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('country');",
+							"});",
+							"pm.test(\"It has property year\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('year');",
+							"});",
+							"pm.test(\"check_country\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(response.country).to.eql(\"Germany\");",
+							"});",
+							"pm.test(\"check_year\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(response.year).to.eql(2014);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats/Germany/2014",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats",
+						"Germany",
+						"2014"
+					]
+				},
+				"description": "Returns that specific resource (Germany, 2014)"
+			},
+			"response": []
+		},
+		{
+			"name": "delete /api/v2/emp-stats/Germany/2014",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "146f41c3-6ee7-447d-8c66-51a501934fe3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats/Germany/2014",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats",
+						"Germany",
+						"2014"
+					]
+				},
+				"description": "Delete that specific resource."
+			},
+			"response": []
+		},
+		{
+			"name": "put /api/v2/emp-stats/Spain/2013",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b60548c-f124-40c6-8ff3-c85a18017881",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"Spain\",\r\n\"year\": 2013,\r\n\"emp_female_age15_24\": 10,\r\n\"emp_male_age15_24\": 20,\r\n\"emp_vuln_female\": 30,\r\n\"emp_vuln_male\": 40\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats/Spain/2013",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats",
+						"Spain",
+						"2013"
+					]
+				},
+				"description": "Modifies a specific resource, in this case Spain 2013."
+			},
+			"response": []
+		},
+		{
+			"name": "put /api/v2/emp-stats/Italy/2013",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b60548c-f124-40c6-8ff3-c85a18017881",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"Italy\",\r\n\"year\": 2013,\r\n\"emp_female_age15_24\": 10,\r\n\"emp_male_age15_24\": 20,\r\n\"emp_vuln_female\": 30\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats/Italy/2013",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats",
+						"Italy",
+						"2013"
+					]
+				},
+				"description": "It must give error \"400, Bad Request\" due to missing data."
+			},
+			"response": []
+		},
+		{
+			"name": "put /api/v2/emp-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "095c1a7b-0c7c-4b5a-b50e-976d9205d229",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats"
+					]
+				},
+				"description": "Method error not allowed, because we cannot PUT a data collection."
+			},
+			"response": []
+		},
+		{
+			"name": "post /api/v2/emp-stats/Italy/2013",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f3c5fb0-7eb1-4a6c-b598-999dbf7af099",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"pm.test(\"Failed POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([405]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats/Italy/2013",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats",
+						"Italy",
+						"2013"
+					]
+				},
+				"description": "Method error not allowed, because we cannot POST a specific data."
+			},
+			"response": []
+		},
+		{
+			"name": "get /api/v2/emp-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b616a8b-778e-446c-b88f-0d5880564fd1",
+						"exec": [
+							"pm.test(\"Payload must be valid and have a body\", function () { ",
+							"     pm.response.to.be.ok; // equivalente a decir que valide que sea 200",
+							"     pm.response.to.be.withBody; // body tiene que exitir",
+							"     pm.response.to.be.json; // además que sea un JSON válido",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats?limit=1",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "1"
+						}
+					]
+				},
+				"description": "\"?limit=1\""
+			},
+			"response": []
+		},
+		{
+			"name": "get /api/v2/emp-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b616a8b-778e-446c-b88f-0d5880564fd1",
+						"exec": [
+							"pm.test(\"Payload must be valid and have a body\", function () { ",
+							"     pm.response.to.be.ok; // equivalente a decir que valide que sea 200",
+							"     pm.response.to.be.withBody; // body tiene que exitir",
+							"     pm.response.to.be.json; // además que sea un JSON válido",
+							"});",
+							"pm.test(\"There must be 3 resources\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.length(3);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats?limit=3&offset=1",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3"
+						},
+						{
+							"key": "offset",
+							"value": "1"
+						}
+					]
+				},
+				"description": "\"first page\" pagination."
+			},
+			"response": []
+		},
+		{
+			"name": "get /api/v2/emp-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9705dcbd-46f3-4e5e-bb9a-52e73ee7a262",
+						"exec": [
+							"pm.test(\"Payload must be valid and have a body\", function () { ",
+							"     pm.response.to.be.ok; // equivalente a decir que valide que sea 200",
+							"     pm.response.to.be.withBody; // body tiene que exitir",
+							"     pm.response.to.be.json; // además que sea un JSON válido",
+							"});",
+							"pm.test(\"There must be 3 resources\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.length(3);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats?limit=3&offset=11",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3"
+						},
+						{
+							"key": "offset",
+							"value": "11"
+						}
+					]
+				},
+				"description": "paging \"middle page\"."
+			},
+			"response": []
+		},
+		{
+			"name": "get /api/v2/emp-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3152cb05-d5fa-4070-8a67-d867cc07e020",
+						"exec": [
+							"pm.test(\"Payload must be valid and have a body\", function () { ",
+							"     pm.response.to.be.ok; // equivalente a decir que valide que sea 200",
+							"     pm.response.to.be.withBody; // body tiene que exitir",
+							"     pm.response.to.be.json; // además que sea un JSON válido",
+							"});",
+							"pm.test(\"There must be 3 resources\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.length(3);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats?limit=3&offset=21",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3"
+						},
+						{
+							"key": "offset",
+							"value": "21"
+						}
+					]
+				},
+				"description": "pagination \"final page\"."
+			},
+			"response": []
+		},
+		{
+			"name": "get /api/v2/emp-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4c31b33-3919-4afa-b277-fd4a933ec88a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"There must be one resource\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.length(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats?country=Spain&year=2014&emp_female_age15_24=15.92&emp_male_age15_24=17.397&emp_vuln_female=9.482&emp_vuln_male=15.062",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "Spain"
+						},
+						{
+							"key": "year",
+							"value": "2014"
+						},
+						{
+							"key": "emp_female_age15_24",
+							"value": "15.92"
+						},
+						{
+							"key": "emp_male_age15_24",
+							"value": "17.397"
+						},
+						{
+							"key": "emp_vuln_female",
+							"value": "9.482"
+						},
+						{
+							"key": "emp_vuln_male",
+							"value": "15.062"
+						}
+					]
+				},
+				"description": "Searches."
+			},
+			"response": []
+		},
+		{
+			"name": "delete /api/v2/emp-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bab0206f-cd72-4085-896c-834d5ad5ee16",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v2/emp-stats",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"emp-stats"
+					]
+				},
+				"description": "Delete all resources!"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

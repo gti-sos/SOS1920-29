@@ -1,7 +1,7 @@
 {
-  "name": "f02",
+  "name": "D03",
   "version": "1.0.0",
-  "description": "Repository Feedback02.  Code of a web server made in NodeJS and using the Express module that returns the files inside the “/ public” folder",
+  "description": "Repository D03",
   "main": "index.js",
   "scripts": {
     "build": "rollup -c",
