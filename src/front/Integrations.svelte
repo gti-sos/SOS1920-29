@@ -1,6 +1,7 @@
 <script>
     import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
+    import {pop} from "svelte-spa-router";
 </script>
 
 <main>
@@ -29,4 +30,8 @@
 
         </tbody>
     </Table>
+
+
+    <Button outline color = "secondary" on:click="{pop}">Volver</Button>
+
 </main>
