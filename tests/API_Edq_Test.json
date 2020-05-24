@@ -25,9 +25,9 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/edq-stats",
+					"raw": "http://localhost:8000/api/v1/edq-stats",
 					"host": [
-						"{{BASE_URL}}"
+						"localhost:8000"
 					],
 					"path": [
 						"api",
@@ -60,9 +60,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/edq-stats/loadInitialData",
+					"raw": "http://localhost:8000/api/v1/edq-stats/loadInitialData",
 					"host": [
-						"{{BASE_URL}}"
+						"localhost:8000"
 					],
 					"path": [
 						"api",
@@ -106,9 +106,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/edq-stats",
+					"raw": "http://localhost:8000/api/v1/edq-stats",
 					"host": [
-						"{{BASE_URL}}"
+						"localhost:8000"
 					],
 					"path": [
 						"api",
@@ -150,9 +150,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/edq-stats",
+					"raw": "http://localhost:8000/api/v1/edq-stats",
 					"host": [
-						"{{BASE_URL}}"
+						"localhost:8000"
 					],
 					"path": [
 						"api",
@@ -193,9 +193,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/edq-stats",
+					"raw": "http://localhost:8000/api/v1/edq-stats",
 					"host": [
-						"{{BASE_URL}}"
+						"localhost:8000"
 					],
 					"path": [
 						"api",
@@ -234,9 +234,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/edq-stats?country=Spain&year=2013&edq_sg=19.4&edq_gee=42.9&edq_ptr=14.8",
+					"raw": "http://localhost:8000/api/v1/edq-stats?country=Spain&year=2013&edq_sg=19.4&edq_gee=42.9&edq_ptr=14.8",
 					"host": [
-						"{{BASE_URL}}"
+						"localhost:8000"
 					],
 					"path": [
 						"api",
@@ -296,9 +296,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/edq-stats?offset=0&limit=5",
+					"raw": "http://localhost:8000/api/v1/edq-stats?offset=0&limit=5",
 					"host": [
-						"{{BASE_URL}}"
+						"localhost:8000"
 					],
 					"path": [
 						"api",
@@ -347,9 +347,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/edq-stats/TestData/2013",
+					"raw": "http://localhost:8000/api/v1/edq-stats/TestData/2013",
 					"host": [
-						"{{BASE_URL}}"
+						"localhost:8000"
 					],
 					"path": [
 						"api",
@@ -384,9 +384,9 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/edq-stats/TestData/2013",
+					"raw": "http://localhost:8000/api/v1/edq-stats/TestData/2013",
 					"host": [
-						"{{BASE_URL}}"
+						"localhost:8000"
 					],
 					"path": [
 						"api",
@@ -429,9 +429,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/edq-stats/Spain/2013",
+					"raw": "http://localhost:8000/api/v1/edq-stats/Spain/2013",
 					"host": [
-						"{{BASE_URL}}"
+						"localhost:8000"
 					],
 					"path": [
 						"api",
@@ -474,9 +474,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/edq-stats/Spain/2013",
+					"raw": "http://localhost:8000/api/v1/edq-stats/Spain/2013",
 					"host": [
-						"{{BASE_URL}}"
+						"localhost:8000"
 					],
 					"path": [
 						"api",
@@ -519,9 +519,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/edq-stats/Spain/2013",
+					"raw": "http://localhost:8000/api/v1/edq-stats/Spain/2013",
 					"host": [
-						"{{BASE_URL}}"
+						"localhost:8000"
 					],
 					"path": [
 						"api",
@@ -564,9 +564,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/edq-stats",
+					"raw": "http://localhost:8000/api/v1/edq-stats",
 					"host": [
-						"{{BASE_URL}}"
+						"localhost:8000"
 					],
 					"path": [
 						"api",
@@ -598,9 +598,9 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/edq-stats",
+					"raw": "http://localhost:8000/api/v1/edq-stats",
 					"host": [
-						"{{BASE_URL}}"
+						"localhost:8000"
 					],
 					"path": [
 						"api",
@@ -633,9 +633,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/edq-stats/loadInitialData",
+					"raw": "http://localhost:8000/api/v1/edq-stats/loadInitialData",
 					"host": [
-						"{{BASE_URL}}"
+						"localhost:8000"
 					],
 					"path": [
 						"api",
