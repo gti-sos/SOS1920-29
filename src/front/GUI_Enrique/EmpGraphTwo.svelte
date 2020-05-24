@@ -3,7 +3,6 @@
     async function loadGraph() {
 
         let MyData = [];
-        let MyDataArray = [];
         let MyDataEmp = [];
 
         const resData = await fetch("/api/v2/emp-stats");
@@ -11,8 +10,8 @@
         
         MyData.forEach( (e) => {
             
-            MyDataArray.push({name: e.country + " " + e.year, y: e.emp_vuln_female})
-            MyDataEmp.push({name: 'Empleo vulnerable femenino', data: MyDataArray});
+            
+            
                        
         });
         
