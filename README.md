@@ -1,4 +1,4 @@
-# SOS1920-29 [![Build Status](https://travis-ci.org/gti-sos/SOS1920-29.svg?branch=master)](https://travis-ci.org/gti-sos/SOS1920-29)
+# SOS1920-29 [![Build Status](https://api.travis-ci.org/gti-sos/SOS1920-29.svg?branch=master)](https://travis-ci.org/gti-sos/SOS1920-29)
 
 - **Team**
   - [Enrique Ramos Miró](https://github.com/enramir)
