@@ -13,17 +13,12 @@
         const resData = await fetch("/api/v2/emp-stats");
         MyData = await resData.json();
         
-        console.log("my data: "+JSON.stringify(MyData,null,2));
-        
         MyData.forEach( (e) => {
-            if(e.country == 'Spain' && e.year == 2013){
-                MyDataArray.push({name: 'emp_female_age15_24', y: e.emp_female_age15_24}, {name: 'emp_male_age15_24', y: e.emp_male_age15_24}, {name: 'emp_vuln_female', y: e.emp_vuln_female}, {name: 'emp_vuln_male', y: e.emp_vuln_male})
-                console.log("Data array: "+JSON.stringify(MyDataArray,null,2));
-                MyDataEmp.push({name: e.country + " " + e.year, data: MyDataArray});
-            }
             
+            MyDataArray.push({name: e.country + " " + e.year, y: e.emp_vuln_female})
+            MyDataEmp.push({name: 'Empleo vulnerable femenino', data: MyDataArray});
+                       
         });
-        console.log("Data emp: "+JSON.stringify(MyDataEmp,null,2));
 
         Highcharts.chart('container', {
             chart: {
@@ -33,10 +28,10 @@
                 type: 'pie'
             },
             title: {
-                text: 'Porcentajes de empleo juvenil y vulnerable en hombres y mujeres de algunos países de Europa'
+                text: 'Empleo vulnerable, mujeres (% del empleo femenino)'
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
             },
             accessibility: {
                 point: {
@@ -49,7 +44,7 @@
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        format: '<b>{point.name}</b>: {point.percentage:.2f} %'
                     }
                 }
             },
@@ -72,7 +67,7 @@
     <figure class="highcharts-figure">
     <div id="container"></div>
         <p class="highcharts-description">
-        La gráfica nos muestra un porcentaje de empleo vulnerable y empleo juvenil tanto en hombre como mujeres.
+        La gráfica nos muestra el porcentaje (sobre 100%) de empleo vulnerable femenino que existió durante los años 2013, 2014 y 2015 en algunos países de Europa.
         </p>
     </figure>
 

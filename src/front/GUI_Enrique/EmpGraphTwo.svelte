@@ -1,0 +1,1 @@
+<h1 style="text-align:center">Gráfica 2 </h1>

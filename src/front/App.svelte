@@ -9,6 +9,7 @@
     import EmpTable from './GUI_Enrique/EmpTable.svelte';
 	import EditEmp from './GUI_Enrique/EditEmp.svelte';
 	import EmpGraph from './GUI_Enrique/EmpGraph.svelte';
+	import EmpGraphTwo from './GUI_Enrique/EmpGraphTwo.svelte';
 
 	//Jairo
 	import EdqTable from './GUI_Jairo/EdqTable.svelte';
@@ -26,6 +27,7 @@
         "/emp-stats" : EmpTable,
 		"/emp-stats/:country/:year" : EditEmp,
 		"/emp-stats/graph" : EmpGraph,
+		"/emp-stats/graph-two" : EmpGraphTwo,
 
 		"/edq-stats": EdqTable,
 		"/edq-stats/:country/:year": Edit_edq_stat,

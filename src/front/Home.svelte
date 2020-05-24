@@ -35,7 +35,8 @@
             <p><a href="#/womanresearchers-stats">Frontend Lizeth</a></p>
         </li>
         <li><strong>Visualizations:</strong>
-            <Button outline color="warning" href="#/emp-stats/graph">Employment visualizations</Button>
+            <Button outline color="warning" href="#/emp-stats/graph">Employment visualizations (Graph 1)</Button>
+            <Button outline color="warning" href="#/emp-stats/graph-two">Employment visualizations (Graph 2)</Button>
             <Button color="success" href="#/edq-stats">Education quality stats</Button>
             <p><a href="#/womanresearchers-stats">Frontend Lizeth</a></p>
         </li>
