@@ -1,4 +1,5 @@
 <script>
+    import Table from "sveltestrap/src/Table.svelte";
     import Button from "sveltestrap/src/Button.svelte";
 </script>
 
@@ -34,12 +35,31 @@
             <Button color="success" href="#/edq-stats">Education quality stats</Button>
             <p><a href="#/womanresearchers-stats">Frontend Lizeth</a></p>
         </li>
-        <li><strong>Visualizations:</strong>
-            <Button outline color="warning" href="#/emp-stats/graph">Employment visualizations (Graph 1)</Button>
-            <Button outline color="warning" href="#/emp-stats/graph-two">Employment visualizations (Graph 2)</Button>
-            <Button color="success" href="#/edq-stats">Education quality stats</Button>
-            <p><a href="#/womanresearchers-stats">Frontend Lizeth</a></p>
-        </li>
+        <li><strong>Visualizations:</strong></li>
+
+        <Table style="text-align: center;">
+            <thead class="thead-dark">
+                <tr>
+                    <th style="vertical-align: middle;">Enrique</th>
+                    <th style="vertical-align: middle;">Jairo</th>
+                    <th style="vertical-align: middle;">Lizeth</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><Button outline color="warning" href="#/emp-stats/graph">Employment visualizations (Graph 1)</Button></td>
+                    <td><Button color="success" href="">EDQ Graphics</Button></td>
+                    <td><Button color="danger" href="">Liz Graphics</Button></td>
+                </tr>
+                <tr>
+                    <td><Button outline color="warning" href="#/emp-stats/graph-two">Employment visualizations (Graph 2)</Button></td>
+                    <td><Button color="success" href="">EDQ Graphics</Button></td>
+                    <td><Button color="danger" href="">Liz Graphics</Button></td>
+                </tr>
+
+            </tbody>
+        </Table>
+
         <li><strong>Integrations:</strong>
             <Button color="secondary" href="#/integrations">Integrations</Button>
         </li>
@@ -49,9 +69,11 @@
             
         </li>
         <li><strong>Videos:</strong>
-            <h5>Enrique Ramos Miró</h5>
-            <h5>Jairo Fernández Carmona</h5>
-            <h5>Lizeth Maribel Gutiérrez Mamani</h5>
+            <ul>
+                <li><h5>Enrique Ramos Miró</h5></li>
+                <li><h5>Jairo Fernández Carmona</h5></li>
+                <li><h5>Lizeth Gutiérrez Mamani</h5></li>
+            </ul>
         </li>
         
 
