@@ -30,10 +30,29 @@
         </li>
             
         <li><strong>API's GUI:</strong>
-            <Button color="warning" href="#/emp-stats">Employment statistics</Button>
+            <Button outline color="warning" href="#/emp-stats">Employment statistics</Button>
             <Button color="success" href="#/edq-stats">Education quality stats</Button>
             <p><a href="#/womanresearchers-stats">Frontend Lizeth</a></p>
         </li>
+        <li><strong>Visualizations:</strong>
+            <Button outline color="warning" href="#/emp-stats/graph">Employment visualizations</Button>
+            <Button color="success" href="#/edq-stats">Education quality stats</Button>
+            <p><a href="#/womanresearchers-stats">Frontend Lizeth</a></p>
+        </li>
+        <li><strong>Integrations:</strong>
+            <Button color="secondary" href="#/integrations">Integrations</Button>
+        </li>
+
+        <li><strong>Analytics:</strong>
+            <Button color="secondary" href="#/analytics">Integrated visualization</Button>
+            
+        </li>
+        <li><strong>Videos:</strong>
+            <h5>Enrique Ramos Miró</h5>
+            <h5>Jairo Fernández Carmona</h5>
+            <h5>Lizeth Maribel Gutiérrez Mamani</h5>
+        </li>
+        
 
         
     </ul>
