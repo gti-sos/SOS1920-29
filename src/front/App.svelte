@@ -14,6 +14,7 @@
 	//Jairo
 	import EdqTable from './GUI_Jairo/EdqTable.svelte';
 	import Edit_edq_stat from './GUI_Jairo/Edit_edq_stat.svelte';
+	import EdqGraphics from './GUI_Jairo/EdqGraphics.svelte';
 
 	//Lizeth
 	import WomanresearchersTable from './GUI_Lizeth/WomanresearchersTable.svelte';
@@ -31,6 +32,7 @@
 
 		"/edq-stats": EdqTable,
 		"/edq-stats/:country/:year": Edit_edq_stat,
+		"/edq-stats/edq-graphics": EdqGraphics,
 
 		"/womanresearchers-stats": WomanresearchersTable,
 		"/womanresearchers-stats/:country/:year": Edit_womanresearchers_stat,
