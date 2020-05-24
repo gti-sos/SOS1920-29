@@ -4,7 +4,7 @@ const path = require("path");
 
 const app = express();
 app.use(bodyParser.json());
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 8000;
 app.use("/", express.static("./public"));
 
 
