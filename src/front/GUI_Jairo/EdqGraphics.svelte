@@ -1,5 +1,8 @@
 <script>
 
+    import Button from "sveltestrap/src/Button.svelte";
+    import {pop} from "svelte-spa-router";
+
     const BASE_API_URL = "/api/v1";
 
     async function loadGraphs(){
@@ -55,22 +58,6 @@
 
         Highcharts.chart('container', {
 
-            colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
-                '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
-            chart: {
-                backgroundColor: {
-                    linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-                    stops: [
-                        [0, '#2a2a2b'],
-                        [1, '#3e3e40']
-                    ]
-                },
-                style: {
-                    fontFamily: '\'Unica One\', sans-serif'
-                },
-                plotBorderColor: '#606063'
-            },
-
             
             title: {
                 text: 'Graduados en ciencias por cada 1.000 habitantes.'
@@ -78,10 +65,7 @@
 
             yAxis: {
                 title: {
-                    text: 'Número de graduados en ciencia por 1.000 habitantes',
-                    style: {
-                        color: '#E0E0E3'
-                    }
+                    text: 'Número de graduados en ciencia por 1.000 habitantes'
                 }
             },
 
@@ -123,6 +107,7 @@
 
         });
 
+        
 
     }
 
@@ -161,11 +146,14 @@
 </svelte:head>
 
 <main>
-    <h3>Gráfica 1 EDQ_Stats (HighCharts)</h3>
+    <h3>Graduados en ciencias.</h3>
 
     <figure class="highcharts-figure">
         <div id="container"></div>
     </figure>
 
     <h3>Gráfica 2 EDQ_Stats (Chart.js)</h3>
+
+    <Button outline color = "secondary" on:click="{pop}">Volver</Button>
+
 </main>
