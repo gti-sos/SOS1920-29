@@ -53,12 +53,12 @@
 </svelte:head>
 
 <main>
-    <h1 style="text-align:center">Gráfica 2 </h1>
-    <h4 style="text-align:center">Porcentaje de empleo (%) en España. Año 2013, 2014 y 2015</h4>
+    <h1 style="text-align:center">Gráfica 2</h1>
+    <h4 style="text-align:center">Porcentaje de empleo (%) en España</h4>
     
     <div id="mychart" style="height: 250px;"></div>
 
-    <p style="text-align:center">Esta gráfica nos muestra el porcentaje de empleo vulnerable masculino (línea roja), empleo vulnerable femenino (línea azul), empleo femenino juvenil (línea marron), empleo masculino juvenil (línea verde) de España en los años de crisis 2013, 2014 y 2015</p>
+    <p style="text-align:center">Esta gráfica nos muestra el porcentaje de empleo vulnerable masculino (línea roja), empleo vulnerable femenino (línea azul), empleo femenino juvenil (línea marron), empleo masculino juvenil (línea verde) en España</p>
 
     <Button outline color="secondary" on:click="{pop}">Volver</Button>
 

@@ -10,88 +10,17 @@
         let MyData = [];
         let MyDataEmp = [];
 
-        let MyDataArraySpain = [];
-        let MyDataArrayItaly = [];
-        let MyDataArrayCzechia = [];
-        let MyDataArrayFinland = [];
-        let MyDataArrayMalta = [];
-        let MyDataArrayCroatia = [];
-        let MyDataArrayPortugal = [];
-        let MyDataArrayLithuania = [];
-        
-        let cont_spain = 0;
-        let cont_italy = 0;
-        let cont_czechia = 0;
-        let cont_finland = 0;
-        let cont_malta = 0;
-        let cont_croatia = 0;
-        let cont_portugal= 0;
-        let cont_lithuania = 0;
+        let MyDataArray = [];
 
         const resData = await fetch("/api/v2/emp-stats");
         MyData = await resData.json();
-        
+
         MyData.forEach( (e) => {
-            if(e.country == 'Spain'){
-                cont_spain += 1;
-                MyDataArraySpain.push({year: e.year , value: e.emp_vuln_female})
-                if(cont_spain == 3){
-                    MyDataEmp.push({name: e.country, data: MyDataArraySpain});
-                }
-                
-            }else if(e.country == 'Italy'){
-                cont_italy += 1;
-                MyDataArrayItaly.push({year: e.year , value: e.emp_vuln_female})
-                if(cont_italy == 3){
-                    MyDataEmp.push({name: e.country, data: MyDataArrayItaly});
-                }
-                
-            }else if(e.country == 'Czechia'){
-                cont_czechia += 1;
-                MyDataArrayCzechia.push({year: e.year , value: e.emp_vuln_female})
-                if(cont_czechia == 3){
-                    MyDataEmp.push({name: e.country, data: MyDataArrayCzechia});
-                }
-
-            }else if(e.country == 'Finland'){
-                cont_finland += 1;
-                MyDataArrayFinland.push({year: e.year , value: e.emp_vuln_female})
-                if(cont_finland == 3){
-                    MyDataEmp.push({name: e.country, data: MyDataArrayFinland});
-                }
-
-            }else if(e.country == 'Malta'){
-                cont_malta += 1;
-                MyDataArrayMalta.push({year: e.year , value: e.emp_vuln_female})
-                if(cont_malta == 3){
-                    MyDataEmp.push({name: e.country, data: MyDataArrayMalta});
-                }
-
-            }else if(e.country == 'Croatia'){
-                cont_croatia += 1;
-                MyDataArrayCroatia.push({year: e.year , value: e.emp_vuln_female})
-                if(cont_croatia == 3){
-                    MyDataEmp.push({name: e.country, data: MyDataArrayCroatia});
-                }
-
-            }else if(e.country == 'Portugal'){
-                cont_portugal += 1;
-                MyDataArrayPortugal.push({year: e.year , value: e.emp_vuln_female})
-                if(cont_portugal == 3){
-                    MyDataEmp.push({name: e.country, data: MyDataArrayPortugal});
-                }
-
-            }else if(e.country == 'Lithuania'){
-                cont_lithuania += 1;
-                MyDataArrayLithuania.push({year: e.year , value: e.emp_vuln_female})
-                if(cont_lithuania == 3){
-                    MyDataEmp.push({name: e.country, data: MyDataArrayLithuania});
-                }
-
-            }
-            
-                       
+            MyDataArray.push({country_name: e.country + " " + e.year, value: e.emp_vuln_female});
+        
         });
+
+        MyDataEmp.push({name: 'Europe', data: MyDataArray});
 
         Highcharts.chart('container', {
         chart: {
@@ -103,12 +32,12 @@
         },
         tooltip: {
             useHTML: true,
-            pointFormat: '<b>{point.year}:</b> {point.value}%</sub>'
+            pointFormat: '<b>{point.country_name}:</b> {point.value}%</sub>'
         },
         plotOptions: {
             packedbubble: {
-                minSize: '40%',
-                maxSize: '100%',
+                minSize: '0%',
+                maxSize: '600%',
                 zMin: 0,
                 zMax: 1000,
                 layoutAlgorithm: {
@@ -120,7 +49,7 @@
                 },
                 dataLabels: {
                     enabled: true,
-                    format: '{point.year}',
+                    format: '{point.country_name}',
                     filter: {
                         property: 'y',
                         operator: '>',
@@ -155,7 +84,7 @@
     <figure class="highcharts-figure">
     <div id="container"></div>
         <p class="highcharts-description">
-        La gráfica nos muestra el porcentaje de empleo vulnerable femenino que existió durante los años 2013, 2014 y 2015 en algunos países de Europa.
+        La gráfica nos muestra el porcentaje de empleo vulnerable femenino en algunos países de Europa.
         </p>
     </figure>
 
