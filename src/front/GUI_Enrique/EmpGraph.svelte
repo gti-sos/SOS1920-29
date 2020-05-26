@@ -67,7 +67,7 @@
     <figure class="highcharts-figure">
     <div id="container"></div>
         <p class="highcharts-description">
-        La gráfica nos muestra el porcentaje (sobre 100%) de empleo vulnerable femenino que existió durante los años 2013, 2014 y 2015 en algunos países de Europa.
+        La gráfica nos muestra el porcentaje (sobre un 100% 'tarta', para una mejor comparación) de empleo vulnerable femenino que existió durante los años 2013, 2014 y 2015 en algunos países de Europa.
         </p>
     </figure>
 

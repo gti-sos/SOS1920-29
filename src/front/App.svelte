@@ -10,6 +10,10 @@
 	import EditEmp from './GUI_Enrique/EditEmp.svelte';
 	import EmpGraph from './GUI_Enrique/EmpGraph.svelte';
 	import EmpGraphTwo from './GUI_Enrique/EmpGraphTwo.svelte';
+	import EmpIntegrationsOne from './GUI_Enrique/EmpIntegrationsOne.svelte';
+	import EmpIntegrationsTwo from './GUI_Enrique/EmpIntegrationsTwo.svelte';
+	import EmpIntegrationsThree from './GUI_Enrique/EmpIntegrationsThree.svelte';
+	import EmpIntegrationsFour from './GUI_Enrique/EmpIntegrationsFour.svelte';
 
 	//Jairo
 	import EdqTable from './GUI_Jairo/EdqTable.svelte';
@@ -25,15 +29,22 @@
 		"/analytics": Analytics,
 		"/integrations": Integrations,
 
+		//Routes Enrique
         "/emp-stats" : EmpTable,
 		"/emp-stats/:country/:year" : EditEmp,
 		"/emp-stats/graph" : EmpGraph,
 		"/emp-stats/graph-two" : EmpGraphTwo,
+		"/integrations/emp_one": EmpIntegrationsOne,
+		"/integrations/emp_two": EmpIntegrationsTwo,
+		"/integrations/emp_three": EmpIntegrationsThree,
+		"/integrations/emp_four": EmpIntegrationsFour,
 
+		//Routes Jairo
 		"/edq-stats": EdqTable,
 		"/edq-stats/:country/:year": Edit_edq_stat,
 		"/edq-stats/edq-graphics": EdqGraphics,
 
+		//Routes Lizeth
 		"/womanresearchers-stats": WomanresearchersTable,
 		"/womanresearchers-stats/:country/:year": Edit_womanresearchers_stat,
 		
