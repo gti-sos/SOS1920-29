@@ -53,7 +53,7 @@
                     </tr>
                     <tr>
                         <td><Button outline color="warning" href="#/emp-stats/graph-two">Employment visualizations (Graph 2)</Button></td>
-                        <td><Button color="success" href="">Alternative Graphics</Button></td>
+                        <td></td>
                         <td><Button color="danger" href="">Liz Graphics</Button></td>
                     </tr>
     
