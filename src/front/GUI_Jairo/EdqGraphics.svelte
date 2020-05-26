@@ -3,6 +3,7 @@
     import Button from "sveltestrap/src/Button.svelte";
     import {pop} from "svelte-spa-router";
     import Chart from 'chart.js';
+    import 'chartjs-plugin-colorschemes';
 
     const BASE_API_URL = "/api/v1";
     
@@ -114,8 +115,45 @@
     }
 
     async function loadGraph2(loadedData){
+        let spain_data = "";
+        let graph_data = [{labels:["Graduados en ciencias por 1.000 habitantes","Gasto en educación (billones)", "Ratio alumnos/maestro"], datasets:[]}];
 
-        //new Chart(document.getElementById("chartjs_graph"),{"type":"radar","data":{"labels":["Eating","Drinking","Sleeping","Designing","Coding","Cycling","Running"],"datasets":[{"label":"My First Dataset","data":[65,59,90,81,56,55,40],"fill":true,"backgroundColor":"rgba(255, 99, 132, 0.2)","borderColor":"rgb(255, 99, 132)","pointBackgroundColor":"rgb(255, 99, 132)","pointBorderColor":"#fff","pointHoverBackgroundColor":"#fff","pointHoverBorderColor":"rgb(255, 99, 132)"},{"label":"My Second Dataset","data":[28,48,40,19,96,27,100],"fill":true,"backgroundColor":"rgba(54, 162, 235, 0.2)","borderColor":"rgb(54, 162, 235)","pointBackgroundColor":"rgb(54, 162, 235)","pointBorderColor":"#fff","pointHoverBackgroundColor":"#fff","pointHoverBorderColor":"rgb(54, 162, 235)"}]},"options":{"elements":{"line":{"tension":0,"borderWidth":3}}}});
+
+        //Filtro loadedData para quedarme solo con las posiciones en las que country:"Spain"      
+        if(loadedData.filter(dato => dato.country.localeCompare("Spain") == 0).length > 0){
+            spain_data = loadedData.filter(dato => dato.country.localeCompare("Spain") == 0);
+
+            for(let i = 0; i < spain_data.length; i++){
+                graph_data[0].datasets.push({"label":spain_data[i].country+" - "+spain_data[i].year, "data":[spain_data[i].edq_sg, spain_data[i].edq_gee, spain_data[i].edq_ptr],"fill":true});
+            }
+
+        }
+        else{
+            console.log("DATA NOT FOUND.");
+        }
+
+        var myRadarChart = new Chart(chartjs_graph, {
+            type: 'radar',
+            data: graph_data[0],
+            options: {
+                plugins:{
+                    colorschemes:{
+                        scheme: 'brewer.Accent8'
+                    }
+                },
+                scale: {
+                    gridLines: {
+                        color: 'rgb(168,168,168,1)'
+                    },
+                    angleLines: {
+                        color: 'rgb(168,168,168,1)' // lines radiating from the center
+                    }
+                   
+                }
+            }
+        });
+
+
 
     }
 
