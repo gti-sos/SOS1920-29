@@ -1,62 +1,79 @@
 <script>
+
     import {
         pop
     } from "svelte-spa-router";
     import Button from "sveltestrap/src/Button.svelte";
-    
-    async function loadGraph() {
-       
+
+    async function loadGraph(){
+
         let MyData = [];
-        let MyDataArray = [];
         let MyDataEmp = [];
+
+        let MyDataArray = [];
 
         const resData = await fetch("/api/v2/emp-stats");
         MyData = await resData.json();
-        
+
         MyData.forEach( (e) => {
-            
-            MyDataArray.push({name: e.country + " " + e.year, y: e.emp_vuln_female})
-            MyDataEmp.push({name: 'Empleo vulnerable femenino', data: MyDataArray});
-                       
+            MyDataArray.push({country_name: e.country + " " + e.year, value: e.emp_vuln_female});
+        
         });
+
+        MyDataEmp.push({name: 'Europe', data: MyDataArray});
 
         Highcharts.chart('container', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: 'Empleo vulnerable, mujeres (% del empleo femenino)'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
-            },
-            accessibility: {
-                point: {
-                    valueSuffix: '%'
-                }
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.2f} %'
+        chart: {
+            type: 'packedbubble',
+            height: '100%'
+        },
+        title: {
+            text: 'Empleo vulnerable, mujeres (% del empleo femenino)'
+        },
+        tooltip: {
+            useHTML: true,
+            pointFormat: '<b>{point.country_name}:</b> {point.value}%</sub>'
+        },
+        plotOptions: {
+            packedbubble: {
+                minSize: '0%',
+                maxSize: '600%',
+                zMin: 0,
+                zMax: 1000,
+                layoutAlgorithm: {
+                    gravitationalConstant: 0.05,
+                    splitSeries: true,
+                    seriesInteraction: false,
+                    dragBetweenSeries: true,
+                    parentNodeLimit: true
+                },
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.country_name}',
+                    filter: {
+                        property: 'y',
+                        operator: '>',
+                        value: 1
+                    },
+                    style: {
+                        color: 'black',
+                        textOutline: 'none',
+                        fontWeight: 'normal'
                     }
                 }
-            },
-            series: MyDataEmp
+            }
+        },
+        series: MyDataEmp
         });
     }
+    
+
 </script>
 
-<svelte:head>   
+<svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js" on:load="{loadGraph}"></script>
 </svelte:head>
 
@@ -67,7 +84,7 @@
     <figure class="highcharts-figure">
     <div id="container"></div>
         <p class="highcharts-description">
-        La gráfica nos muestra el porcentaje (sobre un 100% 'tarta', para una mejor comparación) de empleo vulnerable femenino que existió durante los años 2013, 2014 y 2015 en algunos países de Europa.
+        La gráfica nos muestra el porcentaje de empleo vulnerable femenino en algunos países de Europa.
         </p>
     </figure>
 
@@ -110,8 +127,5 @@
         background: #f1f7ff;
     }
 
-
-    input[type="number"] {
-        min-width: 50px;
-    }
 </style>
+

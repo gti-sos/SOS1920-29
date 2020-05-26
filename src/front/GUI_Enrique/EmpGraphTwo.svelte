@@ -23,23 +23,16 @@
                 MyDataEmp.push({year: year_string, value: e.emp_vuln_male, value2: e.emp_vuln_female, value3: e.emp_male_age15_24, value4: e.emp_female_age15_24})
             }
             
-                       
+                        
         });
         console.log(JSON.stringify(MyDataEmp, null, 2));
         
         new Morris.Line({
-        // ID of the element in which to draw the chart.
-        element: 'myfirstchart',
-        // Chart data records -- each entry in this array corresponds to a point on
-        // the chart.
+        element: 'mychart',
         data: MyDataEmp,
-        // The name of the data record attribute that contains x-values.
         xkey: 'year',
-        // A list of names of data record attributes that contain y-values.
         ykeys: ['value', 'value2', 'value3', 'value4'],
         lineWidth: 3,
-        // Labels for the ykeys -- will be displayed when you hover over the
-        // chart.
         labels: ['Porcentaje empleo vulnerable masculino', 'Porcentaje empleo vulnerable femenino', 'Porcentaje empleo femenino juvenil (15 a 24 años)', 'Porcentaje empleo masculino juvenil (15 a 24 años)'],
         xLabels: "year",
         yLabels: "porcentage",
@@ -60,12 +53,12 @@
 </svelte:head>
 
 <main>
-    <h1 style="text-align:center">Gráfica 2 </h1>
-    <h4 style="text-align:center">Porcentaje de empleo (%) en España. Año 2013, 2014 y 2015</h4>
+    <h1 style="text-align:center">Gráfica 2</h1>
+    <h4 style="text-align:center">Porcentaje de empleo (%) en España</h4>
     
-    <div id="myfirstchart" style="height: 250px;"></div>
+    <div id="mychart" style="height: 250px;"></div>
 
-    <p style="text-align:center">Esta gráfica nos muestra el porcentaje de empleo vulnerable masculino (línea roja), empleo vulnerable femenino (línea azul), empleo femenino juvenil (línea marron), empleo masculino juvenil (línea verde) de España en los años de crisis 2013, 2014 y 2015</p>
+    <p style="text-align:center">Esta gráfica nos muestra el porcentaje de empleo vulnerable masculino (línea roja), empleo vulnerable femenino (línea azul), empleo femenino juvenil (línea marron), empleo masculino juvenil (línea verde) en España</p>
 
     <Button outline color="secondary" on:click="{pop}">Volver</Button>
 
