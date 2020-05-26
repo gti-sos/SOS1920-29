@@ -1,0 +1,621 @@
+{
+	"info": {
+		"_postman_id": "bf500644-125b-4a35-b51e-4cdb05fec1d6",
+		"name": "SOS1920-29-womanresearchers-stats v2 Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "DELETE womanresearchers-stats Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f6e36ae-2dea-466c-9b6d-066e15e56f97",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v2/womanresearchers-stats",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"womanresearchers-stats"
+					]
+				},
+				"description": "remove all the data in the server."
+			},
+			"response": []
+		},
+		{
+			"name": "GET loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e10775f7-4466-4e38-937a-9553be24e323",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v2/womanresearchers-stats/loadInitialData",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"womanresearchers-stats",
+						"loadInitialData"
+					]
+				},
+				"description": "Load data which is located on the server and receive it."
+			},
+			"response": []
+		},
+		{
+			"name": "GET womanresearchers-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "301cd2dc-7ed9-45db-adeb-454c3f694542",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"There are 24 datas\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.lengthOf(24);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v2/womanresearchers-stats",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"womanresearchers-stats"
+					]
+				},
+				"description": "In this test we receive the data which is saved in the server."
+			},
+			"response": []
+		},
+		{
+			"name": "POST womanresearchers-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "231ca22d-e963-4688-963d-c06923ce9d16",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"country\":\"Armenia\",\r\n\t\"year\": 2013,\r\n\t\"womanresearchers_he\": 389,\r\n\t\"womanresearchers_gov\": 36,\r\n\t\"womanresearchers_bent\":3782\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v2/womanresearchers-stats",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"womanresearchers-stats"
+					]
+				},
+				"description": "Push the given data into the server."
+			},
+			"response": []
+		},
+		{
+			"name": "POST womanresearchers-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5e43ad51-6f61-4844-afd7-5b6b2b36558a",
+						"exec": [
+							"pm.test(\" POST request Erro\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"country\":\"Poland\",\r\n\t\"year\": 2015,\r\n\t\"womanresearchers_he\": 389,\r\n\t\"womanresearchers_bent\":3782\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v2/womanresearchers-stats",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"womanresearchers-stats"
+					]
+				},
+				"description": "Push the given data with wrong structure into the server. must be return bad request"
+			},
+			"response": []
+		},
+		{
+			"name": "GET womanresearchers-stats applying filters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ffd29ac3-5270-4071-9c6c-dc48266cd07f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"keys matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"country\");",
+							"    pm.expect(pm.response.text()).to.include(\"year\");",
+							"    pm.expect(pm.response.text()).to.include(\"womanresearchers_he\");",
+							"    pm.expect(pm.response.text()).to.include(\"womanresearchers_gov\");",
+							"    pm.expect(pm.response.text()).to.include(\"womanresearchers_bent\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v2/womanresearchers-stats?country=Malta&year=2014&womanresearchers_he=292&womanresearchers_gov=9&womanresearchers_bent=109",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"womanresearchers-stats"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "Malta"
+						},
+						{
+							"key": "year",
+							"value": "2014"
+						},
+						{
+							"key": "womanresearchers_he",
+							"value": "292"
+						},
+						{
+							"key": "womanresearchers_gov",
+							"value": "9"
+						},
+						{
+							"key": "womanresearchers_bent",
+							"value": "109"
+						}
+					]
+				},
+				"description": "Search the data with specific filter in tis case country malta, year 2014, higher education 292, government 9 and business 109."
+			},
+			"response": []
+		},
+		{
+			"name": "GET womanresearchers-stats pagination",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "91edc87c-e8c2-4dad-8b8b-080711dc1940",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"keys matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"country\");",
+							"    pm.expect(pm.response.text()).to.include(\"year\");",
+							"    pm.expect(pm.response.text()).to.include(\"womanresearchers_he\");",
+							"    pm.expect(pm.response.text()).to.include(\"womanresearchers_gov\");",
+							"    pm.expect(pm.response.text()).to.include(\"womanresearchers_bent\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v2/womanresearchers-stats?offset=0&limit=10",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"womanresearchers-stats"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				},
+				"description": "search the limit fron 3 to 9 order of data"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT womanresearchers-stats/Armenia/2013",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "327a1142-23d7-48c9-932b-923f7b392eb6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"country\":\"Armenia\",\n\t\"year\": 2013,\n\t\"womanresearchers_he\": 10,\n\t\"womanresearchers_gov\": 20,\n\t\"womanresearchers_bent\":3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v2/womanresearchers-stats/Armenia/2013",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"womanresearchers-stats",
+						"Armenia",
+						"2013"
+					]
+				},
+				"description": "Update the selected data in the server."
+			},
+			"response": []
+		},
+		{
+			"name": "PUT womanresearchers-stats/Spain/2013",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ebe135c9-09ad-45ca-9be6-f798fa49df5f",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"country\":\"Spain\",\n\t\"year\": 2013,\n\t\"womanresearchers_he\": 10.6,\n\t\"woman\": 20,\n\t\"womanresearchers_bent\":3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v2/womanresearchers-stats/Spain/2013",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"womanresearchers-stats",
+						"Spain",
+						"2013"
+					]
+				},
+				"description": "Update the selected data in the server with wrong structure, it must return bad request."
+			},
+			"response": []
+		},
+		{
+			"name": "GET womanresearchers-stats/Armenia/2013",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e757470e-6335-4f57-acec-f705a365a724",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v2/womanresearchers-stats/Armenia/2013",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"womanresearchers-stats",
+						"Armenia",
+						"2013"
+					]
+				},
+				"description": "Receive the selected data from the server."
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE womanresearchers-stats/Armenia/2013",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "921721e2-7027-42da-801e-002ef2fe4170",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v2/womanresearchers-stats/Armenia/2013",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"womanresearchers-stats",
+						"Armenia",
+						"2013"
+					]
+				},
+				"description": "Delete the selected data (/womanresearchers-stats/CountryData/YearData) from the server."
+			},
+			"response": []
+		},
+		{
+			"name": "POST womanresearchers-stats/EEUU/2013",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b01eaa2-4740-49af-9f81-2ed124a3d995",
+						"exec": [
+							"pm.test(\"POST not allowed\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"country\": \"EEUU\",\r\n\t\"year\": 2013,\r\n\t\"edq_sg\": 327,\r\n\t\"edq_gee\": 543,\r\n\t\"edq_ptr\": 21\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v2/womanresearchers-stats/EEUU/2013",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"womanresearchers-stats",
+						"EEUU",
+						"2013"
+					]
+				},
+				"description": "Receive an error message, we can not \"POST\" on a specific data. We have to do it in a collection of data."
+			},
+			"response": []
+		},
+		{
+			"name": "PUT womanresearchers-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd7986fd-09be-42a3-af4b-5658edcfecbd",
+						"exec": [
+							"pm.test(\"PUT not allowed\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n\t\"country\": \"Finland\",\r\n\t\"year\": 2015,\r\n\t\"edq_sg\": 54,\r\n\t\"edq_gee\": 184,\r\n\t\"edq_ptr\": 34\r\n},\r\n{\r\n\t\"country\": \"Spain\",\r\n\t\"year\": 2014,\r\n\t\"edq_sg\": 95,\r\n\t\"edq_gee\": 72,\r\n\t\"edq_ptr\": 111\r\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v2/womanresearchers-stats",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"womanresearchers-stats"
+					]
+				},
+				"description": "Receive an error message. We can not do \"PUT\" on a data collection."
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE womanresearchers-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "39fc17b5-10b0-4fb0-81e3-29910493e97e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v2/womanresearchers-stats",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v2",
+						"womanresearchers-stats"
+					]
+				},
+				"description": "remove all the data in the server."
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

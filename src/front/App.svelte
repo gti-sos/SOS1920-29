@@ -23,6 +23,8 @@
 	//Lizeth
 	import WomanresearchersTable from './GUI_Lizeth/WomanresearchersTable.svelte';
 	import Edit_womanresearchers_stat from './GUI_Lizeth/Edit_womanresearchers_stat.svelte';
+	import WomanresearchersGraphOne from './GUI_Lizeth/WomanresearchersGraphOne.svelte';
+
 
 	const routes = {
 		"/" : Home,
@@ -47,6 +49,11 @@
 		//Routes Lizeth
 		"/womanresearchers-stats": WomanresearchersTable,
 		"/womanresearchers-stats/:country/:year": Edit_womanresearchers_stat,
+		"/womanresearchers-stats/womanresearchers-graph-one": WomanresearchersGraphOne,
+
+
+
+
 		
 		"*" : NotFound
 	}

@@ -49,7 +49,7 @@
                     <tr>
                         <td><Button outline color="warning" href="#/emp-stats/graph">Employment visualizations (Graph 1)</Button></td>
                         <td><Button color="success" href="#/edq-stats/edq-graphics">EDQ Graphics</Button></td>
-                        <td><Button color="danger" href="">Liz Graphics</Button></td>
+                        <td><Button color="danger" href="#/womanresearchers-stats/womanresearchers-graph-one">Women Researchers Graphic</Button></td>
                     </tr>
                     <tr>
                         <td><Button outline color="warning" href="#/emp-stats/graph-two">Employment visualizations (Graph 2)</Button></td>
