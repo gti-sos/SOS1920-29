@@ -6,12 +6,24 @@ module.exports = function (app){
 	
     const dbFileName = path.join(__dirname,"emp-stats.db");
     const BASE_API_URL = "/api/v2";
+    const request = require("request");
 	
 	const db = new dataStore({
 		
 		filename: dbFileName,
 		autoload: true
     });
+
+    //PROXY
+    var paths = BASE_API_URL + "/api.abalin";
+    var apiServerHost = 'https://api.abalin.net';
+ 
+    app.use(paths, function(req, res) {
+        var url = apiServerHost + req.url;
+        console.log('piped: '+ req.url);
+        req.pipe(request(url)).pipe(res);
+    });
+    
 
     // *****************API ENRIQUE***************************************************
 
