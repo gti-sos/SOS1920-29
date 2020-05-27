@@ -18,7 +18,7 @@
         MyData.forEach( (e) => {
             MyDataArray.push({country_name: e.country + " " + e.year, value: e.emp_vuln_female});
         
-        });
+        }); 
 
         MyDataEmp.push({name: 'Europe', data: MyDataArray});
 
