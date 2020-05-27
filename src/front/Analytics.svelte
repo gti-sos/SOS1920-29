@@ -32,9 +32,6 @@
             title: {
                 text: 'Comparativa de estadísticas del grupo'
             },
-            subtitle: {
-                text: 'Highcharts star plot with multivariate data'
-            },
             tooltip: {
                 pointFormat: '<span style="color:{point.color}">\u25CF</span>' +
                 '{series.name}: <b>{point.formattedValue}</b><br/>'
@@ -106,7 +103,16 @@
                 categories: ['Before', 'After'],
                 min: -1,
                 max: 1
-            }],
+                },
+                {
+                    type: 'linear'
+                },
+                {
+                    type: 'linear'
+                },
+                {
+                    type: 'linear'
+                }],
             series: data.map(function (set, i) {
                 return {
                     name: 'Runner ' + i,
@@ -121,9 +127,9 @@
 </script>
 
 <svelte:head>
-    <script src="https://github.highcharts.com/highcharts.js"></script>
-    <script src="https://github.highcharts.com/highcharts-more.js"></script>
-    <script src="https://github.highcharts.com/modules/parallel-coordinates.js" on:load="{loadGraph}"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/parallel-coordinates.js" on:load="{loadGraph}"></script>
 </svelte:head>
 
 
