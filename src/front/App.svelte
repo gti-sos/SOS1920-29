@@ -24,6 +24,7 @@
 	import WomanresearchersTable from './GUI_Lizeth/WomanresearchersTable.svelte';
 	import Edit_womanresearchers_stat from './GUI_Lizeth/Edit_womanresearchers_stat.svelte';
 	import WomanresearchersGraphOne from './GUI_Lizeth/WomanresearchersGraphOne.svelte';
+	import WomanresearchersGraphTwo from './GUI_Lizeth/WomanresearchersGraphTwo.svelte';
 
 
 	const routes = {
@@ -50,6 +51,7 @@
 		"/womanresearchers-stats": WomanresearchersTable,
 		"/womanresearchers-stats/:country/:year": Edit_womanresearchers_stat,
 		"/womanresearchers-stats/womanresearchers-graph-one": WomanresearchersGraphOne,
+		"/womanresearchers-stats/womanresearchers-graph-Two": WomanresearchersGraphTwo,
 
 
 
