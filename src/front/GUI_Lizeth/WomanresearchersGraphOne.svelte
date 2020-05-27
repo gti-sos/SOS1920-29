@@ -7,17 +7,57 @@
     async function loadGraph() {
        
         let MyData = [];
-        let MyDataWoman = [];
+        //let MyDataWoman = [];
         
 
         const resData = await fetch("/api/v2/womanresearchers-stats");
         MyData = await resData.json();
         
-        MyData.forEach( (x) => {
+       /* MyData.forEach( (x) => {
           MyDataWoman.push({name: x.year , data: [x.womanresearchers_he], pointPlacement: 'on'});
           //MyDataWoman.push({name: x.country, y:womanresearchers_he});
                        
+        });*/
+
+        let recurso = "";
+        let datos = []; 
+        let primer_anyo = 0; 
+        let ultimo_anyo = 0; 
+
+
+        MyData.sort(function (a,b){
+            if (a.year > b.year) return 1;
+            if (a.year < b.year) return -1;
+            if(a.country.localeCompare(b.country) < 0) return -1;
+            if(a.country.localeCompare(b.country) > 0) return 1;
         });
+        console.log(MyData);
+
+        primer_anyo = MyData[0].year;
+        ultimo_anyo = MyData[MyData.length-1].year;
+
+
+        MyData.forEach((x) => {
+            //console.log(x);
+            recurso = x;
+            if(datos.filter(dato => dato.name == recurso.country).length == 0){
+                datos.push({name:recurso.country, data: []});
+            }
+        });
+        console.log(recurso);
+
+        datos.forEach((i)=>{
+            for(let j = 0; j <= (ultimo_anyo-primer_anyo); j++){
+                if(MyData.filter(dato => dato.year == (j+primer_anyo) && dato.country == i.name ).length > 0){
+                    i.data.push(MyData.filter(dato => dato.year == (j+primer_anyo) && dato.country == i.name)[0].womanresearchers_he);
+                }
+                else{
+                    i.data.push(null);
+                }
+            }
+        });
+
+        console.log(datos)
 
 
         Highcharts.chart('container', {
@@ -29,47 +69,54 @@
               },
              
               xAxis: {
-                  categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+                  //categories: ano_comienzo,
+                  //["2013","2014","2015"],
                   title: {
-                      text: null
+                      text: "Años"
                   }
               },
               yAxis: {
                   min: 0,
                   title: {
-                      text: 'Population (millions)',
-                      align: 'high'
+                      text: 'Número de mujeres investigadoras en educación superior',
+                      
                   },
                   labels: {
                       overflow: 'justify'
-                  }
-              },
-              tooltip: {
-                  valueSuffix: ' millions'
+                  },
+                  allowDecimals: false
               },
               plotOptions: {
                   bar: {
                       dataLabels: {
                           enabled: true
                       }
-                  }
+                  },
+                  series: {
+                    label: {
+                        connectorAllowed: false
+                    },
+                    pointStart: primer_anyo
+                }
               },
               legend: {
                   layout: 'vertical',
                   align: 'right',
                   verticalAlign: 'top',
-                  x: -40,
+                  x: -10,
                   y: 80,
                   floating: true,
                   borderWidth: 1,
                   backgroundColor:
                       Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-                  shadow: true
+                  shadow: true,
+                  innerHeight: -50
               },
+              
               credits: {
                   enabled: false
               },
-              series: MyDataWoman
+              series: datos
           });
 
     }
@@ -102,12 +149,13 @@
 <style>
  .highcharts-figure, .highcharts-data-table table {
     min-width: 310px; 
-    max-width: 800px;
-    margin: 1em auto;
+    max-width: 1000px;
+    margin: 50px ;
 }
 
 #container {
-    height: 400px;
+    height: 500px;
+    width: 1500px;
 }
 
 .highcharts-data-table table {
