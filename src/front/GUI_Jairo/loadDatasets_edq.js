@@ -53,6 +53,8 @@ async function create_xData(){
         console.log("Error receiving data.");
     }
 
+    console.log(data);
+
     return data;
 
 }

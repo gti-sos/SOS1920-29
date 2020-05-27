@@ -3,7 +3,9 @@
         pop
     } from "svelte-spa-router";
     import Button from "sveltestrap/src/Button.svelte";
-    
+  //  import ApexCharts from 'apexcharts';
+
+
     async function loadGraph() {
        
         let MyData = [];
@@ -61,126 +63,58 @@
         console.log(datos);
         console.log(countries);
 
-        Highcharts.chart('container', {
-              chart: {
-                  type: 'bar'
-              },
-              title: {
-                  text: 'Investigadoras en Educación Superior'
-              },
-             
-              xAxis: {
-                  //categories: ano_comienzo,
-                  //["2013","2014","2015"],
-                  categories:[countries],
-                  title: {
-                      text: "Años"
-                  }
-              },
-              yAxis: {
-                  min: 0,
-                  title: {
-                      text: 'Número de mujeres investigadoras en educación superior',
-                      
-                  },
-                  labels: {
-                      overflow: 'justify'
-                  },
-                  allowDecimals: false
-              },
-              plotOptions: {
-                  bar: {
-                      dataLabels: {
-                          enabled: true
-                      }
-                  },
-                  
-              },
-              legend: {
-                  layout: 'vertical',
-                  align: 'right',
-                  verticalAlign: 'top',
-                  x: -10,
-                  y: 80,
-                  floating: true,
-                  borderWidth: 1,
-                  backgroundColor:
-                      Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-                  shadow: true,
-                  innerHeight: -50
-              },
-              
-              credits: {
-                  enabled: false
-              },
-              series: datos
-          });
+        var options = {
+          series: datos,
+          chart: {
+          height: 350,
+          type: 'scatter',
+          zoom: {
+            type: 'xy'
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        grid: {
+          xaxis: {
+            lines: {
+              show: true
+            }
+          },
+          yaxis: {
+            lines: {
+              show: true
+            }
+          },
+        },
+        xaxis: {
+          type: 'text',
+        },
+        yaxis: {
 
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+        
     }
-       
-
 </script>
 
-<svelte:head>   
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/modules/exporting.js"></script>
-  <script src="https://code.highcharts.com/modules/export-data.js"></script>
-  <script src="https://code.highcharts.com/modules/accessibility.js" on:load="{loadGraph}"></script>
+<svelte:head>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts" on:load="{loadGraph}"></script>
+
 </svelte:head>
 
 <main>
 
     <h1 style="text-align:center">Gráfica Investigadoras</h1>
-    
-    <figure class="highcharts-figure">
-        <div id="container"></div>
-        <p class="highcharts-description">
-            En la gráfica podemos observar el número de investigadoras en educación superior a lo largo de los años 2013,2014 y 2015 en paises europeos.
-        </p>
-      </figure>
-
+    <h5 style="text-align:center">Investigadoras en distintos campos durante el año 2015</h5>
+      <div id="chart"></div>
     <Button outline color="secondary" on:click="{pop}">Volver</Button>
 
 </main>
 
 <style>
- .highcharts-figure, .highcharts-data-table table {
-    min-width: 310px; 
-    max-width: 1000px;
-    margin: 50px ;
-}
-
-#container {
-    height: 500px;
-    width: 1500px;
-}
-
-.highcharts-data-table table {
-	font-family: Verdana, sans-serif;
-	border-collapse: collapse;
-	border: 1px solid #EBEBEB;
-	margin: 10px auto;
-	text-align: center;
-	width: 100%;
-	max-width: 500px;
-}
-.highcharts-data-table caption {
-    padding: 1em 0;
-    font-size: 1.2em;
-    color: #555;
-}
-.highcharts-data-table th {
-	font-weight: 600;
-    padding: 0.5em;
-}
-.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
-    padding: 0.5em;
-}
-.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
-    background: #f8f8f8;
-}
-.highcharts-data-table tr:hover {
-    background: #f1f7ff;
-}
 
 </style>

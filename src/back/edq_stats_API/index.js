@@ -13,6 +13,17 @@ module.exports = function(app){
 	
 	const BASE_API_URL = "/api/v1";
 
+	//Proxy
+	const request = require('request');
+	
+	var paths=BASE_API_URL+'/balldontlie';
+	var apiServerHost = 'https://www.balldontlie.io';
+
+	app.use(paths, function(req, res) {
+		var url = apiServerHost + BASE_API_URL + req.url;
+		req.pipe(request(url)).pipe(res);
+	});
+
 	
 	var edq_stats = [
 			{
