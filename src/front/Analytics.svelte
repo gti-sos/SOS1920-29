@@ -1,11 +1,17 @@
 <script>
     import Button from "sveltestrap/src/Button.svelte";
     import {pop} from "svelte-spa-router";
-    import {create_xData,loadDataset_sg, loadDataset_gee, loadDataset_ptr} from "./GUI_Jairo/loadDatasets_edq.js";
+    import {create_xData, devuelve_edqStats} from "./GUI_Jairo/loadDatasets_edq.js";
 
-    console.log(create_xData());
+    
 
     async function loadGraph(){
+
+        //Creamos la lista de combinaciones País/Año entre las 3 APIs.
+        let lista_conjunta = await create_xData();
+
+        //Calculamos los datos correspondientes a la API edq_stats.
+        let data_edq= devuelve_edqStats(lista_conjunta);
 
         var data = [
             [1, 5, 23, 3, 46, 1, 0, 1012, 5, 1],

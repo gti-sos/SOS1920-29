@@ -53,29 +53,45 @@ async function create_xData(){
         console.log("Error receiving data.");
     }
 
-    console.log(data);
 
     return data;
 
 }
 
-//En xData: [] guardamos un array de todos los valores del eje X, tenemos que comprobar que todos coinciden.
-//1. Meter en xData todas las combinaciones de País/Año entre las 3 APIs.
-//2. Por cada valor País/Año que tenga en xData llamo a la API para ver si tengo dato para esa combinación.
-
 //1. Realizo filtrado por cada posición de xData, si lo encuentro guardo en un array los valores de los 3 datos,
 //si no lo encuentro guardo tres 0 en el array.
 
-async function loadDataset_sg(){
-    let dataset = {};
+async function devuelve_edqStats(xData){
+    let data = [];
+
+
+    //Para cada posición de xData hago un filter para ver si tengo el dato en mi API.
+    const BASE_API_URL = "/api/v1";
+
+    const res_edq = await fetch(BASE_API_URL+"/edq-stats");
+
+    if(res_edq.ok){
+        let json = await res_edq.json();
+        let data_edq = json;
+
+
+        for(let i = 0; i < xData.length; i++){
+
+            if(data_edq.filter(dato => (dato.country == xData[i].country) && (dato.year == xData[i].year) ).length > 0){
+                data.push([data_edq.filter(dato => (dato.country == xData[i].country) && (dato.year == xData[i].year))[0].edq_sg, data_edq.filter(dato => (dato.country == xData[i].country) && (dato.year == xData[i].year))[0].edq_gee, data_edq.filter(dato => (dato.country == xData[i].country) && (dato.year == xData[i].year))[0].edq_ptr]);
+            }
+            else{
+                data.push([0,0,0]);
+            }
+        }
+
+
+    }
+    else{
+        console.log("Error receiving data from edq-stats.");
+    }
+
 }
 
-async function loadDataset_gee(){
 
-}
-
-async function loadDataset_ptr(){
-
-}
-
-export {create_xData,loadDataset_sg, loadDataset_gee, loadDataset_ptr};
+export {create_xData, devuelve_edqStats};
