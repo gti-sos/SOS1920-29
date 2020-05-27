@@ -14,18 +14,23 @@
 
         const resData = await fetch("/api/v2/emp-stats");
         MyData = await resData.json();
+
+        if(MyData.length == 0){
+            console.log("Array vacío");
         
-        MyData.forEach( (e) => {
+        }else{
+            MyData.forEach( (e) => {
             
-            if(e.country == 'Spain'){
-                year_int = e.year;
-                year_string = year_int.toString();
-                MyDataEmp.push({year: year_string, value: e.emp_vuln_male, value2: e.emp_vuln_female, value3: e.emp_male_age15_24, value4: e.emp_female_age15_24})
-            }
-            
-                        
-        });
-        console.log(JSON.stringify(MyDataEmp, null, 2));
+                if(e.country == 'Spain'){
+                    year_int = e.year;
+                    year_string = year_int.toString();
+                    MyDataEmp.push({year: year_string, value: e.emp_vuln_male, value2: e.emp_vuln_female, value3: e.emp_male_age15_24, value4: e.emp_female_age15_24})
+                }
+              
+            });
+            console.log(JSON.stringify(MyDataEmp, null, 2));
+        }
+
         
         new Morris.Line({
         element: 'mychart',

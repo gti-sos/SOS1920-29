@@ -3,38 +3,23 @@
     import {pop} from "svelte-spa-router";
     import {create_xData,loadDataset_sg, loadDataset_gee, loadDataset_ptr} from "./GUI_Jairo/loadDatasets_edq.js";
 
-    //create_xData();
+    console.log(create_xData());
 
     async function loadGraph(){
 
         var data = [
-            [1012518000000, 5, 2311020, 0, 462180, 1, 0,1012518000000, 5, 1],
-            [1012950000000, 6, 3232020, 4, 538680, 0, 0,1012518000000, 5, 0],
-            [1013122800000, 4.5, 2419020, 3, 537540, 1, 0,1012518000000, 5, 0]
+            [1, 5, 23, 3, 46, 1, 0, 1012, 5, 1],
+            [1, 5, 23, 3, 55, 1, 4, 2000, 5, 2]
         ];
 
         Highcharts.chart('container', {
             chart: {
+                type: 'line',
                 parallelCoordinates: true,
-                parallelAxes: {
-                    labels: {
-                        style: {
-                            color: '#999999'
-                        }
-                    },
-                    gridLineWidth: 1,
-                    lineWidth: 2,
-                    showFirstLabel: false,
-                    showLastLabel: true
-                },
                 polar: true
             },
             title: {
                 text: 'Comparativa de estadísticas del grupo'
-            },
-            tooltip: {
-                pointFormat: '<span style="color:{point.color}">\u25CF</span>' +
-                '{series.name}: <b>{point.formattedValue}</b><br/>'
             },
             legend: {
                 enabled: true,
@@ -60,59 +45,8 @@
                     style: {
                         fontWeight: 'bold'
                     }
-                },
-                gridLineWidth: 0
+                }
             },
-            yAxis: [
-                {
-                    type: 'datetime',
-                    tooltipValueFormat: '{value:%Y-%m-%d}'
-                }, 
-                {
-                    min: 0,
-                    tooltipValueFormat: '{value} mile(s)'
-                }, 
-                {
-                    type: 'datetime',
-                    min: 0,
-                    labels: {
-                        format: '{value:%H:%M}'
-                    }
-                }, 
-                {
-                    categories: [
-                        'Other',
-                        'Adidas',
-                        'Mizuno',
-                        'Asics',
-                        'Brooks',
-                        'New Balance',
-                        'Izumi'
-                    ],
-                    min: -1
-                }, 
-                {
-                    type: 'datetime'
-                }, 
-                {
-                    categories: ['&gt; 5miles', '&lt; 5miles'],
-                    min: -1,
-                    max: 1
-                }, 
-                {
-                categories: ['Before', 'After'],
-                min: -1,
-                max: 1
-                },
-                {
-                    type: 'linear'
-                },
-                {
-                    type: 'linear'
-                },
-                {
-                    type: 'linear'
-                }],
             series: data.map(function (set, i) {
                 return {
                     name: 'Runner ' + i,

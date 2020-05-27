@@ -15,12 +15,17 @@
         const resData = await fetch("/api/v2/emp-stats");
         MyData = await resData.json();
 
-        MyData.forEach( (e) => {
+        if(MyData.length == 0){
+            console.log("Array vacío");
+        
+        }else{
+            MyData.forEach( (e) => {
             MyDataArray.push({country_name: e.country + " " + e.year, value: e.emp_vuln_female});
         
-        }); 
+            }); 
+            MyDataEmp.push({name: 'Europe', data: MyDataArray});
+        }
 
-        MyDataEmp.push({name: 'Europe', data: MyDataArray});
 
         Highcharts.chart('container', {
         chart: {
