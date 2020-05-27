@@ -3,7 +3,7 @@
     import {pop} from "svelte-spa-router";
     import {create_xData,loadDataset_sg, loadDataset_gee, loadDataset_ptr} from "./GUI_Jairo/loadDatasets_edq.js";
 
-    create_xData();
+    //create_xData();
 
 </script>
 

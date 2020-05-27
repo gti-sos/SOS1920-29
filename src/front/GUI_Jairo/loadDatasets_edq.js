@@ -61,6 +61,9 @@ async function create_xData(){
 //1. Meter en xData todas las combinaciones de País/Año entre las 3 APIs.
 //2. Por cada valor País/Año que tenga en xData llamo a la API para ver si tengo dato para esa combinación.
 
+//1. Realizo filtrado por cada posición de xData, si lo encuentro guardo en un array los valores de los 3 datos,
+//si no lo encuentro guardo tres 0 en el array.
+
 async function loadDataset_sg(){
     let dataset = {};
 }
