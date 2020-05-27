@@ -20,7 +20,7 @@
         });*/
 
         let recurso = "";
-        let MyDataWoman = []; 
+        let datos = []; 
         let primer_anyo = 0; 
         let ultimo_anyo = 0; 
 
@@ -36,29 +36,30 @@
         primer_anyo = MyData[0].year;
         ultimo_anyo = MyData[MyData.length-1].year;
 
+        let countries =[] ;
 
         MyData.forEach((x) => {
             //console.log(x);
             recurso = x;
-            if(MyDataWoman.filter(dato => dato.name == recurso.country).length == 0){
-                MyDataWoman.push({name:recurso.country, data: []});
+            if(datos.filter(dato => dato.name == recurso.year).length == 0){
+                datos.push({name:recurso.year, data: []});
+
+                
             }
         });
         console.log(recurso);
-
-        MyDataWoman.forEach((i)=>{
-            for(let j = 0; j <= (ultimo_anyo-primer_anyo); j++){
-                if(MyData.filter(dato => dato.year == (j+primer_anyo) && dato.country == i.name ).length > 0){
-                    i.data.push(MyData.filter(dato => dato.year == (j+primer_anyo) && dato.country == i.name)[0].womanresearchers_he);
-                }
-                else{
-                    i.data.push(null);
-                }
-            }
+        console.log(datos)
+        datos.forEach((i)=>{
+            for (let j=0;j<8;j++){
+                i.data.push(MyData.filter(dato=> dato.year == i.name)[j].womanresearchers_he);
+                i.data.push(MyData.filter(dato=> dato.year == i.name)[j].country);
+                countries += ","+MyData.filter(dato=> dato.year == i.name)[j].country;
+                
+           }  
         });
 
-        console.log(MyDataWoman)
-
+        console.log(datos);
+        console.log(countries);
 
         Highcharts.chart('container', {
               chart: {
@@ -71,6 +72,7 @@
               xAxis: {
                   //categories: ano_comienzo,
                   //["2013","2014","2015"],
+                  categories:[countries],
                   title: {
                       text: "Años"
                   }
@@ -92,10 +94,7 @@
                           enabled: true
                       }
                   },
-                  series: {
-                   
-                    pointStart: primer_anyo
-                }
+                  
               },
               legend: {
                   layout: 'vertical',
@@ -114,7 +113,7 @@
               credits: {
                   enabled: false
               },
-              series: MyDataWoman
+              series: datos
           });
 
     }
@@ -155,10 +154,7 @@
     height: 500px;
     width: 1500px;
 }
-.highcharts-description{
-    text-align: center;
-    margin: 30px -90px 60px 0px;
-}
+
 .highcharts-data-table table {
 	font-family: Verdana, sans-serif;
 	border-collapse: collapse;

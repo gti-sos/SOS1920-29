@@ -24,6 +24,7 @@
         let ano_comienzo = 0; //Guardo el primer año encontrado en la API.
         let ano_fin = 0; //Guardo el último año encontrado en la API.
 
+
         loadedData.sort(function (a,b){
             if (a.year > b.year) return 1;
             if (a.year < b.year) return -1;
@@ -39,7 +40,7 @@
             recurso = loadedData[i];
 
             //Si no encuentro el país en el array lo añado.
-            if(datos.filter(dato => dato.name === recurso.country).length == 0){
+            if(datos.filter(dato => dato.name == recurso.country).length == 0){
                 datos.push({name:recurso.country, data: []});
             }
             

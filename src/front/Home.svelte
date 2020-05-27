@@ -33,7 +33,7 @@
             <li><strong>API's GUI:</strong>
                 <Button outline color="warning" href="#/emp-stats">Employment statistics</Button>
                 <Button color="success" href="#/edq-stats">Education quality stats</Button>
-                <Button color="danger" href="#/womanresearchers-stat"> Women Researchers stats</Button>
+                <Button outline color="danger" href="#/womanresearchers-stats"> Women Researchers stats</Button>
             </li>
             <li><strong>Visualizations:</strong></li>
     
@@ -49,12 +49,12 @@
                     <tr>
                         <td><Button outline color="warning" href="#/emp-stats/graph">Employment visualizations (Graph 1)</Button></td>
                         <td><Button color="success" href="#/edq-stats/edq-graphics">EDQ Graphics</Button></td>
-                        <td><Button color="danger" href="#/womanresearchers-stats/womanresearchers-graph-one">Women Researchers Graphic 1</Button></td>
+                        <td><Button outline color="danger" href="#/womanresearchers-stats/womanresearchers-graph-one">Women Researchers Graphic 1</Button></td>
                     </tr>
                     <tr>
                         <td><Button outline color="warning" href="#/emp-stats/graph-two">Employment visualizations (Graph 2)</Button></td>
                         <td></td>
-                        <td><Button color="danger" href="#/womanresearchers-stats/womanresearchers-graph-two">Women Researchers Graphic 2</Button></td>
+                        <td><Button outline color="danger" href="#/womanresearchers-stats/womanresearchers-graph-two">Women Researchers Graphic 2</Button></td>
                     </tr>
     
                 </tbody>
