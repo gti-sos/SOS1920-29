@@ -6,6 +6,7 @@
         //loadIGDBGraphic();
         //loadStudioGhibliGraphic();
         //loadAnimeGraphic();
+        //loadFilmsGraphic();
     }
 
     async function loadAgeOfEmpiresGraphic(){
@@ -180,7 +181,7 @@
                     type: 'column'
                 },
                 title: {
-                    text: 'Top 50 de animes en valoración.'
+                    text: 'Top 50 animes en valoración.'
                 },
                 series: data
             });
@@ -190,6 +191,39 @@
         else{
             console.log("Error fetching data from JIKAN API");
         }
+    }
+
+    async function loadFilmsGraphic(){
+        const res = await fetch("http://www.omdbapi.com/?apikey=a17bbc51&s=star+wars");
+
+        if(res.ok){
+            let json = await res.json();
+            let star_wars_films = json;
+
+            let data = [];
+
+            for(let i = 0; i < star_wars_films.Search.length; i++){
+                data.push({name: star_wars_films.Search[i].Title, data: [parseInt(star_wars_films.Search[i].Year)]});
+            }
+
+            Highcharts.chart('films', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Año de estreno de las películas de Star Wars.'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Año de estreno'
+                    }
+                },
+                series: data
+            });
+
+
+        }
+
     }
 
 </script>
@@ -222,6 +256,10 @@
     <h4 class="titulo_API"><a href="https://jikan.docs.apiary.io/#reference/0/anime">ANIME API</a></h4>
     <b>API con información sobre animes.</b>
     <div id="anime"></div>
+
+    <h4 class="titulo_API"><a href="http://www.omdbapi.com/">FILMS API</a></h4>
+    <b>API con información sobre películas.</b>
+    <div id="films"></div>
 
 </main>
 
