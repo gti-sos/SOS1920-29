@@ -5,6 +5,7 @@
         //loadHearthstoneGraphic();
         //loadIGDBGraphic();
         //loadStudioGhibliGraphic();
+        //loadAnimeGraphic();
     }
 
     async function loadAgeOfEmpiresGraphic(){
@@ -146,7 +147,7 @@
                 data.push({name: films[i].title, data: [parseInt(films[i].rt_score)]});
             }
 
-            console.log(data);
+            //console.log(data);
 
             Highcharts.chart('studio_ghibli', {
                 chart: {
@@ -160,6 +161,36 @@
         }
     }
 
+    async function loadAnimeGraphic(){
+        const res = await fetch("https://api.jikan.moe/v3/top/anime/1/tv");
+
+        if(res.ok){
+
+            let json = await res.json();
+            let lista_animes = json;
+
+            let data = [];
+
+            for(let i = 0; i < lista_animes.top.length; i++){
+                data.push({name: lista_animes.top[i].title, data: [lista_animes.top[i].score]});
+            }
+
+            Highcharts.chart('anime', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Top 50 de animes en valoración.'
+                },
+                series: data
+            });
+
+
+        }
+        else{
+            console.log("Error fetching data from JIKAN API");
+        }
+    }
 
 </script>
 
@@ -184,9 +215,13 @@
     <b>API con información sobre videojuegos.</b>
     <div id="igdb"></div>
 
-    <h4 class="titulo_API"><a href="https://api-docs.igdb.com/#about">STUDIO GHIBLI API</a></h4>
+    <h4 class="titulo_API"><a href="https://ghibliapi.herokuapp.com/#section/Studio-Ghibli-API">STUDIO GHIBLI API</a></h4>
     <b>API con información sobre películas de Studio Ghibli.</b>
     <div id="studio_ghibli"></div>
+
+    <h4 class="titulo_API"><a href="https://jikan.docs.apiary.io/#reference/0/anime">ANIME API</a></h4>
+    <b>API con información sobre animes.</b>
+    <div id="anime"></div>
 
 </main>
 
