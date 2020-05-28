@@ -1,4 +1,6 @@
 <script>
+    import Button from "sveltestrap/src/Button.svelte";
+    import {pop} from "svelte-spa-router";
 
     async function loadGraphs(){
         //loadAgeOfEmpiresGraphic();
@@ -260,6 +262,8 @@
     <h4 class="titulo_API"><a href="http://www.omdbapi.com/">FILMS API</a></h4>
     <b>API con información sobre películas.</b>
     <div id="films"></div>
+
+    <Button outline color = "secondary" on:click="{pop}">Volver</Button>
 
 </main>
 

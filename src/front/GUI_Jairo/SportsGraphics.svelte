@@ -5,8 +5,9 @@
     const BASE_API_URL = "/api/v1";
 
     async function loadGraphs(){
-        loadGraphBalldontlie();
-        loadFootballDataGraph();
+        //loadGraphBalldontlie();
+        //loadFootballDataGraph();
+        //loadFootballScienceGraph();
     }
 
     async function loadGraphBalldontlie(){
@@ -76,8 +77,6 @@
 
             let data_final = [];
 
-
-
             for(let i = 0; i < lista_goleadores.length; i++){
                 data_final.push({name: lista_goleadores[i].player.name+" "+"("+lista_goleadores[i].team.name+")", y: lista_goleadores[i].numberOfGoals});
             }
@@ -112,6 +111,53 @@
         }
 
     }
+
+    async function loadFootballScienceGraph(){
+        let headers = new Headers({"x-rapidapi-host": "stroccoli-futbol-science-v1.p.rapidapi.com",
+                                    "x-rapidapi-key": "f3a73290d1mshd8f660509bd8628p1a0f3djsnf9b73d5d9c91",
+                                    "useQueryString": true});
+
+        let init = {method: 'GET',
+                    headers: headers
+                    };
+        const res = await fetch("https://stroccoli-futbol-science-v1.p.rapidapi.com/s1/results/2018-10-05/2018-10-11?tournament_name=Spanish%20La%20Liga",init);
+
+        if(res.ok){
+            let json = await res.json();
+            let lista_partidos = json;
+
+            let data = [];
+
+            for(let i = 0; i < lista_partidos.length; i++){
+                data.push({name: lista_partidos[i].event_name, y: lista_partidos[i].result[0] + lista_partidos[i].result[1] });
+            }
+
+            Highcharts.chart('football_science', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Goles en partidos de la liga española de fútbol 05/10/2018 - 11/10/2018'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer'
+                    }
+                },
+                series: [{
+                    colorByPoint: true,
+                    data: data
+                }]
+            });
+
+        }
+
+    }
+
 
 </script>
 
