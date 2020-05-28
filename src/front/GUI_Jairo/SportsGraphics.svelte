@@ -6,6 +6,7 @@
 
     async function loadGraphs(){
         loadGraphBalldontlie();
+        loadFootballDataGraph();
     }
 
     async function loadGraphBalldontlie(){
@@ -60,6 +61,58 @@
     }
 
 
+    async function loadFootballDataGraph(){
+        let headers = new Headers({ 'X-Auth-Token': '82a48cd2413e4dbaac60410a62ca1d93' });
+        let init = {method: 'GET',
+                    headers: headers
+                    };
+        const res = await fetch("http://api.football-data.org/v2/competitions/PD/scorers",init);
+
+        if(res.ok){
+            let json = await res.json();
+            let info_liga = json;
+
+            let lista_goleadores = info_liga.scorers;
+
+            let data_final = [];
+
+
+
+            for(let i = 0; i < lista_goleadores.length; i++){
+                data_final.push({name: lista_goleadores[i].player.name+" "+"("+lista_goleadores[i].team.name+")", y: lista_goleadores[i].numberOfGoals});
+            }
+
+
+            Highcharts.chart('football_data', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Top 10 goleadores liga española 2019-2020'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer'
+                    }
+                },
+                series: [{
+                    colorByPoint: true,
+                    data: data_final
+                }]
+            });
+
+
+        }
+        else{
+            console.log("Error receiving data from football-data api.");
+        }
+
+    }
+
 </script>
 
 <svelte:head>
@@ -78,22 +131,6 @@
     <h4 class="titulo_API"><a href="https://www.balldontlie.io/">BALLDONTLIE API</a></h4>
     <b>API sobre estadísticas NBA, integrada mediante proxy.</b>
     <div id="balldontlie_api"></div>
-
-    <h4 class="titulo_API"><a href="https://www.api-basketball.com/documentation-v1-0-5/#introduction">BASKETBALL API</a></h4>
-    <b>API con estadísticas sobre varias ligas de baloncesto.</b>
-    <div id="basketball_api"></div>
-
-    <h4 class="titulo_API"><a href="https://rapidapi.com/api-sports/api/api-basketball">API-BASKETBALL</a></h4>
-    <b>API con estadísticas sobre varias ligas de baloncesto.</b>
-    <div id="basketball_api_2"></div>
-
-    <h4 class="titulo_API"><a href="https://suredbits.com/api/#nba-data-api">SUREDBITS - NBA API</a></h4>
-    <b>API con estadísticas sobre la NBA (entre otras ligas norteamericanas).</b>
-    <div id="basketball_api_3"></div>
-
-    <h4 class="titulo_API"><a href="https://www.api-football.com/documentation">API-FOOTBALL</a></h4>
-    <b>API sobre estadísticas de fútbol.</b>
-    <div id="api_football"></div>
 
     <h4 class="titulo_API"><a href="https://www.football-data.org/documentation/api">FOOTBALL-DATA</a></h4>
     <b>API sobre estadísticas de fútbol.</b>
