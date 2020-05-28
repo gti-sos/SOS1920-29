@@ -20,7 +20,7 @@
             <tr>
                 <td><Button outline color="warning" href="#/integrations/emp_one">Integrations 1</Button></td>
                 <td><Button color="success" href="#/integrations/sports-graphics">Sports Graphics</Button></td>
-                <td><Button color="danger" href="">Liz Graphics</Button></td>
+                <td><Button outline color="danger" href="#/integrations/integration-one">Liz Graphics</Button></td>
             </tr>
             <tr>
                 <td><Button outline color="warning" href="#/integrations/emp_two">Integrations 2</Button></td>
