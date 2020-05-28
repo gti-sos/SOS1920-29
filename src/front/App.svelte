@@ -26,6 +26,7 @@
 	import Edit_womanresearchers_stat from './GUI_Lizeth/Edit_womanresearchers_stat.svelte';
 	import WomanresearchersGraphOne from './GUI_Lizeth/WomanresearchersGraphOne.svelte';
 	import WomanresearchersGraphTwo from './GUI_Lizeth/WomanresearchersGraphTwo.svelte';
+	import IntegrationOne from './GUI_Lizeth/IntegrationOne.svelte';
 
 
 
@@ -55,6 +56,8 @@
 		"/womanresearchers-stats/:country/:year": Edit_womanresearchers_stat,
 		"/womanresearchers-stats/womanresearchers-graph-one": WomanresearchersGraphOne,
 		"/womanresearchers-stats/womanresearchers-graph-Two": WomanresearchersGraphTwo,
+		"/integrations/integration-one": IntegrationOne,
+
 
 		
 		"*" : NotFound
