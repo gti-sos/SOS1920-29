@@ -1,6 +1,7 @@
 <script>
     import Button from "sveltestrap/src/Button.svelte";
     import {pop} from "svelte-spa-router";
+    
 
     const BASE_API_URL = "/api/v1";
 
@@ -8,6 +9,8 @@
         //loadGraphBalldontlie();
         //loadFootballDataGraph();
         //loadFootballScienceGraph();
+        //loadF1Graph();
+        loadBasketballNerdGraph();
     }
 
     async function loadGraphBalldontlie(){
@@ -158,6 +161,40 @@
 
     }
 
+    async function loadF1Graph(){
+
+        const res = await fetch("http://ergast.com/api/f1/2019/driverStandings.json");
+
+        if(res.ok){
+            let json = await res.json();
+            let clasificacion = json.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+
+            let data = [];
+
+            for(let i = 0; i < clasificacion.length; i++){
+                data.push({name: clasificacion[i].Driver.givenName+" "+clasificacion[i].Driver.familyName+" / "+clasificacion[i].Constructors[0].name, data: [parseInt(clasificacion[i].points)]});
+            }
+
+            Highcharts.chart('f1', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Puntos por piloto en la temporada de 2019.'
+                },
+                series: data
+            });
+
+           
+        }
+        else{
+            console.log("Error fetching data from F1 API");
+        }
+
+    }
+
+
+
 
 </script>
 
@@ -170,10 +207,6 @@
 
 <main>
 
-    <b>Aunque aparezcan con nombres parecidos, todas las APIs que aparecen en el listado son distintas y solo se ha 
-        utilizado una vez cada una para mostrar cada gráfica, pulsando en el nombre se puede acceder a la documentación correspondiente.
-    </b>
-
     <h4 class="titulo_API"><a href="https://www.balldontlie.io/">BALLDONTLIE API</a></h4>
     <b>API sobre estadísticas NBA, integrada mediante proxy.</b>
     <div id="balldontlie_api"></div>
@@ -185,14 +218,6 @@
     <h4 class="titulo_API"><a href="https://rapidapi.com/stroccoli/api/football-science">FOOTBALL SCIENCE</a></h4>
     <b>API sobre calendarios y resultados de fútbol.</b>
     <div id="football_science"></div>
-
-    <h4 class="titulo_API"><a href="https://rapidapi.com/montanaflynn/api/fifa-world-cup">FIFA WORLD CUP API</a></h4>
-    <b>API sobre los mundiales de fútbol.</b>
-    <div id="fifa_world_cup"></div>
-
-    <h4 class="titulo_API"><a href="https://olympicsapi.docs.apiary.io/#reference/olympics">OLYMPICS API</a></h4>
-    <b>API sobre los juegos olímpicos.</b>
-    <div id="olympics"></div>
 
     <h4 class="titulo_API"><a href="http://ergast.com/mrd/">F1 API</a></h4>
     <b>API sobre F1.</b>

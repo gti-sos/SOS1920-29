@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <td><Button outline color="warning" href="#/integrations/emp_three">Integrations 3</Button></td>
-                <td><Button color="success" href="">Alternative Graphics</Button></td>
+                <td><Button color="success" href=""></Button></td>
                 <td><Button color="danger" href="">Liz Graphics</Button></td>
             </tr>
             <tr>

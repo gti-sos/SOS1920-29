@@ -9,6 +9,7 @@
         //loadStudioGhibliGraphic();
         //loadAnimeGraphic();
         //loadFilmsGraphic();
+        loadRickAndMortyGraph();
     }
 
     async function loadAgeOfEmpiresGraphic(){
@@ -228,6 +229,32 @@
 
     }
 
+    async function loadRickAndMortyGraph(){
+        const res = await fetch("https://rickandmortyapi.com/api/episode");
+
+        if(res.ok){
+            let json = await res.json();
+            let lista_episodios = json.results;
+
+            let data = [];
+
+            for(let i = 0; i < lista_episodios.length; i++){
+                data.push({name: lista_episodios[i].name, data: [lista_episodios[i].characters.length]});
+            }
+
+            Highcharts.chart('rick_and_morty', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Número de personajes que aparecen en los 20 primeros episodios de Rick and Morty.'
+                },
+                series: data
+            });
+
+        }
+    }
+
 </script>
 
 <svelte:head>
@@ -262,6 +289,10 @@
     <h4 class="titulo_API"><a href="http://www.omdbapi.com/">FILMS API</a></h4>
     <b>API con información sobre películas.</b>
     <div id="films"></div>
+
+    <h4 class="titulo_API"><a href="http://www.omdbapi.com/">RICK AND MORTY API</a></h4>
+    <b>API con información sobre la serie de Rick and Morty.</b>
+    <div id="rick_and_morty"></div>
 
     <Button outline color = "secondary" on:click="{pop}">Volver</Button>
 
