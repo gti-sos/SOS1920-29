@@ -2,11 +2,11 @@ module.exports = function (app){
 	
 	console.log("Registering emp_stats_API_v2...");
 	const dataStore = require("nedb");
-	const path = require("path");
+    const path = require("path");
+    const request = require("request");
 	
     const dbFileName = path.join(__dirname,"emp-stats.db");
     const BASE_API_URL = "/api/v2";
-    const request = require("request");
 	
 	const db = new dataStore({
 		
@@ -14,13 +14,13 @@ module.exports = function (app){
 		autoload: true
     });
 
-    //PROXY
+    //Proxy
     var paths = BASE_API_URL + "/pullrequests";
     var apiServerHost = 'https://24pullrequests.com/users.json';
  
     app.use(paths, function(req, res) {
         var url = apiServerHost;
-        console.log('piped: '+ req.url);
+        console.log(url);
         req.pipe(request(url)).pipe(res);
     });
     

@@ -8,37 +8,57 @@
 
     async function loadGraph(){
 
-        var config = {
-            headers: {
-                "x-rapidapi-host": "free-nba.p.rapidapi.com",
-                "x-rapidapi-key": "b115b110f9msh3c44b9cf6127682p113503jsn8dc5c47240f8",
-                "useQueryString": true
-            },
-            query: {
-                "page": "0",
-	            "per_page": "10"
-            }
-        };
-
-        const res = await fetch(BASE_API_URL + "/numbers", config);
-
-        if(res.ok){
-            console.log("Hola");
+        const res = await fetch(BASE_API_URL + "/pullrequests");
+        
+        let json = await res.json();
+        let data_pull = json;
+        let data_contribution = [];
+        let data_users = [];
+        
+        // console.log(JSON.stringify(data_pull,null,2));
+        data_pull.forEach( (e) => {
             
-            let json = await res.json();
-            let data_numbers = json;
+            if(e.contributions_count >= 50){
+                // console.log(e.contributions_count);
+                // console.log(e.nickname);
+                data_contribution.push(e.contributions_count);
+                data_users.push(e.nickname);
 
-           // console.log(JSON.stringify(data_numbers,null,2));
-            let data_numbers_array = Object.values(data_numbers)
-            //console.log(JSON.stringify(data_numbers_array[0],null,2));
-            data_numbers_array.forEach( (e) => {
-                console.log(JSON.stringify(e[0],null,2));
+            }
+             
+        });
+
+        Highcharts.chart('container', {
+            chart: {
                 
-            });
-
-        }else{
-            console.log("No se ha podido acceder a la API");
-        }
+                type: 'column'
+            },
+            title: {
+                text: 'Contribución de usuarios en GitHub'
+            },
+            tooltip: {
+                shared: true
+            },
+            xAxis: {
+                categories: data_users,
+                
+            },
+            yAxis: [{
+                title: {
+                    text: ''
+                }
+            }, {
+                title: {
+                    text: ''
+                },
+                
+            }],
+            series: [{
+                name: 'Contributions',
+                type: 'column',
+                data: data_contribution
+            }]
+        });
     }
 
     
@@ -47,20 +67,32 @@
 
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/timeline.js"></script>
+    <script src="https://code.highcharts.com/modules/pareto.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js" on:load="{loadGraph}"></script>
 </svelte:head>
 
-<style>
-    .highcharts-strong {
-    font-weight: bold;
-    }
+<main>
 
+    <h1 style="text-align:center">Integración 1 (Con Proxy)</h1>
+    <h4 style="text-align:center"><a href="https://24pullrequests.com/api">24 pull requests API</a></h4>
+    <h5 style="text-align:center">Esta API viene de un proyecto para promover la colaboración de código abierto.</h5>
+    
+    <figure class="highcharts-figure">
+        <div id="container"></div>
+        <p class="highcharts-description">
+            La gráfica muestra todas las contribuciones de los usuarios de GitHub durante el mes de diciembre, ordenado de mayor a menor contribución, también incluye el nombre del usuario que realizó dicha contribución.
+        </p>
+    </figure>
+    <Button outline color="secondary" on:click="{pop}">Volver</Button>
+</main>
+
+<style>
     .highcharts-figure, .highcharts-data-table table {
-        min-width: 320px; 
-        max-width: 600px;
-        margin: 1em auto;
+    min-width: 320px; 
+    max-width: 800px;
+    margin: 1em auto;
     }
 
     .highcharts-data-table table {
