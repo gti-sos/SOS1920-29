@@ -4,41 +4,91 @@
     } from "svelte-spa-router";
     import Button from "sveltestrap/src/Button.svelte";
 
-    const BASE_API_URL = "/api/v2";
-
     async function loadGraph(){
 
-        var config = {
-            headers: {
-                "x-rapidapi-host": "free-nba.p.rapidapi.com",
-                "x-rapidapi-key": "b115b110f9msh3c44b9cf6127682p113503jsn8dc5c47240f8",
-                "useQueryString": true
-            },
-            query: {
-                "page": "0",
-	            "per_page": "10"
-            }
-        };
+        let Array_final = [];
+        let Array_male = [];
+        let Array_female = [];
+        let Array_data_male = [];
+        let Array_data_female = []
 
-        const res = await fetch(BASE_API_URL + "/numbers", config);
+        const res = await fetch("https://api.genderize.io/?name[]=peter&name[]=lois&name[]=stevie&name[]=michael&name[]=andrew&name[]=alexa&name[]=amelie&name[]=adele&name[]=charlize&name[]=ariel");
 
         if(res.ok){
             console.log("Hola");
             
             let json = await res.json();
-            let data_numbers = json;
+            let data_name = json;
 
-           // console.log(JSON.stringify(data_numbers,null,2));
-            let data_numbers_array = Object.values(data_numbers)
-            //console.log(JSON.stringify(data_numbers_array[0],null,2));
-            data_numbers_array.forEach( (e) => {
-                console.log(JSON.stringify(e[0],null,2));
+            console.log(JSON.stringify(data_name,null,2));
+            data_name.forEach( (e) => {
+                if(e.gender == 'male'){
+                    Array_male.push(e);
+                }else{
+                    Array_female.push(e);
+                }
+        
+            }); 
+            Array_male.forEach( (m) => {
+                Array_data_male.push({name: m.name, value: m.probability})
                 
             });
+            Array_final.push({name: 'male', data: Array_data_male});
 
+            Array_female.forEach( (m) => {
+                Array_data_female.push({name: m.name, value: m.probability})
+                
+            });
+            Array_final.push({name: 'female', data: Array_data_female})
+            
+            
         }else{
             console.log("No se ha podido acceder a la API");
         }
+
+        Highcharts.chart('container', {
+            chart: {
+                type: 'packedbubble',
+                height: '100%'
+            },
+            title: {
+                text: 'Predicción de género'
+            },
+            tooltip: {
+                useHTML: true,
+                pointFormat: '<b>{point.name}:</b> {point.value}%</sub>'
+            },
+            plotOptions: {
+                packedbubble: {
+                    minSize: '0%',
+                    maxSize: '1500%',  
+                    zMin: 0,
+                    zMax: 1000,
+                    layoutAlgorithm: {
+                        gravitationalConstant: 0.05,
+                        splitSeries: true,
+                        seriesInteraction: false,
+                        dragBetweenSeries: true,
+                        parentNodeLimit: true
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}',
+                        filter: {
+                            property: 'y',
+                            operator: '>',
+                            value: 0
+                        },
+                        style: {
+                            color: 'black',
+                            textOutline: 'none',
+                            fontWeight: 'normal'
+                        }
+                    }
+                } 
+            },
+            series: Array_final
+        });
     }
 
     
@@ -47,20 +97,30 @@
 
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/timeline.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js" on:load="{loadGraph}"></script>
 </svelte:head>
 
-<style>
-    .highcharts-strong {
-    font-weight: bold;
-    }
+<main>
+    <h1 style="text-align:center">Integración 2</h1>
+    <h4 style="text-align:center"><a href="https://genderize.io/">Genderize API</a></h4>
+    <h5 style="text-align:center">Esta API determina el género de un nombre. API para predecir el género de una persona dada su nombre.</h5>
 
+    <figure class="highcharts-figure">
+        <div id="container"></div>
+        <p class="highcharts-description">
+            La gráfica muestra los porcentajes de que una persona por como se llama, sea hombre o mujer. Por ejemplo si te llamas Alexa tienes un 0,93% de probabilidad de que seas mujer.
+        </p>
+    </figure>
+    <Button outline color="secondary" on:click="{pop}">Volver</Button>
+</main>
+
+<style>
     .highcharts-figure, .highcharts-data-table table {
-        min-width: 320px; 
-        max-width: 600px;
-        margin: 1em auto;
+    min-width: 320px; 
+    max-width: 800px;
+    margin: 1em auto;
     }
 
     .highcharts-data-table table {
@@ -90,5 +150,6 @@
     .highcharts-data-table tr:hover {
         background: #f1f7ff;
     }
+
 
 </style>
