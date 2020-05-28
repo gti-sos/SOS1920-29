@@ -15,11 +15,11 @@ module.exports = function (app){
     });
 
     //PROXY
-    var paths = BASE_API_URL + "/api.abalin";
-    var apiServerHost = 'https://api.abalin.net';
+    var paths = BASE_API_URL + "/pullrequests";
+    var apiServerHost = 'https://24pullrequests.com/users.json';
  
     app.use(paths, function(req, res) {
-        var url = apiServerHost + req.url;
+        var url = apiServerHost;
         console.log('piped: '+ req.url);
         req.pipe(request(url)).pipe(res);
     });
