@@ -2,42 +2,38 @@
 
     async function loadGraphs(){
         loadAgeOfEmpiresGraphic();
+        loadHearthstoneGraphic();
     }
 
     async function loadAgeOfEmpiresGraphic(){
 
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
-        const res = await fetch(proxyurl+"https://age-of-empires-2-api.herokuapp.com/api/v1/structure/30");
-        const res_2 = await fetch(proxyurl+"https://age-of-empires-2-api.herokuapp.com/api/v1/structure/32");
-        const res_3 = await fetch(proxyurl+"https://age-of-empires-2-api.herokuapp.com/api/v1/structure/33");
-        const res_4 = await fetch(proxyurl+"https://age-of-empires-2-api.herokuapp.com/api/v1/structure/34");
+        const res = await fetch(proxyurl+"https://age-of-empires-2-api.herokuapp.com/api/v1/structures");
 
-        if(res.ok && res_2.ok && res_3.ok && res_4.ok){
+        if(res.ok){
+
             let json = await res.json();
-            let building_1 = json;
+            let structures = json;
 
-            json = await res_2.json();
-            let building_2 = json;
+            let names = [];
 
-            json = await res_3.json();
-            let building_3 = json;
+            for(let i = 0; i < 15; i++){
+                names.push(structures.structures[i].name);
+            }
 
-            json = await res_4.json();
-            let building_4 = json;
+            let data = [];
 
-            let names = [building_1.name,building_2.name,building_3.name,building_4.name];
-            let data = [{name: names[0],data: [building_1.cost.Wood]},{name: names[1],data: [building_2.cost.Wood]},{name: names[2],data: [building_3.cost.Wood]},{name: names[3],data: [building_4.cost.Wood]}];
-
-            console.log(data);
-            console.log(names);
+            for(let i = 0; i < 15; i++){
+                data.push({name: names[i], data: [structures.structures[i].cost.Wood]});
+            }
 
             Highcharts.chart('ageofempires', {
                 chart: {
                     type: 'column'
                 },
                 title: {
-                    text: 'Coste de oro de varias construcciones del juego.'
+                    text: 'Coste de madera de varias construcciones del juego.'
                 },
                 series: data
             });
@@ -49,6 +45,51 @@
 
 
         
+    }
+
+    async function loadHearthstoneGraphic(){
+        let headers = new Headers({"x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
+	                                "x-rapidapi-key": "f3a73290d1mshd8f660509bd8628p1a0f3djsnf9b73d5d9c91",
+	                                "useQueryString": true});
+
+        let init = {method: 'GET',
+                    headers: headers
+                    };
+        const res = await fetch("https://omgvamp-hearthstone-v1.p.rapidapi.com/cards?attack=3&health=4",init);
+
+        if(res.ok){
+            let json = await res.json();
+            let cartas = json;
+
+
+            let data = [];
+
+            for(let i = 0; i < cartas["Rastakhan's Rumble"].length; i++){
+                data.push({name: cartas["Rastakhan's Rumble"][i].name, data: [cartas["Rastakhan's Rumble"][i].cost]})
+            }
+            
+            for(let i = 0; i < cartas["The Boomsday Project"].length; i++){
+                data.push({name: cartas["The Boomsday Project"][i].name, data: [cartas["The Boomsday Project"][i].cost]})
+            }
+
+
+            Highcharts.chart('hearthstone', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Coste de varias cartas de ataque 3 y vida 4 del juego.'
+                },
+                series: data
+            });
+            
+
+        }
+        else{
+            console.log("Error fetching data from Hearthstone API.");
+        }
+
+
     }
 
 </script>
@@ -65,6 +106,10 @@
     <h4 class="titulo_API"><a href="https://age-of-empires-2-api.herokuapp.com/docs/">AGE OF EMPIRES 2 API</a></h4>
     <b>API con información sobre el videojuego Age of Empires 2.</b>
     <div id="ageofempires"></div>
+
+    <h4 class="titulo_API"><a href="https://rapidapi.com/omgvamp/api/hearthstone">HEARTHSTONE API</a></h4>
+    <b>API con información sobre el videojuego Hearthstone.</b>
+    <div id="hearthstone"></div>
 
 </main>
 
