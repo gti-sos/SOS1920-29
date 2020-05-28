@@ -136,10 +136,6 @@
     <b>API sobre estadísticas de fútbol.</b>
     <div id="football_data"></div>
 
-    <h4 class="titulo_API"><a href="https://rapidapi.com/theapiguy/api/thesportsdb">THESPORTSDB</a></h4>
-    <b>API sobre calendarios deportivos.</b>
-    <div id="thesportsdb"></div>
-
     <h4 class="titulo_API"><a href="https://rapidapi.com/stroccoli/api/football-science">FOOTBALL SCIENCE</a></h4>
     <b>API sobre calendarios y resultados de fútbol.</b>
     <div id="football_science"></div>

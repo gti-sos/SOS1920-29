@@ -20,12 +20,14 @@
 	import Edit_edq_stat from './GUI_Jairo/Edit_edq_stat.svelte';
 	import EdqGraphics from './GUI_Jairo/EdqGraphics.svelte';
 	import SportsGraphics from './GUI_Jairo/SportsGraphics.svelte';
+	import VideogamesMoviesGraphics from './GUI_Jairo/VideogamesMoviesGraphics.svelte';
 
 	//Lizeth
 	import WomanresearchersTable from './GUI_Lizeth/WomanresearchersTable.svelte';
 	import Edit_womanresearchers_stat from './GUI_Lizeth/Edit_womanresearchers_stat.svelte';
 	import WomanresearchersGraphOne from './GUI_Lizeth/WomanresearchersGraphOne.svelte';
 	import WomanresearchersGraphTwo from './GUI_Lizeth/WomanresearchersGraphTwo.svelte';
+
 
 
 	const routes = {
@@ -48,6 +50,7 @@
 		"/edq-stats/:country/:year": Edit_edq_stat,
 		"/edq-stats/edq-graphics": EdqGraphics,
 		"/integrations/sports-graphics": SportsGraphics,
+		"/integrations/videogames-movies-graphics": VideogamesMoviesGraphics,
 
 		//Routes Lizeth
 		"/womanresearchers-stats": WomanresearchersTable,
