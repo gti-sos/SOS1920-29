@@ -2,6 +2,7 @@
     import Button from "sveltestrap/src/Button.svelte";
     import {pop} from "svelte-spa-router";
     import {create_xData, devuelve_edqStats} from "./GUI_Jairo/loadDatasets_edq.js";
+    import {devuelve_WomanStats} from "./GUI_Lizeth/loadDatasets_woman.js";
 
     
 
