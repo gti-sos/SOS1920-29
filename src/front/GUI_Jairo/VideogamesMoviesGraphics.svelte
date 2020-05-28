@@ -1,8 +1,10 @@
 <script>
 
     async function loadGraphs(){
-        loadAgeOfEmpiresGraphic();
-        loadHearthstoneGraphic();
+        //loadAgeOfEmpiresGraphic();
+        //loadHearthstoneGraphic();
+        //loadIGDBGraphic();
+        //loadStudioGhibliGraphic();
     }
 
     async function loadAgeOfEmpiresGraphic(){
@@ -92,6 +94,73 @@
 
     }
 
+    async function loadIGDBGraphic(){
+        let headers = new Headers({"user-key": "c36c1bee1803203a994ab36da28bff39"});
+        const proxyurl = "https://cors-anywhere.herokuapp.com/";
+
+        let init = {method: 'POST',
+                    headers: headers,
+                    body: "fields name, rating; limit 500; search \"final fantasy\"; where rating >= 80; "
+                    };
+        const res = await fetch(proxyurl+"https://api-v3.igdb.com/games",init);
+
+        if(res.ok){
+            let json = await res.json();
+            let lista_ff = json;
+
+            let data = [];
+
+            for(let i = 0; i < lista_ff.length; i++){
+                data.push({name: lista_ff[i].name, data : [lista_ff[i].rating]});
+            }
+
+            Highcharts.chart('igdb', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Rating de varios juegos de la saga Final Fantasy.'
+                },
+                series: data
+            });
+            
+
+        }
+        else{
+            console.log("Error fetching data from IGDB API.");
+        }
+
+    }
+
+    async function loadStudioGhibliGraphic(){
+        const res = await fetch("https://ghibliapi.herokuapp.com/films?fields=title,rt_score");
+
+        if(res.ok){
+            let json = await res.json();
+            let films = json;
+
+            let data = [];
+
+            for(let i = 0; i < films.length; i++){
+                console.log(films[i].rt_score);
+                data.push({name: films[i].title, data: [parseInt(films[i].rt_score)]});
+            }
+
+            console.log(data);
+
+            Highcharts.chart('studio_ghibli', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Rating de varias películas de Studio Ghibli.'
+                },
+                series: data
+            });
+        }
+    }
+
+
 </script>
 
 <svelte:head>
@@ -110,6 +179,14 @@
     <h4 class="titulo_API"><a href="https://rapidapi.com/omgvamp/api/hearthstone">HEARTHSTONE API</a></h4>
     <b>API con información sobre el videojuego Hearthstone.</b>
     <div id="hearthstone"></div>
+
+    <h4 class="titulo_API"><a href="https://api-docs.igdb.com/#about">VIDEOGAMES API</a></h4>
+    <b>API con información sobre videojuegos.</b>
+    <div id="igdb"></div>
+
+    <h4 class="titulo_API"><a href="https://api-docs.igdb.com/#about">STUDIO GHIBLI API</a></h4>
+    <b>API con información sobre películas de Studio Ghibli.</b>
+    <div id="studio_ghibli"></div>
 
 </main>
 
