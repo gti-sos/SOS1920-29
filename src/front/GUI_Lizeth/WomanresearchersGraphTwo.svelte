@@ -21,80 +21,46 @@
                        
         });*/
 
-        let recurso = "";
         let datos = []; 
-        let primer_anyo = 0; 
-        let ultimo_anyo = 0; 
-
-
-        MyData.sort(function (a,b){
-            if (a.year > b.year) return 1;
-            if (a.year < b.year) return -1;
-            if(a.country.localeCompare(b.country) < 0) return -1;
-            if(a.country.localeCompare(b.country) > 0) return 1;
-        });
+        let recurso ="";
         console.log(MyData);
-
-        primer_anyo = MyData[0].year;
-        ultimo_anyo = MyData[MyData.length-1].year;
-
-        let countries =[] ;
 
         MyData.forEach((x) => {
             //console.log(x);
-            recurso = x;
-            if(datos.filter(dato => dato.name == recurso.year).length == 0){
-                datos.push({name:recurso.year, data: []});
-
-                
+            if(x.year == "2015"){
+              recurso = x;
+              if(datos.filter(dato => dato.name == recurso.country).length == 0){
+                  datos.push({name:recurso.country, data: [x.womanresearchers_he, x.womanresearchers_gov , x.womanresearchers_bent]});
             }
+          }
+            
         });
         console.log(recurso);
         console.log(datos)
-        datos.forEach((i)=>{
-            for (let j=0;j<8;j++){
-                i.data.push(MyData.filter(dato=> dato.year == i.name)[j].womanresearchers_he);
-                i.data.push(MyData.filter(dato=> dato.year == i.name)[j].country);
-                countries += ","+MyData.filter(dato=> dato.year == i.name)[j].country;
-                
-           }  
-        });
+      
 
         console.log(datos);
-        console.log(countries);
+       // console.log(countries);
 
-        var options = {
+       var options = {
           series: datos,
           chart: {
-          height: 350,
+          height: 500,
           type: 'scatter',
           zoom: {
+            enabled: true,
             type: 'xy'
           }
         },
-        dataLabels: {
-          enabled: false
-        },
-        grid: {
-          xaxis: {
-            lines: {
-              show: true
-            }
-          },
-          yaxis: {
-            lines: {
-              show: true
-            }
-          },
-        },
         xaxis: {
-          type: 'text',
+          categories: ["Educaión Superior","Administacón","Negocios"],
+                    
         },
         yaxis: {
 
+          tickAmount: 10
         }
         };
-
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
         
