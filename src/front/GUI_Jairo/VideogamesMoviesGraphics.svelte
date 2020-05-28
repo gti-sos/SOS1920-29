@@ -9,7 +9,9 @@
         //loadStudioGhibliGraphic();
         //loadAnimeGraphic();
         //loadFilmsGraphic();
-        loadRickAndMortyGraph();
+        //loadRickAndMortyGraph();
+        //loadTLOTRGraph();
+        //loadHarryPotterGraph();
     }
 
     async function loadAgeOfEmpiresGraphic(){
@@ -255,6 +257,103 @@
         }
     }
 
+    async function loadTLOTRGraph(){
+
+        let headers = new Headers({"Authorization": "Bearer 8aL2LbtHgehh67y32wUf"});
+        let init = {method: 'GET',
+                    headers: headers};
+        const res = await fetch("https://the-one-api.herokuapp.com/v1/movie",init);
+
+        if(res.ok){
+            let json = await res.json();
+            let peliculas_tlotr = json.docs;
+
+            let data = [];
+
+            for(let i = 0; i < peliculas_tlotr.length; i++){
+                data.push({name: peliculas_tlotr[i].name, y: peliculas_tlotr[i].runtimeInMinutes});
+            }
+
+            Highcharts.chart('tlotr', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Minutos de duración de las películas de El señor de los anillos'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer'
+                    }
+                },
+                series: [{
+                    colorByPoint: true,
+                    data: data
+                }]
+            });
+            
+        }
+
+    }
+
+    async function loadHarryPotterGraph(){
+
+        const res = await fetch("https://www.potterapi.com/v1/characters?key=$2a$10$UmWeGkwQXzBNrxLpxx6MLuy231qXdXSdC98r2LaferDl4UP93cgrG&house=Gryffindor");
+        const res_2 = await fetch("https://www.potterapi.com/v1/characters?key=$2a$10$UmWeGkwQXzBNrxLpxx6MLuy231qXdXSdC98r2LaferDl4UP93cgrG&house=Ravenclaw");
+        const res_3 = await fetch("https://www.potterapi.com/v1/characters?key=$2a$10$UmWeGkwQXzBNrxLpxx6MLuy231qXdXSdC98r2LaferDl4UP93cgrG&house=Hufflepuff");
+        const res_4 = await fetch("https://www.potterapi.com/v1/characters?key=$2a$10$UmWeGkwQXzBNrxLpxx6MLuy231qXdXSdC98r2LaferDl4UP93cgrG&house=Slytherin");
+
+        if(res.ok && res_2.ok && res_3.ok && res_4.ok){
+            let json = await res.json();
+            let lista_gryffindor = json;
+
+            json = await res_2.json();
+            let lista_ravenclaw = json;
+
+            json = await res_3.json();
+            let lista_hufflepuff = json;
+
+            json = await res_4.json();
+            let lista_slytherin = json;
+
+            let data = [];
+
+            data.push({name: 'Gryffindor', y: lista_gryffindor.length});
+            data.push({name: 'Ravenclaw', y: lista_ravenclaw.length});
+            data.push({name: 'Hufflepuff', y: lista_hufflepuff.length});
+            data.push({name: 'Slytherin', y: lista_slytherin.length});
+
+            Highcharts.chart('harry_potter', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Nº de personajes de la saga por casa.'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer'
+                    }
+                },
+                series: [{
+                    colorByPoint: true,
+                    data: data
+                }]
+            });
+
+            
+        }
+
+    }
+
 </script>
 
 <svelte:head>
@@ -290,9 +389,17 @@
     <b>API con información sobre películas.</b>
     <div id="films"></div>
 
-    <h4 class="titulo_API"><a href="http://www.omdbapi.com/">RICK AND MORTY API</a></h4>
+    <h4 class="titulo_API"><a href="https://rickandmortyapi.com/">RICK AND MORTY API</a></h4>
     <b>API con información sobre la serie de Rick and Morty.</b>
     <div id="rick_and_morty"></div>
+
+    <h4 class="titulo_API"><a href="https://the-one-api.herokuapp.com/documentation">THE LORD OF THE RINGS API</a></h4>
+    <b>API con información sobre El señor de los anillos.</b>
+    <div id="tlotr"></div>
+
+    <h4 class="titulo_API"><a href="https://www.potterapi.com">HARRY POTTER API</a></h4>
+    <b>API con información sobre Harry Potter.</b>
+    <div id="harry_potter"></div>
 
     <Button outline color = "secondary" on:click="{pop}">Volver</Button>
 

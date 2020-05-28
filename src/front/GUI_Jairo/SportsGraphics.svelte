@@ -10,7 +10,6 @@
         //loadFootballDataGraph();
         //loadFootballScienceGraph();
         //loadF1Graph();
-        loadBasketballNerdGraph();
     }
 
     async function loadGraphBalldontlie(){
@@ -63,7 +62,6 @@
 
 
     }
-
 
     async function loadFootballDataGraph(){
         let headers = new Headers({ 'X-Auth-Token': '82a48cd2413e4dbaac60410a62ca1d93' });
