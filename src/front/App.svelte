@@ -11,6 +11,7 @@
 	import EmpGraph from './GUI_Enrique/EmpGraph.svelte';
 	import EmpGraphTwo from './GUI_Enrique/EmpGraphTwo.svelte';
 	import EmpIntegrationsOne from './GUI_Enrique/EmpIntegrationsOne.svelte';
+	import EmpIntegrationsTwo from './GUI_Enrique/EmpIntegrationsTwo.svelte';
 
 	//Jairo
 	import EdqTable from './GUI_Jairo/EdqTable.svelte';
@@ -38,6 +39,7 @@
 		"/emp-stats/graph" : EmpGraph,
 		"/emp-stats/graph-two" : EmpGraphTwo,
 		"/integrations/emp_one": EmpIntegrationsOne,
+		"/integrations/emp_two": EmpIntegrationsTwo,
 
 		//Routes Jairo
 		"/edq-stats": EdqTable,
