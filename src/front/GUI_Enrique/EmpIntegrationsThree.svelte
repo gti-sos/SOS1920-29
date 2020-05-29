@@ -8,16 +8,28 @@
     async function loadGraph(){
 
         const res = await fetch("https://apis.is/earthquake/is");
+        let Array_data = [];
 
         if(res.ok){
             console.log("Hola");
             
             let json = await res.json();
             let data_terremotos = json;
+            
+            //console.log(JSON.stringify(data_terremotos,null,2));
+            let data_terremotos_array = Object.values(data_terremotos);
+            //console.log(JSON.stringify(data_terremotos_array,null,2));
+            data_terremotos_array.forEach( (e) => {
+                
+                e.forEach( (x) => {
+                    if( x.quality >= 60){
+                        Array_data.push({name: x.humanReadableLocation, y: x.depth, z: x.quality});
 
-            console.log(JSON.stringify(data_terremotos,null,2));
-            let data_terremetos_array = Object.values(data_terremotos);
-            console.log(JSON.stringify(data_terremotos,null,2));
+                    }             
+                    
+                });
+            }); 
+            console.log(JSON.stringify(Array_data,null,2));
 
         }else{
             console.log("No se ha podido acceder a la API");
@@ -28,7 +40,7 @@
                 type: 'variablepie'
             },
             title: {
-                text: 'Countries compared by population density and total area.'
+                text: 'Terremotos en Islandia.'
             },
             tooltip: {
                 headerFormat: '',
@@ -41,35 +53,7 @@
                 innerSize: '20%',
                 zMin: 0,
                 name: 'location',
-                data: [{
-                    name: 'Spain',
-                    y: 505370,
-                    z: 92.9
-                }, {
-                    name: 'France',
-                    y: 551500,
-                    z: 118.7
-                }, {
-                    name: 'Poland',
-                    y: 312685,
-                    z: 124.6
-                }, {
-                    name: 'Czech Republic',
-                    y: 78867,
-                    z: 137.5
-                }, {
-                    name: 'Italy',
-                    y: 301340,
-                    z: 201.8
-                }, {
-                    name: 'Switzerland',
-                    y: 41277,
-                    z: 214.5
-                }, {
-                    name: 'Germany',
-                    y: 357022,
-                    z: 235.6
-                }]
+                data: Array_data
             }]
         });
     }
@@ -87,15 +71,19 @@
 </svelte:head>
 
 <main>
+
+    <h1 style="text-align:center">Integración 3</h1>
+    <h4 style="text-align:center"><a href="https://apis.is/earthquake/is">Earthquakes in Iceland API</a></h4>
+    <h5 style="text-align:center">Esta API se encarga de ofrecernos datos de una monitorización de los terremotos ocurridos en Islandia en las últimas 48 horas.</h5>
+
     <figure class="highcharts-figure">
         <div id="container"></div>
         <p class="highcharts-description">
-            Variable radius pie charts can be used to visualize a
-            second dimension in a pie chart. In this chart, the more
-            densely populated countries are drawn further out, while the
-            slice width is determined by the size of the country.
+            La gráfica nos muestra los terremetos que ha habido en Islandia en las últimas 48 horas. Podemos ver la ubicación exacta de dicho terremeto (por ejemplo, 4,6 km al norte de Herðubreið), en la longitud de sus barras la calidad del terremoto y en la anchura la profundidad.
         </p>
     </figure>
+    <Button outline color="secondary" on:click="{pop}">Volver</Button>
+
 </main>
 
 <style>
