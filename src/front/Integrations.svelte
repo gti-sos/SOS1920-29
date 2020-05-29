@@ -42,6 +42,16 @@
                 <td></td>
                 <td></td>
             </tr>
+            <tr>
+                <td><Button outline color="warning" href="#/integrations/emp_six">Integration 6</Button></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><Button outline color="warning" href="#/integrations/emp_seven">Integration 7</Button></td>
+                <td></td>
+                <td></td>
+            </tr>
 
         </tbody>
     </Table>

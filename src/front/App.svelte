@@ -15,6 +15,8 @@
 	import EmpIntegrationsThree from './GUI_Enrique/EmpIntegrationsThree.svelte';
 	import EmpIntegrationsFour from './GUI_Enrique/EmpIntegrationsFour.svelte';
 	import EmpIntegrationsFive from './GUI_Enrique/EmpIntegrationsFive.svelte';
+	import EmpIntegrationsSix from './GUI_Enrique/EmpIntegrationsSix.svelte';
+	import EmpIntegrationsSeven from './GUI_Enrique/EmpIntegrationsSeven.svelte';
 
 	//Jairo
 	import EdqTable from './GUI_Jairo/EdqTable.svelte';
@@ -51,6 +53,8 @@
 		"/integrations/emp_three": EmpIntegrationsThree,
 		"/integrations/emp_four": EmpIntegrationsFour,
 		"/integrations/emp_five": EmpIntegrationsFive,
+		"/integrations/emp_six": EmpIntegrationsSix,
+		"/integrations/emp_seven": EmpIntegrationsSeven,
 
 		//Routes Jairo
 		"/edq-stats": EdqTable,
