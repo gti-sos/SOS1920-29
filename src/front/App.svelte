@@ -45,7 +45,7 @@
 		"/integrations/emp_one": EmpIntegrationsOne,
 		"/integrations/emp_two": EmpIntegrationsTwo,
 		"/integrations/emp_three": EmpIntegrationsThree,
-		"/integrations/emp_three": EmpIntegrationsFour,
+		"/integrations/emp_four": EmpIntegrationsFour,
 
 		//Routes Jairo
 		"/edq-stats": EdqTable,
