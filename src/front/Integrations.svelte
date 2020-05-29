@@ -29,12 +29,12 @@
             </tr>
             <tr>
                 <td><Button outline color="warning" href="#/integrations/emp_three">Integrations 3</Button></td>
-                <td><Button color="success" href=""></Button></td>
+                <td><Button color="success" href="#/integrations/other-graphics">Other Graphics</Button></td>
                 <td><Button color="danger" href="">Liz Graphics</Button></td>
             </tr>
             <tr>
                 <td><Button outline color="warning" href="#/integrations/emp_four">Integrations 4</Button></td>
-                <td><Button color="success" href="">Alternative Graphics</Button></td>
+                <td></td>
                 <td><Button color="danger" href="">Liz Graphics</Button></td>
             </tr>
 

@@ -6,10 +6,10 @@
     const BASE_API_URL = "/api/v1";
 
     async function loadGraphs(){
-        //loadGraphBalldontlie();
-        //loadFootballDataGraph();
-        //loadFootballScienceGraph();
-        //loadF1Graph();
+        loadGraphBalldontlie();
+        loadFootballDataGraph();
+        loadFootballScienceGraph();
+        loadF1Graph();
     }
 
     async function loadGraphBalldontlie(){

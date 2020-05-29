@@ -3,15 +3,15 @@
     import {pop} from "svelte-spa-router";
 
     async function loadGraphs(){
-        //loadAgeOfEmpiresGraphic();
-        //loadHearthstoneGraphic();
-        //loadIGDBGraphic();
-        //loadStudioGhibliGraphic();
-        //loadAnimeGraphic();
-        //loadFilmsGraphic();
-        //loadRickAndMortyGraph();
-        //loadTLOTRGraph();
-        //loadHarryPotterGraph();
+        loadAgeOfEmpiresGraphic();
+        loadHearthstoneGraphic();
+        loadIGDBGraphic();
+        loadStudioGhibliGraphic();
+        loadAnimeGraphic();
+        loadFilmsGraphic();
+        loadRickAndMortyGraph();
+        loadTLOTRGraph();
+        loadHarryPotterGraph();
     }
 
     async function loadAgeOfEmpiresGraphic(){

@@ -20,6 +20,7 @@
 	import EdqGraphics from './GUI_Jairo/EdqGraphics.svelte';
 	import SportsGraphics from './GUI_Jairo/SportsGraphics.svelte';
 	import VideogamesMoviesGraphics from './GUI_Jairo/VideogamesMoviesGraphics.svelte';
+	import OtherGraphics from './GUI_Jairo/OtherGraphics.svelte';
 
 	//Lizeth
 	import WomanresearchersTable from './GUI_Lizeth/WomanresearchersTable.svelte';
@@ -50,6 +51,7 @@
 		"/edq-stats/edq-graphics": EdqGraphics,
 		"/integrations/sports-graphics": SportsGraphics,
 		"/integrations/videogames-movies-graphics": VideogamesMoviesGraphics,
+		"/integrations/other-graphics": OtherGraphics,
 
 		//Routes Lizeth
 		"/womanresearchers-stats": WomanresearchersTable,
