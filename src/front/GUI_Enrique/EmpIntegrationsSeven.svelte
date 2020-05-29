@@ -71,7 +71,7 @@
 
     <h1 style="text-align:center">Integración 7</h1>
     <h4 style="text-align:center"><a href="https://api.tfl.gov.uk/Mode/tube/Arrivals?count=1">TfL API</a></h4>
-    <h5 style="text-align:center">Esta API obtiene las predicciones de la próxima llegada (metro) para todas las paradas.</h5>
+    <h5 style="text-align:center">Esta API obtiene las predicciones de la próxima llegada (metro) para paradas del metro de Londres.</h5>
 
     <figure class="highcharts-figure">
         <div id="container"></div>
