@@ -30,6 +30,9 @@
 	import WomanresearchersGraphOne from './GUI_Lizeth/WomanresearchersGraphOne.svelte';
 	import WomanresearchersGraphTwo from './GUI_Lizeth/WomanresearchersGraphTwo.svelte';
 	import IntegrationOne from './GUI_Lizeth/IntegrationOne.svelte';
+	import IntegrationTwo from './GUI_Lizeth/IntegrationTwo.svelte';
+	import IntegrationThree from './GUI_Lizeth/IntegrationThree.svelte';
+	import IntegrationFour from './GUI_Lizeth/IntegrationFour.svelte';
 
 
 
@@ -63,6 +66,10 @@
 		"/womanresearchers-stats/womanresearchers-graph-one": WomanresearchersGraphOne,
 		"/womanresearchers-stats/womanresearchers-graph-Two": WomanresearchersGraphTwo,
 		"/integrations/integration-one": IntegrationOne,
+		"/integrations/integration-two": IntegrationTwo,
+		"/integrations/integration-three": IntegrationThree,
+		"/integrations/integration-four": IntegrationFour,
+
 
 
 		

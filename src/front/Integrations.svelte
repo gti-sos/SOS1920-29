@@ -20,27 +20,27 @@
             <tr>
                 <td><Button outline color="warning" href="#/integrations/emp_one">Integration 1</Button></td>
                 <td><Button color="success" href="#/integrations/sports-graphics">Sports Graphics</Button></td>
-                <td><Button outline color="danger" href="#/integrations/integration-one">Liz Graphics</Button></td>
+                <td><Button outline color="danger" href="#/integrations/integration-one">Art Graphics</Button></td>
             </tr>
             <tr>
                 <td><Button outline color="warning" href="#/integrations/emp_two">Integration 2</Button></td>
                 <td><Button color="success" href="#/integrations/videogames-movies-graphics">Videogames and movies Graphics</Button></td>
-                <td><Button color="danger" href="">Liz Graphics</Button></td>
+                <td><Button color="danger" href="#/integrations/integration-two"> Graphics</Button></td>
             </tr>
             <tr>
                 <td><Button outline color="warning" href="#/integrations/emp_three">Integration 3</Button></td>
                 <td><Button color="success" href="#/integrations/other-graphics">Other Graphics</Button></td>
-                <td><Button color="danger" href="">Liz Graphics</Button></td>
+                <td><Button color="danger" href="#/integrations/integration-three">Liz Graphics</Button></td>
             </tr>
             <tr>
                 <td><Button outline color="warning" href="#/integrations/emp_four">Integration 4</Button></td>
                 <td></td>
-                <td><Button color="danger" href="">Liz Graphics</Button></td>
+                <td><Button color="danger" href="#/integrations/integration-four">Liz Graphics</Button></td>
             </tr>
             <tr>
                 <td><Button outline color="warning" href="#/integrations/emp_five">Integration 5</Button></td>
                 <td></td>
-                <td><Button color="danger" href="">Liz Graphics</Button></td>
+                <td></td>
             </tr>
 
         </tbody>
