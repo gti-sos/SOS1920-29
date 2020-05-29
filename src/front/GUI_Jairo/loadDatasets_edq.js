@@ -91,6 +91,8 @@ async function devuelve_edqStats(xData){
         console.log("Error receiving data from edq-stats.");
     }
 
+    return data;
+
 }
 
 

@@ -109,11 +109,11 @@
 
 <main>
 
-    <h4 class="titulo_API"><a href="https://api.agify.io/"></a>PREDICT AGE API</h4>
+    <h4 class="titulo_API"><a href="https://api.agify.io">PREDICT AGE API</a></h4>
     <b>API que predice la edad según el nombre.</b>
     <div id="agify"></div>
 
-    <h4 class="titulo_API"><a href="https://api.agify.io/"></a>PREDICT NACIONALITY API</h4>
+    <h4 class="titulo_API"><a href="https://api.nationalize.io/">PREDICT NACIONALITY API</a></h4>
     <b>API que predice la nacionalidad según el nombre.</b>
     <div id="nationalize"></div>
 
