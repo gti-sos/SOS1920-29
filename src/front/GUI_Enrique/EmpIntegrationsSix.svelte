@@ -7,38 +7,28 @@
 
     async function loadGraph(){
 
-        const res = await fetch("https://transit.land/api/v1/schedule_stop_pairs?bbox=-121.0,35.0,-124.0,37.0");
+        const res = await fetch("https://3.vbb.transport.rest/stops/nearby?latitude=52.52725&longitude=13.4123");
+
         let Array_final = [];
-        let Array_origin = [];
-        let Array_dest = [];
-        let Array_category = [];
 
         if(res.ok){
             
             let json = await res.json();
-            let data_rutas = json;
+            let data_stops = json;
             let cont = 0;
 
-            let data_rutas_array = Object.values(data_rutas)
-            //console.log(JSON.stringify(data_rutas_array,null,2));
-            data_rutas_array.forEach( (e) => {
-                //console.log(JSON.stringify(e,null,2));
-                for(let i = 0; i< e.length; i++){
-
-                    cont += 1;
-                    if(cont <= 3){
-                        
-                        Array_origin.push(e[i].origin_dist_traveled);
-                        Array_dest.push(e[i].destination_dist_traveled);
-                        Array_category.push(e[i].trip_headsign);
-                        
-                    }
+            data_stops.forEach( (e) => {
+              
+                let lat = Object.values(e.location)[2];
+                let long = Object.values(e.location)[3];
+               
+                cont += 1;
+                if(cont < 10){
+                    
+                    Array_final.push({name: e.name, data: [[long, lat]]});
                 }
-        
+ 
             }); 
-
-            Array_final.push({name: 'distancia de origen', data: Array_origin});
-            Array_final.push({name: 'distancia de destino', data: Array_dest});
 
         }else{
             console.log("No se ha podido acceder a la API");
@@ -46,62 +36,64 @@
 
         Highcharts.chart('container', {
             chart: {
-                type: 'bar'
+                type: 'scatter',
+                zoomType: 'xy'
             },
             title: {
-                text: 'Rutas San Francisco'
+                text: 'Paradas de transporte público (Berlín)'
             },
             subtitle: {
                 text: ''
             },
             xAxis: {
-                categories: Array_category,
                 title: {
-                    text: null
-                }
+                    enabled: true,
+                    text: 'Longitude'
+                },
+                allowDecimals: true,
+                startOnTick: true,
+                endOnTick: true,
+                showLastLabel: true
             },
             yAxis: {
-                min: 0,
                 title: {
-                    text: 'miles (Kms)',
-                    align: 'high'
-                },
-                labels: {
-                    overflow: 'justify'
-                }
-            },
-            tooltip: {
-                valueSuffix: ' miles'
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
-                    }
+                    text: 'Latitude'
                 }
             },
             legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 140,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor:
-                    Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-                shadow: true
+                enabled: true
             },
-            credits: {
-                enabled: false
+            plotOptions: {
+                scatter: {
+                    marker: {
+                        radius: 5,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                lineColor: 'rgb(100,100,100)'
+                            }
+                        }
+                    },
+                    states: {
+                        hover: {
+                            marker: {
+                                enabled: false
+                            }
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<b>{series.name}</b><br>',
+                        pointFormat: '{point.x} longitude, {point.y} latitude'
+                    }
+                }
             },
             series: Array_final
         });
-
-       
     }
+
     
 </script>
+
 
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -112,14 +104,14 @@
 
 <main>
 
-    <h1 style="text-align:center">Integración 4</h1>
-    <h4 style="text-align:center"><a href="https://apis.is/earthquake/is">Transitland Datastore API</a></h4>
-    <h5 style="text-align:center">Esta API se encarga de ofrecernos rutas operadas por la Agencia de Transporte Municipal de San Francisco (SFMTA).</h5>
+    <h1 style="text-align:center">Integración 6</h1>
+    <h4 style="text-align:center"><a href="https://3.vbb.transport.rest/stops/nearby?latitude=52.52725&longitude=13.4123">Germany transport API</a></h4>
+    <h5 style="text-align:center">Esta API devuelve datos de paradas de transporte público en Berlín, Alemania.</h5>
 
     <figure class="highcharts-figure">
         <div id="container"></div>
         <p class="highcharts-description">
-            La gráfica nos muestra la distancia de origen y destino recorrida de algunas rutas.
+            En la gráfica vemos el nombre y lugar (latitud y longitud) exacto donde se encuentran paradas de transporte público en Berlín.
         </p>
     </figure>
     <Button outline color="secondary" on:click="{pop}">Volver</Button>
@@ -128,13 +120,9 @@
 
 <style>
     .highcharts-figure, .highcharts-data-table table {
-    min-width: 310px; 
+    min-width: 360px; 
     max-width: 800px;
     margin: 1em auto;
-    }
-
-    #container {
-        height: 400px;
     }
 
     .highcharts-data-table table {
@@ -164,5 +152,6 @@
     .highcharts-data-table tr:hover {
         background: #f1f7ff;
     }
+
 
 </style>

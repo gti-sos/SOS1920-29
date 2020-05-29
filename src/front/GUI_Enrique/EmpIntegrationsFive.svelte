@@ -18,7 +18,7 @@
 
             data_restrooms.forEach( (e) => {
                 //console.log(JSON.stringify(e,null,2));
-                Array_final.push({name: e.state + "-" + e.city, data: [[e.latitude, e.longitude]]})
+                Array_final.push({name: e.state + "-" + e.city, data: [[e.longitude, e.latitude]]})
  
             });  
 
