@@ -7,23 +7,21 @@
 
     async function loadGraph(){
 
-        
+        const res = await fetch("https://www.refugerestrooms.org/api/v1/restrooms/by_date?page=1&per_page=10&offset=0&updated=true&day=23&month=2&year=2000");
 
-        const res = await fetch("/free-nba.p.rapidapi.com", config);
+        let Array_final = [];
 
         if(res.ok){
-            console.log("Hola");
             
             let json = await res.json();
-            let data_numbers = json;
+            let data_restrooms = json;
 
-           // console.log(JSON.stringify(data_numbers,null,2));
-            let data_numbers_array = Object.values(data_numbers)
-            //console.log(JSON.stringify(data_numbers_array[0],null,2));
-            data_numbers_array.forEach( (e) => {
-                console.log(JSON.stringify(e[0],null,2));
-                
-            });
+            data_restrooms.forEach( (e) => {
+                //console.log(JSON.stringify(e,null,2));
+                Array_final.push({name: e.state + "-" + e.city, data: [[e.latitude, e.longitude]]})
+ 
+            });  
+
 
         }else{
             console.log("No se ha podido acceder a la API");
@@ -31,66 +29,59 @@
 
         Highcharts.chart('container', {
             chart: {
-                type: 'bar'
+                type: 'scatter',
+                zoomType: 'xy'
             },
             title: {
-                text: 'Historic World Population by Region'
+                text: 'Acceso seguro a los baños (EEUU)'
             },
             subtitle: {
                 text: ''
             },
             xAxis: {
-                categories: ['Hearst Castle', 'Los Angeles Union Station Amtrak', 'Seattle King Street Station Amtrak'],
                 title: {
-                    text: null
-                }
+                    enabled: true,
+                    text: 'Longitude'
+                },
+                allowDecimals: true,
+                startOnTick: true,
+                endOnTick: true,
+                showLastLabel: true
             },
             yAxis: {
-                min: 0,
                 title: {
-                    text: 'miles (Kms)',
-                    align: 'high'
-                },
-                labels: {
-                    overflow: 'justify'
-                }
-            },
-            tooltip: {
-                valueSuffix: ' miles'
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
-                    }
+                    text: 'Latitude'
                 }
             },
             legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 80,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor:
-                    Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-                shadow: true
+                enabled: true
             },
-            credits: {
-                enabled: false
+            plotOptions: {
+                scatter: {
+                    marker: {
+                        radius: 5,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                lineColor: 'rgb(100,100,100)'
+                            }
+                        }
+                    },
+                    states: {
+                        hover: {
+                            marker: {
+                                enabled: false
+                            }
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<b>{series.name}</b><br>',
+                        pointFormat: '{point.x} longitude, {point.y} latitude'
+                    }
+                }
             },
-            series: [{
-                name: 'origin_dist_traveled',
-                data: [107, 31, 635]
-            }, {
-                name: 'destination_dist_traveled',
-                data: [13333.2, 156, 947]
-        
-            }]
+            series: Array_final
         });
-
-       
     }
 
     
@@ -106,16 +97,14 @@
 
 <main>
 
-    <h1 style="text-align:center">Integración 4</h1>
-    <h4 style="text-align:center"><a href="https://apis.is/earthquake/is">Earthquakes in Iceland API</a></h4>
-    <h5 style="text-align:center">Esta API se encarga de ofrecernos datos de una monitorización de los terremotos ocurridos en Islandia en las últimas 48 horas.</h5>
+    <h1 style="text-align:center">Integración 5</h1>
+    <h4 style="text-align:center"><a href="https://www.refugerestrooms.org/api/v1/restrooms/by_date?page=1&per_page=10&offset=0&updated=true&day=23&month=2&year=2000">Refuge Restrooms API</a></h4>
+    <h5 style="text-align:center">Esta API nos proporciona acceso seguro a los baños para personas transgénero, intersexuales, etc.</h5>
 
     <figure class="highcharts-figure">
         <div id="container"></div>
         <p class="highcharts-description">
-            Bar chart showing horizontal columns. This chart type is often
-            beneficial for smaller screens, as the user can scroll through the data
-            vertically, and axis labels are easy to read.
+            En la gráfica vemos el lugar (latitud y longitud) exacto donde hay baños seguros en EEUU (Estado y Ciudad) para personas que lo necesiten.
         </p>
     </figure>
     <Button outline color="secondary" on:click="{pop}">Volver</Button>
@@ -124,13 +113,9 @@
 
 <style>
     .highcharts-figure, .highcharts-data-table table {
-    min-width: 310px; 
+    min-width: 360px; 
     max-width: 800px;
     margin: 1em auto;
-    }
-
-    #container {
-        height: 400px;
     }
 
     .highcharts-data-table table {
@@ -160,5 +145,6 @@
     .highcharts-data-table tr:hover {
         background: #f1f7ff;
     }
+
 
 </style>
