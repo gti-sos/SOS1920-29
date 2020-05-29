@@ -34,11 +34,11 @@
         var chart = Highcharts.chart('container', {
 
             title: {
-                text: 'Chart.update'
+                text: 'Predicciones paradas de metro'
             },
 
             subtitle: {
-                text: 'Plain'
+                text: ''
             },
 
             xAxis: {
@@ -70,14 +70,13 @@
 <main>
 
     <h1 style="text-align:center">Integración 7</h1>
-    <h4 style="text-align:center"><a href="https://api.tfl.gov.uk/Mode/tube/Arrivals?count=1">Transitland Datastore API</a></h4>
-    <h5 style="text-align:center">Esta API se encarga de ofrecernos rutas operadas por la Agencia de Transporte Municipal de San Francisco (SFMTA).</h5>
+    <h4 style="text-align:center"><a href="https://api.tfl.gov.uk/Mode/tube/Arrivals?count=1">TfL API</a></h4>
+    <h5 style="text-align:center">Esta API obtiene las predicciones de la próxima llegada (metro) para todas las paradas.</h5>
 
     <figure class="highcharts-figure">
         <div id="container"></div>
         <p class="highcharts-description">
-            Chart with buttons to modify options, showing how options can be changed
-            on the fly. This flexibility allows for more dynamic charts.
+            La gráfica muestra la predicción de la próxima llegada del metro a las paradas de dicha gráfica (London Tube).
         </p>
     </figure>
     <Button outline color="secondary" on:click="{pop}">Volver</Button>
