@@ -28,6 +28,8 @@ async function devuelve_WomanStats(xData){
         console.log("Error receiving data from womanresearchers-stats.");
     }
 
+    return data;
+
 }
 
 
