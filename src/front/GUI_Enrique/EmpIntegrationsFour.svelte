@@ -7,7 +7,6 @@
 
     async function loadGraph(){
 
-    
         const res = await fetch("https://transit.land/api/v1/schedule_stop_pairs?bbox=-121.0,35.0,-124.0,37.0");
         let Array_final = [];
         let Array_origin = [];
@@ -15,28 +14,29 @@
         let Array_category = [];
 
         if(res.ok){
-            console.log("Hola");
             
             let json = await res.json();
             let data_rutas = json;
             let cont = 0;
 
-           // console.log(JSON.stringify(data_numbers,null,2));
             let data_rutas_array = Object.values(data_rutas)
-            //console.log(JSON.stringify(data_numbers_array[0],null,2));
+            //console.log(JSON.stringify(data_rutas_array,null,2));
             data_rutas_array.forEach( (e) => {
-                cont += 1;
-                if(cont <= 3){
-                    e.forEach( (x) => {
-                        Array_origin.push(x.origin_dist_traveled);
-                        Array_dest.push(x.destination_dist_traveled);
-                        Array_category.push(x.trip_headsign);
-                    
-                    });
-                
+                //console.log(JSON.stringify(e,null,2));
+                for(let i = 0; i< e.length; i++){
+
+                    cont += 1;
+                    if(cont <= 3){
+                        
+                        Array_origin.push(e[i].origin_dist_traveled);
+                        Array_dest.push(e[i].destination_dist_traveled);
+                        Array_category.push(e[i].trip_headsign);
+                        
+                    }
                 }
-                
+        
             }); 
+
             Array_final.push({name: 'distancia de origen', data: Array_origin});
             Array_final.push({name: 'distancia de destino', data: Array_dest});
 
@@ -85,7 +85,7 @@
                 align: 'right',
                 verticalAlign: 'top',
                 x: -40,
-                y: 80,
+                y: 140,
                 floating: true,
                 borderWidth: 1,
                 backgroundColor:

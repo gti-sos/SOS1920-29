@@ -11,7 +11,6 @@
         let Array_data = [];
 
         if(res.ok){
-            console.log("Hola");
             
             let json = await res.json();
             let data_terremotos = json;
