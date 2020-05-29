@@ -29,7 +29,7 @@
                     
                 });
             }); 
-            console.log(JSON.stringify(Array_data,null,2));
+            //console.log(JSON.stringify(Array_data,null,2));
 
         }else{
             console.log("No se ha podido acceder a la API");
@@ -40,7 +40,7 @@
                 type: 'variablepie'
             },
             title: {
-                text: 'Terremotos en Islandia.'
+                text: 'Terremotos en Islandia'
             },
             tooltip: {
                 headerFormat: '',

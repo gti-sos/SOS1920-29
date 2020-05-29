@@ -1,21 +1,13 @@
 <script>
-import Button from "sveltestrap/src/Button.svelte";
+    import { 
+        pop 
+    } from "svelte-spa-router";
+    import Button from "sveltestrap/src/Button.svelte";
 
-    const BASE_API_URL = "/api/v2";
 
     async function loadGraph(){
 
-        var config = {
-            headers: {
-                "x-rapidapi-host": "free-nba.p.rapidapi.com",
-                "x-rapidapi-key": "b115b110f9msh3c44b9cf6127682p113503jsn8dc5c47240f8",
-                "useQueryString": true
-            },
-            query: {
-                "page": "0",
-	            "per_page": "10"
-            }
-        };
+        
 
         const res = await fetch("/free-nba.p.rapidapi.com", config);
 
@@ -37,6 +29,67 @@ import Button from "sveltestrap/src/Button.svelte";
             console.log("No se ha podido acceder a la API");
         }
 
+        Highcharts.chart('container', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Historic World Population by Region'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: ['Hearst Castle', 'Los Angeles Union Station Amtrak', 'Seattle King Street Station Amtrak'],
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'miles (Kms)',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                valueSuffix: ' miles'
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -40,
+                y: 80,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor:
+                    Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'origin_dist_traveled',
+                data: [107, 31, 635]
+            }, {
+                name: 'destination_dist_traveled',
+                data: [13333.2, 156, 947]
+        
+            }]
+        });
+
        
     }
 
@@ -46,20 +99,38 @@ import Button from "sveltestrap/src/Button.svelte";
 
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/timeline.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js" on:load="{loadGraph}"></script>
 </svelte:head>
 
+<main>
+
+    <h1 style="text-align:center">Integración 4</h1>
+    <h4 style="text-align:center"><a href="https://apis.is/earthquake/is">Earthquakes in Iceland API</a></h4>
+    <h5 style="text-align:center">Esta API se encarga de ofrecernos datos de una monitorización de los terremotos ocurridos en Islandia en las últimas 48 horas.</h5>
+
+    <figure class="highcharts-figure">
+        <div id="container"></div>
+        <p class="highcharts-description">
+            Bar chart showing horizontal columns. This chart type is often
+            beneficial for smaller screens, as the user can scroll through the data
+            vertically, and axis labels are easy to read.
+        </p>
+    </figure>
+    <Button outline color="secondary" on:click="{pop}">Volver</Button>
+
+</main>
+
 <style>
-    .highcharts-strong {
-    font-weight: bold;
+    .highcharts-figure, .highcharts-data-table table {
+    min-width: 310px; 
+    max-width: 800px;
+    margin: 1em auto;
     }
 
-    .highcharts-figure, .highcharts-data-table table {
-        min-width: 320px; 
-        max-width: 600px;
-        margin: 1em auto;
+    #container {
+        height: 400px;
     }
 
     .highcharts-data-table table {
