@@ -1,23 +1,36 @@
-<script>
-    import { 
-        pop 
-    } from "svelte-spa-router";
-    import Button from "sveltestrap/src/Button.svelte";
+import Button from "sveltestrap/src/Button.svelte";
 
+    const BASE_API_URL = "/api/v2";
 
     async function loadGraph(){
 
-        const res = await fetch("https://apis.is/earthquake/is");
+        var config = {
+            headers: {
+                "x-rapidapi-host": "free-nba.p.rapidapi.com",
+                "x-rapidapi-key": "b115b110f9msh3c44b9cf6127682p113503jsn8dc5c47240f8",
+                "useQueryString": true
+            },
+            query: {
+                "page": "0",
+	            "per_page": "10"
+            }
+        };
+
+        const res = await fetch("/free-nba.p.rapidapi.com", config);
 
         if(res.ok){
             console.log("Hola");
             
             let json = await res.json();
-            let data_terremotos = json;
+            let data_numbers = json;
 
-            console.log(JSON.stringify(data_terremotos,null,2));
-            let data_terremetos_array = Object.values(data_terremotos);
-            console.log(JSON.stringify(data_terremotos,null,2));
+           // console.log(JSON.stringify(data_numbers,null,2));
+            let data_numbers_array = Object.values(data_numbers)
+            //console.log(JSON.stringify(data_numbers_array[0],null,2));
+            data_numbers_array.forEach( (e) => {
+                console.log(JSON.stringify(e[0],null,2));
+                
+            });
 
         }else{
             console.log("No se ha podido acceder a la API");
@@ -80,32 +93,19 @@
 
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
+    <script src="https://code.highcharts.com/modules/timeline.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js" on:load="{loadGraph}"></script>
 </svelte:head>
 
-<main>
-    <figure class="highcharts-figure">
-        <div id="container"></div>
-        <p class="highcharts-description">
-            Variable radius pie charts can be used to visualize a
-            second dimension in a pie chart. In this chart, the more
-            densely populated countries are drawn further out, while the
-            slice width is determined by the size of the country.
-        </p>
-    </figure>
-</main>
-
 <style>
-    #container {
-	height: 500px;
+    .highcharts-strong {
+    font-weight: bold;
     }
 
     .highcharts-figure, .highcharts-data-table table {
         min-width: 320px; 
-        max-width: 700px;
+        max-width: 600px;
         margin: 1em auto;
     }
 
