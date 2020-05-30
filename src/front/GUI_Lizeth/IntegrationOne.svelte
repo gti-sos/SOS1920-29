@@ -135,7 +135,7 @@
             Highcharts.chart('chicago', {
                 chart: {
                     type: 'packedbubble',
-                    height: '100%'
+                    height: '60%'
                 },
                 title: {
                     text: 'Número de viatas de distintos articulos.'
@@ -147,9 +147,9 @@
                 plotOptions: {
                     packedbubble: {
                         minSize: '20%',
-                        maxSize: '100%',
+                        maxSize: '80%',
                         zMin: 0,
-                        zMax: 1000,
+                        zMax: 700,
                         layoutAlgorithm: {
                             gravitationalConstant: 0.05,
                             splitSeries: true,
@@ -173,7 +173,7 @@
                         }
                     }
                 },
-                series: [{name: "artwork", data: data_final}]
+                series: [{name: "Artwork", data: data_final}]
             });
         
         } else{
@@ -266,7 +266,7 @@
       <figure class="highcharts-figure">
         <div id="hardvard"></div>
         <p class="highcharts-description">
-          Se muestras las culturas usadas por Harvard Art museum para organizar los objetos y el número de estos.
+          Se muestran las culturas usadas por Harvard Art museum para organizar los objetos y el número de estos.
         </p>
       </figure>
 
@@ -274,7 +274,7 @@
       <figure class="highcharts-figure">
         <div id="chicago"></div>
         <p class="highcharts-description">
-          Se muestras los distintos articulos del Art Institute Chicago y el numero de visualizaciones de cada uno.
+          Se muestran los distintos articulos del Art Institute Chicago y el numero de visualizaciones de cada uno.
         </p>
       </figure>
 
@@ -282,7 +282,7 @@
       <figure class="highcharts-figure">
         <div id="pixabay"></div>
         <p class="highcharts-description">
-          Se muestras el número de likes, comentarios, favoritos de algunos usuarios de pixabay para fotos con etiqueta flores.
+          Se muestran el número de likes, comentarios, favoritos de algunos usuarios de pixabay para fotos con etiqueta flores.
         </p>
       </figure>
 
