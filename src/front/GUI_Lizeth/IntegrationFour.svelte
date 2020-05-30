@@ -5,17 +5,15 @@
 
     async function loadGraphs(){
 
-        loadCooperhewittDataGraph();
-        loadHarvardDataGraph();
-        loadChicagoDataGraph();
-        loadPixabayDataGraph();
+        loadBiodiversityDataGraph();
+        loadNewyorkDataGraph();
+        loadCoinDataGraph();
 
     }
 
     
-    async function loadCooperhewittDataGraph(){
-       
-        const res = await fetch("https://api.collection.cooperhewitt.org/rest/?method=cooperhewitt.departments.getList&access_token=2d93e25a88d905caf314b8906b1a4fc5&page=1&per_page=100");
+    async function loadBiodiversityDataGraph(){
+        const res = await fetch("https://api.gbif.org/v1/species/");
 
         let data_final=[];
 
@@ -24,24 +22,25 @@
             let data = json;
 
             //console.log (data);
-            for(let i = 0; i < data.departments.length; i++){
+            for(let i = 0; i < data.results.length; i++){
                 //console.log(data.departments);
                 //console.log(data.departments[i].name);
 
-                data_final.push({name: data.departments[i].name, y: parseInt(data.departments[i].count_objects), value1:false});
+                data_final.push({name: data.results[i].scientificName, y: data.results[i].numDescendants});
 
             }
-           // console.log(data_final);
+           //console.log(data_final);
 
 
             Highcharts.chart('container', {
 
                 chart: {
-                styledMode: false
+                    styledMode: false,
+                    type: 'pie'
                 },
 
                 title: {
-                text: "Departamentos y sus números de objetos."
+                text: "Especies y Descendientes."
                 },
 
                 xAxis: {
@@ -50,7 +49,7 @@
                 series: [{
                 type: 'pie',
                 allowPointSelect: true,
-                keys: ['name', 'y', 'selected'],
+                keys: ['name', 'y'],
                 data: data_final,
                 showInLegend: true
 
@@ -58,52 +57,78 @@
                 });
         }
         else{
-            console.log("Error receiving data from copper-heawitt api.");
+            console.log("Error receiving data from Biodiversidad api.");
         }
 
     }
 
-    async function loadHarvardDataGraph(){
+    async function loadNewyorkDataGraph(){
 
        
-        const res = await fetch("https://api.harvardartmuseums.org/culture?apikey=a743d650-a183-11ea-acd3-49db0dc20e00");
-
+        const res = await fetch("https://api.nytimes.com/svc/search/v2/articlesearch.json?q=technology&api-key=AGiOBlE3f6MtzK2PnqtxfgbUz1NTGcii");
+        
         let data_final=[];
         if(res.ok){
             let json = await res.json();
             let data = json;
-             let culture = [];
-          //  console.log (data);
-            for(let i = 0; i < data.records.length; i++){
-                //console.log(data.records);
-                //console.log(data.records[i].name);
-
-                data_final.push({name: data.records[i].name, y: data.records[i].objectcount});
-                culture.push({name: data.records[i].name});
+            //console.log (data);
+            for(let i = 0; i < data.response.docs.length; i++){
+               
+                data_final.push({name: data.response.docs[i].headline.main, y: data.response.docs[i].word_count});
 
             }
             //console.log(data_final);
-            //console.log(culture);
 
-            Highcharts.chart('hardvard', {
-
+            Highcharts.chart('new', {
+                chart: {
+                    type: 'column'
+                },
                 title: {
-                text: 'Culturas usadas para descibir objetos y el número de objetos de Harvard Art Museums'
+                    text: 'Número de Palabras de Articulos NYT'
                 },
-
+                accessibility: {
+                    announceNewData: {
+                        enabled: true
+                    }
+                },
                 xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Número de Palabras'
+                    }
 
-                    categories: [culture[0].name, culture[1].name,culture[2].name,culture[3].name,culture[4].name,culture[5].name,culture[6].name,culture[7].name,culture[8].name,culture[9].name]
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y: f} palabras'
+                        }
+                    }
                 },
 
-                series: [{
-                type: 'column',
-                colorByPoint: true,
-                data: data_final,
-                showInLegend: false
-                }]
+                tooltip: {
+                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y: f} palabras</b> <br/>'
+                },
 
-                });
+                series: [
+                    {
+                        name: "Artuculos",
+                        colorByPoint: true,
+                        data: data_final
+                    }
+                
+                        
+                    ]
+                
+            });
 
         }
         else{
@@ -113,10 +138,10 @@
 
     }
 
-    async function loadChicagoDataGraph(){
+    async function loadCoinDataGraph(){
        
        
-        const res = await fetch("https://aggregator-data.artic.edu/api/v1/artworks");
+        const res = await fetch("https://api.coinlore.net/api/tickers/?limit=20");
 
         let data_final=[];
         if(res.ok){
@@ -127,53 +152,31 @@
                // console.log(data.data);
                // console.log(data.data[i].api_model);
 
-                data_final.push({name:data.data[i].title , value:data.data[i].pageviews});
+                data_final.push({name:data.data[i].name , y: parseFloat(data.data[i].price_usd)});
 
             }
-           // console.log(data_final);
+            console.log(data_final);
             
-            Highcharts.chart('chicago', {
+            Highcharts.chart('coin', {
                 chart: {
-                    type: 'packedbubble',
-                    height: '100%'
+                    type: 'variablepie'
                 },
                 title: {
-                    text: 'Número de viatas de distintos articulos.'
+                    text: 'Cambio Criptomoneda.'
                 },
                 tooltip: {
-                    useHTML: true,
-                    pointFormat: '<b>{point.name}:</b> {point.value} vistas'
+                    headerFormat: '',
+                    pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                        'Precio: <b>{point.y} $</b><br/>' 
                 },
-                plotOptions: {
-                    packedbubble: {
-                        minSize: '20%',
-                        maxSize: '100%',
-                        zMin: 0,
-                        zMax: 1000,
-                        layoutAlgorithm: {
-                            gravitationalConstant: 0.05,
-                            splitSeries: true,
-                            seriesInteraction: false,
-                            dragBetweenSeries: true,
-                            parentNodeLimit: true
-                        },
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.name}',
-                            filter: {
-                                property: 'y',
-                                operator: '>',
-                                value: 250
-                            },
-                            style: {
-                                color: 'black',
-                                textOutline: 'none',
-                                fontWeight: 'normal'
-                            }
-                        }
-                    }
-                },
-                series: [{name: "artwork", data: data_final}]
+                series: [{
+                    minPointSize: 50,
+                    innerSize: '50%',
+                    zMin: 0,
+                    name: 'Criptomonedas',
+                    data: data_final,
+                    showInLegend: true
+                }]
             });
         
         } else{
@@ -182,71 +185,17 @@
     }
     
     
-    async function loadPixabayDataGraph(){
-       //let Key="";
-       
-       const res = await fetch("https://pixabay.com/api/?key=16796962-02fb48acb23094715be6a143e&q=yellow+flowers&image_type=photo");
-       
-
-       let data_final=[];
-       if(res.ok){
-            let json = await res.json();
-            let data = json;
-            console.log(data);
-           for(let i = 0; i < data.hits.length; i++){
-               console.log(data.hits);
-                console.log(data.hits[i].user);
-
-               data_final.push({name:data.hits[i].user , data:[data.hits[i].comments, data.hits[i].favorites,data.hits[i].likes]});
-
-           }
-           console.log(data_final);
-          Highcharts.chart('pixabay', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Numero de likes,comentarios y favoritos de usuarios'
-            },
-            
-            xAxis: {
-                categories:["Comentarios", "Favoritos", "Likes"],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: data_final
-        });
-                
-       
-       } else{
-           console.log("Error receiving data from Pixabay api.");
-       }
-
-    }
 
 </script>
 
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>    
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js" on:load={loadGraphs}></script>
 </svelte:head>
 
@@ -255,34 +204,26 @@
     <b>Todas las APIs listadas son distintas, usadas una vez por gráfica mostrada, pulsando en el nombre se puede acceder a la documentación de dicha API.
     </b>
 
-    <h1 class="titulo_API"><a href="https://collection.cooperhewitt.org/api/methods/cooperhewitt.departments.getList">Copper Hewitt Museo API</a></h1>
+    <h1 class="titulo_API"><a href="https://www.gbif.org/developer/summary">GBIF(Global Biodiversity Information Facility) API</a></h1>
     <figure class="highcharts-figure">
         <div id="container"></div>
-        <p class="highcharts-description">Se muestra los distintos departamentos existentes y la cantidad de objetos que posee cada departamento.
+        <p class="highcharts-description">Se muestra algunas especies y sus número de descendientes.
         </p>
       </figure>
 
-      <h1 class="titulo_API"><a href="https://github.com/harvardartmuseums/api-docs/blob/master/sections/culture.md">Harvard Art Museo API</a></h1>
+      <h1 class="titulo_API"><a href="https://developer.nytimes.com/docs/articlesearch-product/1/overview">New York Times API</a></h1>
       <figure class="highcharts-figure">
-        <div id="hardvard"></div>
+        <div id="new"></div>
         <p class="highcharts-description">
-          Se muestras las culturas usadas por Harvard Art museum para organizar los objetos y el número de estos.
+          Se muestran algunos artículos del New York Times y el numero de palabras utilizadas.
         </p>
       </figure>
 
-      <h1 class="titulo_API"><a href="https://aggregator-data.artic.edu/api/v1/artworks">Art Institute Chicago API</a></h1>
+      <h1 class="titulo_API"><a href="https://aggregator-data.artic.edu/api/v1/artworks">CoinLore API</a></h1>
       <figure class="highcharts-figure">
-        <div id="chicago"></div>
+        <div id="coin"></div>
         <p class="highcharts-description">
-          Se muestras los distintos articulos del Art Institute Chicago y el numero de visualizaciones de cada uno.
-        </p>
-      </figure>
-
-      <h1 class="titulo_API"><a href="https://pixabay.com/api/docs/#api_javascript_example">Pixabay API</a></h1>
-      <figure class="highcharts-figure">
-        <div id="pixabay"></div>
-        <p class="highcharts-description">
-          Se muestras el número de likes, comentarios, favoritos de algunos usuarios de pixabay para fotos con etiqueta flores.
+          Se muestran Algunas cripto monedas y su valor en dolares americanos por cada criptomoneda.
         </p>
       </figure>
 
