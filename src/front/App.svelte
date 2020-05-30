@@ -10,13 +10,22 @@
 	import EditEmp from './GUI_Enrique/EditEmp.svelte';
 	import EmpGraph from './GUI_Enrique/EmpGraph.svelte';
 	import EmpGraphTwo from './GUI_Enrique/EmpGraphTwo.svelte';
-	import EmpIntegrationsOne from './GUI_Enrique/EmpIntegrationsOne.svelte';
-	import EmpIntegrationsTwo from './GUI_Enrique/EmpIntegrationsTwo.svelte';
-	import EmpIntegrationsThree from './GUI_Enrique/EmpIntegrationsThree.svelte';
-	import EmpIntegrationsFour from './GUI_Enrique/EmpIntegrationsFour.svelte';
-	import EmpIntegrationsFive from './GUI_Enrique/EmpIntegrationsFive.svelte';
-	import EmpIntegrationsSix from './GUI_Enrique/EmpIntegrationsSix.svelte';
-	import EmpIntegrationsSeven from './GUI_Enrique/EmpIntegrationsSeven.svelte';
+	import EmpIntegrationsOne from './GUI_Enrique/Integrations_Enrique/EmpIntegrationsOne.svelte';
+	import EmpIntegrationsTwo from './GUI_Enrique/Integrations_Enrique/EmpIntegrationsTwo.svelte';
+	import EmpIntegrationsThree from './GUI_Enrique/Integrations_Enrique/EmpIntegrationsThree.svelte';
+	import EmpIntegrationsFour from './GUI_Enrique/Integrations_Enrique/EmpIntegrationsFour.svelte';
+	import EmpIntegrationsFive from './GUI_Enrique/Integrations_Enrique/EmpIntegrationsFive.svelte';
+	import EmpIntegrationsSix from './GUI_Enrique/Integrations_Enrique/EmpIntegrationsSix.svelte';
+	import EmpIntegrationsSeven from './GUI_Enrique/Integrations_Enrique/EmpIntegrationsSeven.svelte';
+	import EmpIntegrationsEight from './GUI_Enrique/Integrations_Enrique/EmpIntegrationsEight.svelte';
+	import EmpIntegrationsNine from './GUI_Enrique/Integrations_Enrique/EmpIntegrationsNine.svelte';
+	import EmpIntegrationsTen from './GUI_Enrique/Integrations_Enrique/EmpIntegrationsTen.svelte';
+	import EmpIntegrationsEleven from './GUI_Enrique/Integrations_Enrique/EmpIntegrationsEleven.svelte';
+	import EmpIntegrationsTwelve from './GUI_Enrique/Integrations_Enrique/EmpIntegrationsTwelve.svelte';
+	import EmpIntegrationsThirteen from './GUI_Enrique/Integrations_Enrique/EmpIntegrationsThirteen.svelte';
+	import EmpIntegrationsFourteen from './GUI_Enrique/Integrations_Enrique/EmpIntegrationsFourteen.svelte';
+	import EmpIntegrationsFifteen from './GUI_Enrique/Integrations_Enrique/EmpIntegrationsFifteen.svelte';
+	
 
 	//Jairo
 	import EdqTable from './GUI_Jairo/EdqTable.svelte';
@@ -55,6 +64,14 @@
 		"/integrations/emp_five": EmpIntegrationsFive,
 		"/integrations/emp_six": EmpIntegrationsSix,
 		"/integrations/emp_seven": EmpIntegrationsSeven,
+		"/integrations/emp_eight": EmpIntegrationsEight,
+		"/integrations/emp_nine": EmpIntegrationsNine,
+		"/integrations/emp_ten": EmpIntegrationsTen,
+		"/integrations/emp_eleven": EmpIntegrationsEleven,
+		"/integrations/emp_twelve": EmpIntegrationsTwelve,
+		"/integrations/emp_thirteen": EmpIntegrationsThirteen,
+		"/integrations/emp_fourteen": EmpIntegrationsFourteen,
+		"/integrations/emp_fifteen": EmpIntegrationsFifteen,
 
 		//Routes Jairo
 		"/edq-stats": EdqTable,
