@@ -2,12 +2,14 @@
     import Button from "sveltestrap/src/Button.svelte";
     import {pop} from "svelte-spa-router";
 
+    let etag = "60f193f7c1d5e002d151a6b7fb5b6fec";
+
     async function loadGraphs(){
         loadAgeOfEmpiresGraphic();
         loadHearthstoneGraphic();
         loadIGDBGraphic();
         loadStudioGhibliGraphic();
-        loadAnimeGraphic();
+        loadMusicGraphic();
         loadFilmsGraphic();
         loadRickAndMortyGraph();
         loadTLOTRGraph();
@@ -167,36 +169,69 @@
         }
     }
 
-    async function loadAnimeGraphic(){
-        const res = await fetch("https://api.jikan.moe/v3/top/anime/1/tv");
+    async function loadMusicGraphic(){
+        
+        let eminem_records = "https://musicbrainz.org/ws/2/artist/b95ce3ff-3d05-4e87-9e01-c97b66af13d4?inc=recordings&fmt=json";
+        let joyner_records = "https://musicbrainz.org/ws/2/artist/cb862d76-90a8-4733-b8f6-69240d60d805?inc=recordings&fmt=json";
 
-        if(res.ok){
+        const res_eminem = await fetch("https://musicbrainz.org/ws/2/artist/b95ce3ff-3d05-4e87-9e01-c97b66af13d4?inc=recordings&fmt=json");
+        const res_joyner = await fetch("https://musicbrainz.org/ws/2/artist/cb862d76-90a8-4733-b8f6-69240d60d805?inc=recordings&fmt=json");
 
-            let json = await res.json();
-            let lista_animes = json;
 
-            let data = [];
+        if(res_eminem.ok && res_joyner){
 
-            for(let i = 0; i < lista_animes.top.length; i++){
-                data.push({name: lista_animes.top[i].title, data: [lista_animes.top[i].score]});
+            let json = await res_eminem.json();
+            let lista_eminem = json.recordings;
+
+            json = await res_joyner.json();
+            let lista_joyner = json.recordings;
+
+            let text = "";
+
+            for(let i = 0; i < lista_eminem.length; i++){
+                text += ' '+lista_eminem[i].title;
+            }
+            for(let i = 0; i < lista_joyner.length; i++){
+                text += ' '+lista_joyner[i].title;
             }
 
-            console.log(data);
+            //Quitamos algunos caracteres.
+            text = text.replace(/'|unknown|\/|\(|\)|interlude|’|\[|\]|freestyle/g,' ');
 
-            Highcharts.chart('anime', {
-                chart: {
-                    type: 'column'
-                },
+            let lines = text.split(/[,\. ]+/g);
+
+            let data = Highcharts.reduce(lines, function (arr, word) {
+                let obj = Highcharts.find(arr, function (obj) {
+                    return obj.name === word;
+                });
+                if (obj) {
+                    obj.weight += 1;
+                } else {
+                    obj = {
+                        name: word,
+                        weight: 1
+                    };
+                    arr.push(obj);
+                }
+                return arr;
+            }, []);
+
+
+            Highcharts.chart('music', {
+                series: [{
+                    type: 'wordcloud',
+                    data: data,
+                    name: 'Occurrences'
+                }],
                 title: {
-                    text: 'Top 50 animes en valoración.'
-                },
-                series: data
+                    text: 'Wordcloud de canciones de Eminem y Joyner Lucas.'
+                }
             });
 
 
         }
         else{
-            console.log("Error fetching data from JIKAN API");
+            console.log("Error fetching data from MUSIC API");
         }
     }
 
@@ -360,6 +395,7 @@
 
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/wordcloud.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js" on:load="{loadGraphs}"></script>
@@ -383,9 +419,9 @@
     <b>API con información sobre películas de Studio Ghibli.</b>
     <div id="studio_ghibli"></div>
 
-    <h4 class="titulo_API"><a href="https://jikan.docs.apiary.io/#reference/0/anime">ANIME API</a></h4>
-    <b>API con información sobre animes.</b>
-    <div id="anime"></div>
+    <h4 class="titulo_API"><a href="https://musicbrainz.org/doc/MusicBrainz_Documentation">MUSIC API</a></h4>
+    <b>API con información sobre música.</b>
+    <div id="music"></div>
 
     <h4 class="titulo_API"><a href="http://www.omdbapi.com/">FILMS API</a></h4>
     <b>API con información sobre películas.</b>

@@ -58,8 +58,6 @@
                     '% empleo juvenil masculino',
                     '% empleo vulnerable femenino',
                     '% empleo vulnerable masculino'
-                    //comentario
-
                 ],
                 labels: {
                     style: {
