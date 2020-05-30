@@ -51,6 +51,7 @@
 
             series: [{
                 type: 'column',
+                name: 'Código',
                 colorByPoint: true,
                 data: Array_data,
                 showInLegend: false

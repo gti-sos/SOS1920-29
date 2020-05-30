@@ -47,6 +47,7 @@
 
             series: [{
                 type: 'column',
+                name: 'Tiempo',
                 colorByPoint: true,
                 data: Array_data,
                 showInLegend: false
