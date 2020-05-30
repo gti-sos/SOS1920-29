@@ -54,7 +54,7 @@
                 
             }],
             series: [{
-                name: 'Contributions',
+                name: 'Contribución',
                 type: 'column',
                 data: data_contribution
             }]

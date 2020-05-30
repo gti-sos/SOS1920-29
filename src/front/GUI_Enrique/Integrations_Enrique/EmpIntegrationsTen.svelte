@@ -16,7 +16,7 @@
             let data_user = json;
 
             let data_user_array = Object.values(data_user);
-            console.log(JSON.stringify(data_user_array,null,2));
+            //console.log(JSON.stringify(data_user_array,null,2));
             data_user_array.forEach( (e) => {
                 for(let i = 0; i< e.length; i++){
                 
@@ -75,7 +75,7 @@
 
     <h1 style="text-align:center">Integración 10</h1>
     <h4 style="text-align:center"><a href="https://randomuser.me/api/">RandomAPI</a></h4>
-    <h5 style="text-align:center">Esta API genera datos de usuario aleatorios.</h5>
+    <h5 style="text-align:center">Esta API genera datos de usuarios aleatorios.</h5>
 
     <figure class="highcharts-figure">
         <div id="container"></div>
