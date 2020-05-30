@@ -147,7 +147,7 @@
                 plotOptions: {
                     packedbubble: {
                         minSize: '20%',
-                        maxSize: '80%',
+                        maxSize: '60%',
                         zMin: 0,
                         zMax: 700,
                         layoutAlgorithm: {
