@@ -2,8 +2,6 @@
     import Button from "sveltestrap/src/Button.svelte";
     import {pop} from "svelte-spa-router";
 
-    let etag = "60f193f7c1d5e002d151a6b7fb5b6fec";
-
     async function loadGraphs(){
         loadAgeOfEmpiresGraphic();
         loadHearthstoneGraphic();
@@ -402,6 +400,8 @@
 </svelte:head>
 
 <main>
+
+    <p>Pulsando en el nombre de la API se puede acceder a la documentación correspondiente.</p>
 
     <h4 class="titulo_API"><a href="https://age-of-empires-2-api.herokuapp.com/docs/">AGE OF EMPIRES 2 API</a></h4>
     <b>API con información sobre el videojuego Age of Empires 2.</b>

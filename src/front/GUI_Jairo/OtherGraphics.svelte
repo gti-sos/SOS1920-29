@@ -109,6 +109,8 @@
 
 <main>
 
+    <p>Pulsando en el nombre de la API se puede acceder a la documentación correspondiente.</p>
+
     <h4 class="titulo_API"><a href="https://api.agify.io">PREDICT AGE API</a></h4>
     <b>API que predice la edad según el nombre.</b>
     <div id="agify"></div>
