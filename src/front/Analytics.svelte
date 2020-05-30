@@ -54,10 +54,10 @@
                     'Nº graduados en ciencias por 1.000 habitantes',
                     'Gasto del gobierno en educación (billones)',
                     'Ratio alumnos/profesor',
-                    '% empleo vulnerable femenino',
-                    '% empleo vulnerable masculino',
-                    '% empleo juvenil masculino',
                     '% empleo juvenil femenino',
+                    '% empleo juvenil masculino',
+                    '% empleo vulnerable femenino',
+                    '% empleo vulnerable masculino'
                 ],
                 labels: {
                     style: {

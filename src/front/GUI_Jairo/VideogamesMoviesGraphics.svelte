@@ -149,7 +149,7 @@
             let data = [];
 
             for(let i = 0; i < films.length; i++){
-                console.log(films[i].rt_score);
+                //console.log(films[i].rt_score);
                 data.push({name: films[i].title, data: [parseInt(films[i].rt_score)]});
             }
 
@@ -180,6 +180,8 @@
             for(let i = 0; i < lista_animes.top.length; i++){
                 data.push({name: lista_animes.top[i].title, data: [lista_animes.top[i].score]});
             }
+
+            console.log(data);
 
             Highcharts.chart('anime', {
                 chart: {
