@@ -84,7 +84,7 @@
 
 
 <main>
-    <h3>Gráfica comparativa conjunta.</h3>
+    <h3 style="text-align:center">Gráfica comparativa conjunta.</h3>
 
     <div id="container"></div>
 
