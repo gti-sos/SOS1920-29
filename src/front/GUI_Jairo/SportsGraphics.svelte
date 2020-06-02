@@ -43,6 +43,7 @@
 
             Highcharts.chart('balldontlie_api', {
                 chart: {
+                    backgroundColor: '#E0E0E0',
                     type: 'column'
                 },
                 title: {
