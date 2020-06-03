@@ -7,7 +7,7 @@
 
     async function loadGraph(){
 
-        const res = await fetch("http://transport.opendata.ch/v1/locations?query=Paris");
+        const res = await fetch("https://transport.opendata.ch/v1/locations?query=Paris");
 
         let Array_final = [];
 
