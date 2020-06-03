@@ -216,6 +216,9 @@
 
 
             Highcharts.chart('music', {
+                chart:{
+                    backgroundColor: '#E0E0E0',
+                },
                 series: [{
                     type: 'wordcloud',
                     data: data,
@@ -311,6 +314,7 @@
 
             Highcharts.chart('tlotr', {
                 chart: {
+                    backgroundColor: '#E0E0E0',
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
                     plotShadow: false,
@@ -364,6 +368,7 @@
 
             Highcharts.chart('harry_potter', {
                 chart: {
+                    backgroundColor: '#E0E0E0',
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
                     plotShadow: false,

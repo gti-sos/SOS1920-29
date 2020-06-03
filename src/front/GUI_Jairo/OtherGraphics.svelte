@@ -71,6 +71,7 @@
 
             Highcharts.chart('nationalize', {
                 chart: {
+                    backgroundColor: '#E0E0E0',
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
                     plotShadow: false,
