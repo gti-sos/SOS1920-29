@@ -1,7 +1,8 @@
 <script>
     import Button from "sveltestrap/src/Button.svelte";
     import {pop} from "svelte-spa-router";
-
+    
+    const BASE_API_URL = "/api/v2";
 
     async function loadGraphs(){
 
@@ -115,8 +116,10 @@
 
     async function loadChicagoDataGraph(){
        
-       
-        const res = await fetch("https://aggregator-data.artic.edu/api/v1/artworks");
+       //proxy
+        const res = await fetch(BASE_API_URL + "/chicagorequest");
+
+       // const res = await fetch("https://aggregator-data.artic.edu/api/v1/artworks");
 
         let data_final=[];
         if(res.ok){
@@ -135,10 +138,10 @@
             Highcharts.chart('chicago', {
                 chart: {
                     type: 'packedbubble',
-                    height: '60%'
+                    height: '40%'
                 },
                 title: {
-                    text: 'Número de viatas de distintos articulos.'
+                    text: 'Número de vistas de distintos articulos.'
                 },
                 tooltip: {
                     useHTML: true,
@@ -147,7 +150,7 @@
                 plotOptions: {
                     packedbubble: {
                         minSize: '20%',
-                        maxSize: '60%',
+                        maxSize: '100%',
                         zMin: 0,
                         zMax: 700,
                         layoutAlgorithm: {
@@ -206,7 +209,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Numero de likes,comentarios y favoritos de usuarios'
+                text: 'Número de likes,comentarios y favoritos de usuarios'
             },
             
             xAxis: {

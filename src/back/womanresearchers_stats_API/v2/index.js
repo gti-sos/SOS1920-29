@@ -5,6 +5,8 @@ module.exports = function(app){
 	const dataStore= require("nedb");
 	const path = require("path");
 	const dbFileName= path.join(__dirname,"womanresearchers_stats.db");
+
+	var request=require('request');
 	
 	const BASE_API_URL = "/api/v2";
 	
@@ -12,6 +14,17 @@ module.exports = function(app){
 		filename: dbFileName,
 		autoload: true	
 	});
+
+	//Proxy
+	var paths = BASE_API_URL + "/chicagorequest";
+    var apiServerHost = 'https://aggregator-data.artic.edu/api/v1/artworks';
+ 
+    app.use(paths, function(req, res) {
+        var url = apiServerHost ;
+        console.log(url);
+        req.pipe(request(url)).pipe(res);
+    });
+
 
 	
 var initialwomanresearchers_stats = [

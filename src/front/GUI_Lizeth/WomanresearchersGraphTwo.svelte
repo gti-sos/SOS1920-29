@@ -3,7 +3,7 @@
         pop
     } from "svelte-spa-router";
     import Button from "sveltestrap/src/Button.svelte";
-  //  import ApexCharts from 'apexcharts';
+    //import ApexCharts from 'apexcharts';
 
 
     async function loadGraph() {
@@ -52,12 +52,23 @@
             type: 'xy'
           }
         },
-        xaxis: {
+        grid:{
+          borderColor: 'black',
+          row: {
+            colors: ['white', 'white', 'white']
+           },
+           column: {
+              colors: ['white', 'white', 'white']
+           }
+        },
+         xaxis: {
           categories: ["Educaión Superior","Administacón","Negocios"],
                     
         },
         yaxis: {
-
+          lines:{
+            show:true
+          },
           tickAmount: 10
         }
         };

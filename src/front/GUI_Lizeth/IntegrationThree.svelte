@@ -8,7 +8,7 @@
         loadOpenDataGraph();
         loadCarbonDataGraph();
         loadEnergiaDataGraph();
-        loadTVDataGraph();
+        loadOpenWeatherDataGraph();
 
     }
 
@@ -256,61 +256,119 @@
     }
     
     
-    async function loadTVDataGraph(){
+    async function loadOpenWeatherDataGraph(){
        //let Key="";
-       
-       const res = await fetch("http://api.tvmaze.com/shows");
-       
+       //sevilla
+        const res = await fetch("https://api.openweathermap.org/data/2.5/onecall?lat=37.38283&lon=-5.97317&exclude=hourly&appid=50c4b2f6525f7e74f88e4a3564925684");
+       //madrid
+        const res1 = await fetch("https://api.openweathermap.org/data/2.5/onecall?lat=40.4165&lon=-3.70256&exclude=hourly&appid=50c4b2f6525f7e74f88e4a3564925684");
+       //barcelona
+        const res2 = await fetch("https://api.openweathermap.org/data/2.5/onecall?lat=41.38879&lon=2.15899&exclude=hourly&appid=50c4b2f6525f7e74f88e4a3564925684");
+
 
        let data_final=[];
-       if(res.ok){
+       let ciudad=[];
+       if(res.ok && res1.ok && res2.ok){
             let json = await res.json();
             let data = json;
             console.log(data);
 
-            let datoFiltrado=[];
-            for(let i = 0; i < data.length; i++){
-                if(data[i].rating.average >= 8 && data[i].weight > 91 &&data[i].weight <94){
-                    datoFiltrado.push(data[i]);
-                }
-            }
-            console.log(datoFiltrado);
+            let json1 = await res1.json();
+            let data1 = json1;
+            console.log(data1);
 
-           for(let i = 0; i < datoFiltrado.length; i++){
+            let json2 = await res2.json();
+            let data2 = json2;
+            console.log(data2);
 
-               data_final.push({name:datoFiltrado[i].name , y:datoFiltrado[i].rating.average});
+            ciudad.push({name:"Sevilla"});
+            ciudad.push({name:"Madrid"});
+            ciudad.push({name:"Barcelona"});
 
-           }
+            console.log(data_final);
+
+            data_final.push({name: "Temperatura Actual", data:[parseFloat((data.current.temp-273.15).toFixed(2)),
+             parseFloat((data1.current.temp-273.15).toFixed(2)),parseFloat((data2.current.temp-273.15).toFixed(2))]});
+            console.log(data_final);
+
+            data_final.push({name: "Temperatura Máxima", data:[parseFloat((data.daily[0].temp.max-273.15).toFixed(2)),
+             parseFloat((data1.daily[0].temp.max-273.15).toFixed(2)),parseFloat((data2.daily[0].temp.max-273.15).toFixed(2))]}); 
+             
+             data_final.push({name: "Temperatura Minima", data:[parseFloat((data.daily[0].temp.min-273.15).toFixed(2)),
+             parseFloat((data1.daily[0].temp.min-273.15).toFixed(2)),parseFloat((data2.daily[0].temp.min-273.15).toFixed(2))]});
+
            console.log(data_final);
-           Highcharts.chart('tv', {
+
+           Highcharts.chart('open', {
 
                 chart: {
-                    styledMode: false
+                    type: 'column'
                 },
 
                 title: {
-                    text: 'Puntuación de Series'
+                    text: 'Temperaturas de Sevilla, Madrid y Barcelona'
+                },
+
+                legend: {
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    layout: 'vertical'
                 },
 
                 xAxis: {
+                    categories: [ciudad[0].name,ciudad[1].name,ciudad[2].name],
+                    labels: {
+                        x: -10
+                    }
                 },
 
-                series: [{
-                    type: 'pie',
-                    allowPointSelect: true,
-                    keys: ['name', 'y', 'selected'],
-                    data: data_final,
-                    showInLegend: true
-                }]
+                yAxis: {
+                    allowDecimals: false,
+                    title: {
+                        text: 'Temperatura en Grados Celsius'
+                    }
+                },
+
+                series: data_final,
+
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500
+                        },
+                        chartOptions: {
+                            legend: {
+                                align: 'center',
+                                verticalAlign: 'bottom',
+                                layout: 'horizontal'
+                            },
+                            yAxis: {
+                                labels: {
+                                    align: 'left',
+                                    x: 0,
+                                    y: -5
+                                },
+                                title: {
+                                    text: null
+                                }
+                            },
+                            subtitle: {
+                                text: null
+                            },
+                            credits: {
+                                enabled: false
+                            }
+                        }
+                    }]
+                }
                 });
                 
        
        } else{
-           console.log("Error receiving data from TVMaze api.");
+           console.log("Error receiving data from Open Weather api.");
        }
 
     }
-
 </script>
 
 <svelte:head>
@@ -351,12 +409,12 @@
         </p>
       </figure>
 
-      <h1 class="titulo_API"><a href="http://www.tvmaze.com/api#embedding">TVMaze API</a></h1>
+      <h1 class="titulo_API"><a href="https://api.openweathermap.org/data/2.5/onecall?lat=33.441792&lon=-94.037689&exclude=hourly&appid=50c4b2f6525f7e74f88e4a3564925684">Open Weather API</a></h1>
       <figure class="highcharts-figure">
-        <div id="tv"></div>
+        <div id="open"></div>
         <p class="highcharts-description">
-          Se muestras la puntuación de algunas series de la plataforma TVMaze.
-        </p>
+            Se muestran las temperaturas maximas, minimas y actuales del dia presente de las ciudades de Sevilla, Madrid y Barcelona.
+                </p>
       </figure>
 
 
