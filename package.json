@@ -41,6 +41,7 @@
     "svelte-spa-router": "^2.1.0",
     "sveltestrap": "^3.3.3",
     "traverson": "^7.0.0",
-    "traverson-hal": "^7.0.2"
+    "traverson-hal": "^7.0.2",
+    "uglify-js": "^3.9.4"
   }
 }
