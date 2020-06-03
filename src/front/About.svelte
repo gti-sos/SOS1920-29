@@ -20,7 +20,7 @@
 
             <tr>
                 <td><Button outline color="warning" href="#/about/emp_one">Integration 1</Button></td>
-                <td><Button color="success" href="#/about/sports-graphics">Vídeo</Button></td>
+                <td><Button color="success" href="">Vídeo</Button></td>
                 <td><Button color="danger" href="#/about/integration-one">Art Graphics</Button></td>
             </tr>
 

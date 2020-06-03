@@ -70,9 +70,7 @@
             </li>
             <li><strong>Videos:</strong>
                 <ul>
-                    <li><h5>Enrique Ramos Miró</h5></li>
-                    <li><Button color="success" href="#/edq-stats/edq-graphics">Jairo Fernández</Button></li>
-                    <li><h5>Lizeth Gutiérrez Mamani</h5></li>
+                    <li><Button outline color="primary" href="#/about/">About</Button></li>
                 </ul>
             </li>
             

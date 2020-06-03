@@ -52,6 +52,7 @@
 		"/" : Home,
 		"/analytics": Analytics,
 		"/integrations": Integrations,
+		"/about": About,
 
 		//Routes Enrique
         "/emp-stats" : EmpTable,
