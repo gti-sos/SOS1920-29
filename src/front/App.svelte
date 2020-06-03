@@ -4,6 +4,7 @@
 	import NotFound from './NotFound.svelte';
 	import Integrations from './Integrations.svelte';
 	import Analytics from './Analytics.svelte';
+	import About from './About.svelte';
 	
 	//Enrique
     import EmpTable from './GUI_Enrique/EmpTable.svelte';

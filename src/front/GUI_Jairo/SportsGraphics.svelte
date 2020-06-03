@@ -86,6 +86,7 @@
 
             Highcharts.chart('football_data', {
                 chart: {
+                    backgroundColor: '#E0E0E0',
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
                     plotShadow: false,
@@ -136,7 +137,7 @@
 
             Highcharts.chart('football_science', {
                 chart: {
-                    plotBackgroundColor: null,
+                    backgroundColor: '#E0E0E0',
                     plotBorderWidth: null,
                     plotShadow: false,
                     type: 'pie'
