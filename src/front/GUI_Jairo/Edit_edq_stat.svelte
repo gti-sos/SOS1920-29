@@ -79,7 +79,7 @@
 
 <main>
 
-    <h3>Edit <strong>edq_stat {params.country}/{params.year}</strong></h3>
+    <h3>Editar <strong>edq_stat {params.country}/{params.year}</strong></h3>
 
 	{#await data}
 		Loading data...
@@ -90,24 +90,24 @@
 		<p>{descr_alerta}</p>
 	</Alert>
 
-	<Table bordered>
-		<thead>
+	<Table style="text-align: center;" class="table table-striped" bordered>
+		<thead class="thead-dark">
 			<tr>
-				<th>Country</th>
-				<th>Year</th>
-				<th>edq_sg</th>
-                <th>edq_gee</th>
-                <th>edq_ptr</th>
+				<th style="vertical-align: middle;">País</th>
+				<th style="vertical-align: middle;">Año</th>
+				<th style="vertical-align: middle;">Graduados en ciencias por 1.000 habitantes</th>
+                <th style="vertical-align: middle;">Gasto del gobierno en educación (billones)</th>
+                <th style="vertical-align: middle;">Ratio alumnos/profesor</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td>{data.country}</td>
-				<td>{data.year}</td>
-                <td><input bind:value="{updated_edq_sg}"></td>
-                <td><input bind:value="{updated_edq_gee}"></td>
-                <td><input bind:value="{updated_edq_ptr}"></td>
-				<td><Button color="success"  on:click="{updateStat}">Actualizar</Button></td>
+				<td class="align-middle">{data.country}</td>
+				<td class="align-middle">{data.year}</td>
+                <td class="align-middle"><input bind:value="{updated_edq_sg}"></td>
+                <td class="align-middle"><input bind:value="{updated_edq_gee}"></td>
+                <td class="align-middle"><input bind:value="{updated_edq_ptr}"></td>
+				<td class="align-middle"><Button color="success"  on:click="{updateStat}">Actualizar</Button></td>
 			</tr>
 		</tbody>
 	</Table>
