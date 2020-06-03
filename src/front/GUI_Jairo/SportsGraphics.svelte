@@ -69,7 +69,7 @@
         let init = {method: 'GET',
                     headers: headers
                     };
-        const res = await fetch("http://api.football-data.org/v2/competitions/PD/scorers",init);
+        const res = await fetch("https://api.football-data.org/v2/competitions/PD/scorers",init);
 
         if(res.ok){
             let json = await res.json();
@@ -163,7 +163,7 @@
 
     async function loadF1Graph(){
 
-        const res = await fetch("http://ergast.com/api/f1/2019/driverStandings.json");
+        const res = await fetch("https://ergast.com/api/f1/2019/driverStandings.json");
 
         if(res.ok){
             let json = await res.json();

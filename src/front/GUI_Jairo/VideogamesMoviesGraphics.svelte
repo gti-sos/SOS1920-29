@@ -234,7 +234,7 @@
     }
 
     async function loadFilmsGraphic(){
-        const res = await fetch("http://www.omdbapi.com/?apikey=a17bbc51&s=star+wars");
+        const res = await fetch("https://www.omdbapi.com/?apikey=a17bbc51&s=star+wars");
 
         if(res.ok){
             let json = await res.json();
