@@ -30,11 +30,10 @@
             for(let i = 0; i < data.results.length; i++){
                 datofiltrado = data.results.filter(dato => dato.measurements[0].parameter.localeCompare("pm10") == 0);                
             }
-            //console.log (datofiltrado);
-            datofiltradofinal= datofiltrado.filter(dato => dato.location.localeCompare("40AB02 - BERENDRECHT")==0 
-            || dato.location.localeCompare("41R012 - UCCLE")==0 || dato.location.localeCompare("43M204 - ANGLEUR")==0);
+            console.log (datofiltrado);
+            datofiltradofinal= datofiltrado.filter(dato => dato.location.localeCompare("40AB02 - BERENDRECHT")==0 || dato.location.localeCompare("41MEU1 - MEUDON")==0 || dato.location.localeCompare("43M204 - ANGLEUR")==0);
 
-            //console.log (datofiltradofinal);
+            console.log (datofiltradofinal);
 
             //console.log (data);
             for(let i = 0; i < datofiltradofinal.length; i++){
