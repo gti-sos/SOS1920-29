@@ -48,10 +48,10 @@
             method: "PUT",
             body: JSON.stringify({
                 country : updatedCountry,
-                year : updatedYear,
-                edq_sg : updated_edq_sg,
-                edq_gee : updated_edq_gee,
-                edq_ptr : updated_edq_ptr
+                year : parseInt(updatedYear),
+                edq_sg : parseInt(updated_edq_sg),
+                edq_gee : parseInt(updated_edq_gee),
+                edq_ptr : parseInt(updated_edq_ptr)
             }),
             headers: {
                 "Content-Type": "application/json"
