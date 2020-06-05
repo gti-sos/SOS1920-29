@@ -19,9 +19,9 @@
         <tbody>
 
             <tr>
-                <td><Button outline color="warning" href="#/about/emp_one">Integration 1</Button></td>
+                <td><iframe width="560" height="315" src="https://www.youtube.com/embed/G4gFDPRID0A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></td>
                 <td><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/6ToAwrNLIy8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></td>
-                <td><Button color="danger" href="#/about/integration-one">Art Graphics</Button></td>
+                <td><iframe width="560" height="315" src="https://www.youtube.com/embed/ta3p2kVZCe8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></td>
             </tr>
 
         </tbody>

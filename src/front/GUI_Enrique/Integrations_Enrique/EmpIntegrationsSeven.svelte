@@ -7,7 +7,7 @@
 
     async function loadGraph(){
 
-        const res = await fetch("https://api.tfl.gov.uk/Mode/tube/Arrivals?count=1");
+        const res = await fetch("https://api.tfl.gov.uk/Line/Meta/Severity");
         let Array_data = [];
         let Array_category = [];
 
@@ -19,9 +19,9 @@
 
             data_tube.forEach( (e) => {
                 cont += 1;
-                if(cont <= 7){
-                    Array_data.push(e.timeToStation);
-                    Array_category.push(e.stationName);
+                if(cont <= 9){
+                    Array_data.push(e.severityLevel);
+                    Array_category.push(e.description);
                 }
                 
             });
@@ -34,7 +34,7 @@
         var chart = Highcharts.chart('container', {
 
             title: {
-                text: 'Predicciones paradas de metro'
+                text: 'Accidentes de coche en Londres'
             },
 
             subtitle: {
@@ -47,7 +47,7 @@
 
             series: [{
                 type: 'column',
-                name: 'Tiempo',
+                name: 'Gravedad',
                 colorByPoint: true,
                 data: Array_data,
                 showInLegend: false
@@ -71,13 +71,13 @@
 <main>
 
     <h1 style="text-align:center">Integración 7</h1>
-    <h4 style="text-align:center"><a href="https://api.tfl.gov.uk/Mode/tube/Arrivals?count=1">TfL API</a></h4>
-    <h5 style="text-align:center">Esta API obtiene las predicciones de la próxima llegada (metro) para paradas del metro de Londres.</h5>
+    <h4 style="text-align:center"><a href="https://api.tfl.gov.uk/Line/Meta/Severity">TfL API</a></h4>
+    
 
     <figure class="highcharts-figure">
         <div id="container"></div>
         <p class="highcharts-description">
-            La gráfica muestra la predicción de la próxima llegada del metro a las paradas de dicha gráfica (London Tube).
+            
         </p>
     </figure>
     <Button outline color="secondary" on:click="{pop}">Volver</Button>
